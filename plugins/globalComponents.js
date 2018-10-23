@@ -9,6 +9,7 @@ Vue.mixin({
   filters: {
     truncate: function (text, length, suffix) {
       let truncatedText = ''
+      suffix = suffix || '...'
       if (text.length > length) {
         truncatedText = text.substring(0, length) + suffix
       } else {

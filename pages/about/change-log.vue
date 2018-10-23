@@ -25,12 +25,13 @@
 
   export default {
     mixins: [BaseMixin],
-    components: {BreadCrumb},
+    components: { BreadCrumb },
     data () {
       return {
         breadCrumbs: [
-          {text: 'Home', disabled: false, to: '/'},
-          {text: 'Change Log', disabled: true}
+          { text: 'Home', disabled: false, to: '/' },
+          { text: 'About', disabled: true },
+          { text: 'Change Log', disabled: true }
         ]
       }
     }

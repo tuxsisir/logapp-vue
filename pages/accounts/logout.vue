@@ -26,7 +26,7 @@
   </v-layout>
 </template>
 <script>
-  import {mapMutations} from 'vuex'
+  import { mapMutations } from 'vuex'
   import BaseMixin from '@/mixins/BaseMixin.js'
   import BreadCrumb from '@/components/common/BreadCrumb'
 
@@ -34,13 +34,13 @@
 
   export default {
     mixins: [BaseMixin],
-    components: {BreadCrumb},
+    components: { BreadCrumb },
     data () {
       return {
         htmlTitle: 'Account | Logout | core.aayulogic ',
         breadCrumbs: [
-          {text: 'Home', disabled: false},
-          {text: 'Sayonara', disabled: true}
+          { text: 'Home', disabled: false },
+          { text: 'Sayonara', disabled: true }
         ]
       }
     },

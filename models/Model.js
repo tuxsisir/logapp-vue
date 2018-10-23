@@ -5,8 +5,11 @@ export default class Model extends BaseModel {
   baseURL () {
     return 'http://localhost:8000/api'
   }
+
   // implement a default request method
   request (config) {
+    config.url += '/'
+    // if (config.method !== 'GET') config.url += '/'
     return this.$http.request(config)
   }
 }

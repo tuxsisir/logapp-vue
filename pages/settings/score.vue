@@ -47,15 +47,15 @@
 
   export default {
     mixins: [BaseMixin],
-    components: {BreadCrumb},
+    components: { BreadCrumb },
     data () {
       return {
         htmlTitle: 'Settings | Score | core.aayulogic',
         score: '',
         quote: 'All our dreams can come true, if we have the courage to pursue them. - Walt Disney',
         breadCrumbs: [
-          {text: 'Home', disabled: false},
-          {text: 'Score', disabled: false}
+          { text: 'Home', disabled: false },
+          { text: 'Score', disabled: false }
         ]
       }
     },

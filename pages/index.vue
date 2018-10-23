@@ -37,10 +37,10 @@
         currentTab: 'Score Distribution',
         text: 'sdf',
         tabData: [
-          {'name': 'Score Distribution', 'icon': 'star', 'count': 0},
-          {'name': 'NoticeBoard', 'icon': 'edit', 'count': 0},
-          {'name': 'Logs to Review', 'icon': 'warning', 'count': 0},
-          {'name': 'Your Reviewed Logs', 'icon': 'wc', 'count': 0}
+          { 'name': 'Score Distribution', 'icon': 'star', 'count': 0 },
+          { 'name': 'NoticeBoard', 'icon': 'edit', 'count': 0 },
+          { 'name': 'Logs to Review', 'icon': 'warning', 'count': 0 },
+          { 'name': 'Your Reviewed Logs', 'icon': 'wc', 'count': 0 }
         ]
       }
     },

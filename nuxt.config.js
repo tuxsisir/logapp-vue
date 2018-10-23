@@ -1,3 +1,5 @@
+require('dotenv').config()
+
 module.exports = {
   env: {
     baseUrl: process.env.BASE_URL || 'http://localhost:3000'
@@ -6,13 +8,13 @@ module.exports = {
   head: {
     title: 'Aayulogic',
     meta: [
-      {charset: 'utf-8'},
-      {name: 'viewport', content: 'width=device-width, initial-scale=1'},
-      {hid: 'description', name: 'description', content: 'core.aayulogic.com'}
+      { charset: 'utf-8' },
+      { name: 'viewport', content: 'width=device-width, initial-scale=1' },
+      { hid: 'description', name: 'description', content: 'core.aayulogic.com' }
     ],
     link: [
-      {rel: 'icon', type: 'image/x-icon', href: '/favicon.ico'},
-      {rel: 'stylesheet', href: 'https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons'}
+      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
+      { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons' }
     ]
   },
   plugins: [
@@ -20,7 +22,8 @@ module.exports = {
     '~/plugins/veeValidate.js',
     '~/plugins/axios.js',
     '~/plugins/vueApiQuery.js',
-    '~/plugins/globalComponents.js'
+    '~/plugins/globalComponents.js',
+    { src: '~/plugins/vueInfiniteLoading.js', ssr: false }
   ],
 
   css: [
@@ -28,8 +31,15 @@ module.exports = {
   ],
   modules: [
     '@nuxtjs/axios',
-    '@nuxtjs/auth'
+    '@nuxtjs/auth',
+    '@nuxtjs/dotenv',
+    '@nuxtjs/markdownit'
   ],
+  markdownit: {
+    injected: true,
+    linkify: true,
+    breaks: true
+  },
   axios: {
     baseURL: 'http://localhost:8000/api/',
     debug: true
@@ -38,8 +48,8 @@ module.exports = {
     strategies: {
       local: {
         endpoints: {
-          login: {url: '/auth/obtain-token/', method: 'post', propertyName: 'token'},
-          user: {url: '/user/detail/me/', method: 'get', propertyName: false},
+          login: { url: '/auth/obtain-token/', method: 'post', propertyName: 'token' },
+          user: { url: '/user/detail/me/', method: 'get', propertyName: false },
           logout: false
         },
         tokenType: 'Bearer'
@@ -54,6 +64,9 @@ module.exports = {
     rewriteRedirects: false,
     fullPathRedirect: false,
     localStorage: false
+  },
+  router: {
+    middleware: ['auth']
   },
   layoutTransition: 'slide-x-transition',
   transition: {

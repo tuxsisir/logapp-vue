@@ -49,7 +49,7 @@
 
   export default {
     mixins: [BaseMixin, VeeValidate],
-    components: {BreadCrumb},
+    components: { BreadCrumb },
     methods: {
       submitForm () {
         this.$axios.$post('/user/detail/change-password/', this.form).then((response) => {
@@ -75,9 +75,9 @@
           confirm_password: ''
         },
         breadCrumbs: [
-          {text: 'Home', disabled: false},
-          {text: 'Settings', disabled: true},
-          {text: 'Change Password', disabled: true}
+          { text: 'Home', disabled: false },
+          { text: 'Settings', disabled: true },
+          { text: 'Change Password', disabled: true }
         ]
       }
     }

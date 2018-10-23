@@ -1,6 +1,6 @@
 <template>
   <v-layout row wrap align-center justify-center>
-    <v-flex md8 offset-md-2>
+    <v-flex md10 offset-md-1>
       <v-card>
         <v-card-title>
           <div>
@@ -22,20 +22,26 @@
                 :color="item.score_color"
                 dark
               >
-                <v-card-title class="title">{{ item.point_name }}</v-card-title>
+                <v-card-title class="title">{{ item.user.name }} {{ item.points_scored }} Point/s</v-card-title>
                 <v-card-text class="white text--primary">
-                  <p>{{ item.text }}</p>
+                  <p class="subheading"><i>{{ item.text }}</i></p>
                   <v-btn
-                    :color="item.color"
+                    v-if="item.score_criteria.title == 'Work Log'"
+                    :color="item.score_color"
                     class="mx-0"
                     outline
                   >
-                    Button
+                    View Work Log
                   </v-btn>
                 </v-card-text>
               </v-card>
             </v-timeline-item>
           </v-timeline>
+          <no-ssr>
+            <infinite-loading @infinite="infiniteHandler" ref="infiniteLoading">
+              <span slot="no-more">No more data found ...</span>
+            </infinite-loading>
+          </no-ssr>
         </v-card-text>
       </v-card>
     </v-flex>
@@ -43,19 +49,36 @@
 </template>
 <script>
   export default {
-    created () {
-      this.fetchData()
-    },
-    methods: {
-      async fetchData () {
-        await this.$axios.$get('/score/log/').then((response) => {
-          this.items = response.results
-        })
-      }
-    },
     data () {
       return {
-        items: []
+        items: [],
+        nextLimit: null,
+        nextOffset: null
+      }
+    },
+    methods: {
+      infiniteHandler ($state) {
+        this.$axios.$get('/score/log/',
+          {
+            params: {
+              limit: this.nextLimit,
+              offset: this.nextOffset
+            }
+          }).then((response) => {
+          if (response.next) {
+            this.extractLimitOffset(response.next)
+            this.items = this.items.concat(response.results)
+            $state.loaded()
+          } else {
+            this.items = this.items.concat(response.results)
+            $state.complete()
+          }
+        })
+      },
+      extractLimitOffset (nextLink) {
+        let link = new URL(nextLink)
+        this.nextLimit = link.searchParams.get('limit')
+        this.nextOffset = link.searchParams.get('offset')
       }
     }
   }

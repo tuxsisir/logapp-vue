@@ -12,7 +12,7 @@ export default {
         limit: this.pagination.rowsPerPage
       }
       this.loading = true
-      this.$axios.$get(this.endpoint, {params})
+      this.$axios.$get(this.endpoint, { params })
         .then((response) => {
           this.fetchedResults = response.results
           this.pagination.totalItems = response.count
@@ -25,7 +25,7 @@ export default {
         limit: paginatedData.rowsPerPage
       }
       this.loading = true
-      this.$axios.$get(this.endpoint, {params})
+      this.$axios.$get(this.endpoint, { params })
         .then((response) => {
           this.fetchedResults = response.results
           this.pagination.totalItems = response.count

@@ -94,9 +94,9 @@
 
   export default {
     mixins: [BaseMixin],
-    components: {BreadCrumb},
+    components: { BreadCrumb },
     async mounted () {
-      let user = await User.find('me/')
+      let user = await User.find('me')
       this.userInfo = user
     },
     data () {
@@ -104,8 +104,8 @@
         htmlTitle: 'My Profile | core.aayulogic',
         userInfo: {},
         breadCrumbs: [
-          {text: 'Home', disabled: false, to: '/'},
-          {text: 'My Profile', disabled: true}
+          { text: 'Home', disabled: false, to: '/' },
+          { text: 'My Profile', disabled: true }
         ]
       }
     }

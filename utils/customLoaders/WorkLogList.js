@@ -1,4 +1,4 @@
-import {ContentLoader} from 'vue-content-loader'
+import { ContentLoader } from 'vue-content-loader'
 
 export default {
   name: 'WorkLogListLoader',

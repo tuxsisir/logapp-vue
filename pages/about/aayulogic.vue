@@ -10,7 +10,9 @@
         </v-card-title>
         <v-divider></v-divider>
         <v-card-text>
-          Founded on August 2018.
+          <ul>
+            <li>Founded on August 2018.</li>
+          </ul>
         </v-card-text>
       </v-card>
     </v-flex>
@@ -23,13 +25,14 @@
 
   export default {
     mixins: [BaseMixin],
-    components: {BreadCrumb},
+    components: { BreadCrumb },
     data () {
       return {
         htmlTitle: 'About | core.aayulogic',
         breadCrumbs: [
-          {text: 'Home', disabled: false, to: '/'},
-          {text: 'core.aayulogic', disabled: true}
+          { text: 'Home', disabled: false, to: '/' },
+          { text: 'About', disabled: true },
+          { text: 'core.aayulogic', disabled: true }
         ]
       }
     }

@@ -1,4 +1,4 @@
-export default function ({$axios, redirect, store}) {
+export default function ({ $axios, redirect, store }) {
   $axios.onRequest(config => {
     config.headers.common['Content-Type'] = 'application/x-www-form-urlencoded;application/json'
     if (store.state.authToken) {

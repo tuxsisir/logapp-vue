@@ -19,10 +19,10 @@
 </template>
 
 <script>
-  import {ContentLoader} from 'vue-content-loader'
-  import {WorkLogListLoader} from '@/utils/customLoaders'
+  import { ContentLoader } from 'vue-content-loader'
+  import { WorkLogListLoader } from '@/utils/customLoaders'
 
   export default {
-    components: {WorkLogListLoader, ContentLoader}
+    components: { WorkLogListLoader, ContentLoader }
   }
 </script>

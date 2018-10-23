@@ -76,9 +76,9 @@
 
   export default {
     mixins: [BaseMixin, VeeValidate],
-    components: {BreadCrumb, FileUpload},
+    components: { BreadCrumb, FileUpload },
     async mounted () {
-      this.userData = await User.find('me/')
+      this.userData = await User.find('me')
       this.form = {
         username: this.userData.username,
         name: this.userData.name,
@@ -101,11 +101,15 @@
         if (this.fileChanged) {
           data.append('profile_picture', this.form.profile_picture)
         }
-        await this.$axios.$patch('user/detail/' + this.form.username + '/', data).then((response) => {
-          console.log((response))
-          this.$router.push('/profile/')
-          this.notifyUser('Successfully edited profile!', 'green')
+        let user = new User({ username: this.form.username })
+        user.patchData(data).then((response) => {
+          console.log(response)
         })
+        // await this.$axios.$patch('user/detail/' + this.form.username + '/', data).then((response) => {
+        //   console.log((response))
+        //   this.$router.push('/profile/')
+        //   this.notifyUser('Successfully edited profile!', 'green')
+        // })
       }
     },
     data () {
@@ -122,8 +126,8 @@
           profile_picture: null
         },
         breadCrumbs: [
-          {text: 'My Profile', disabled: false, to: '/profile/'},
-          {text: 'Edit Profile', disabled: true}
+          { text: 'My Profile', disabled: false, to: '/profile/' },
+          { text: 'Edit Profile', disabled: true }
         ]
       }
     }

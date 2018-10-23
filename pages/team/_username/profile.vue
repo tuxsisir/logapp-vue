@@ -98,7 +98,7 @@
         this.userDetail = user
       }
     },
-    validate ({params}) {
+    validate ({ params }) {
       return /^[a-zA-Z0-9._-]+$/.test(params.username)
     },
     data () {
@@ -108,9 +108,9 @@
         tabHeadings: ['General Information', 'Work Log', 'Score Summary', 'Log Reviewers'],
         userDetail: {},
         breadCrumbs: [
-          {text: 'Home', disabled: false, to: '/'},
-          {text: 'Team', disabled: false, to: '/team'},
-          {text: 'Profile', disabled: true}
+          { text: 'Home', disabled: false, to: '/' },
+          { text: 'Team', disabled: false, to: '/team' },
+          { text: 'Profile', disabled: true }
         ]
       }
     },

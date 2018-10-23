@@ -44,14 +44,14 @@ export default {
       for (let errorField in errorResponse) {
         if (parseInt(Object.keys(errorResponse[errorField])[0]) === 0) {
           // if
-          if (this.$validator.fields.find({'name': errorField})) {
+          if (this.$validator.fields.find({ 'name': errorField })) {
             this.addFieldValidation(errorField, errorResponse[errorField][0])
           } else {
             this.addNonFieldValidation(errorField, errorResponse[errorField][0])
           }
         } else {
           for (let errorFieldInner in errorResponse[errorField]) {
-            if (this.$validator.fields.find({'name': errorFieldInner})) {
+            if (this.$validator.fields.find({ 'name': errorFieldInner })) {
               this.addFieldValidation(errorFieldInner,
                 errorResponse[errorField][errorFieldInner][0])
             } else {

@@ -32,7 +32,9 @@
           >
             <v-progress-linear slot="progress" color="blue" indeterminate></v-progress-linear>
             <template slot="items" slot-scope="props">
-              <td>{{ props.item.log }}</td>
+              <td>
+                <div class="pa-3" id="markdownPreview" v-html="truncatedWorkLog($md.render(props.item.log))"></div>
+              </td>
               <td class="">
                 <div><span class="text-muted">Created:</span> {{ props.item.created }}</div>
                 <div><span class="text-muted">Modified:</span> {{ props.item.modified }}</div>
@@ -74,7 +76,7 @@
 
   export default {
     mixins: [BaseMixin, DataTableMixin],
-    components: {BreadCrumb, WorkLogStats, WorkLogListContentLoader},
+    components: { BreadCrumb, WorkLogStats, WorkLogListContentLoader },
     data () {
       return {
         htmlTitle: 'My Work Logs | core.aayulogic.com',
@@ -89,20 +91,25 @@
           sortBy: ''
         },
         headers: [
-          {text: 'Log', align: 'left', sortable: false, value: 'name'},
-          {text: 'TimeStamp', value: 'timestamp'},
-          {text: 'Action', value: 'action'}
+          { text: 'Log', align: 'left', sortable: false, value: 'name' },
+          { text: 'TimeStamp', value: 'timestamp' },
+          { text: 'Action', value: 'action' }
         ],
         logStats: {},
         breadCrumbs: [
-          {text: 'Home', disabled: false},
-          {text: 'My Work Logs', disabled: false}
+          { text: 'Home', disabled: false },
+          { text: 'My Work Logs', disabled: false }
         ]
       }
     },
     created () {
       let model = new WorkLogs()
       this.endpoint = model.endpoint()
+    },
+    methods: {
+      truncatedWorkLog (log) {
+        return this.$options.filters.truncate(log, 100)
+      }
     },
     async mounted () {
       this.contentLoading = true

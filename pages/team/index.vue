@@ -13,8 +13,8 @@
             style="border: 1px solid #efefef"
             height="200"
             aspect-ratio="2.2"
-            :src="`https://picsum.photos/1200/300/?random`"
-            :lazy-src="`https://picsum.photos/1200/300/?random`" cover>
+            :src="user.cover_picture"
+            :lazy-src="user.cover_picture" cover>
             <v-layout
               slot="placeholder"
               fill-height
@@ -34,26 +34,30 @@
           >
             <v-img :src="user.profile_picture" alt="avatar" aspect-ratio="1.7"></v-img>
           </v-avatar>
-          <v-card-title primary-title class="mt-3" style="height: 160px">
-            <div class="mt-4">
-              <h3 class="headline mb-0 font-weight-bold mr-3 text-md-left">{{ user.name }}</h3>
-              <p class="caption text-grey">(Programming)</p>
-              <p class="">{{ user.status | truncate(10, '...') || 'N/A' }}</p>
-            </div>
-          </v-card-title>
           <v-card-text>
-            <v-layout row wrap>
-              <v-flex md6 xs12>
-                <v-btn flat router :to="'/team/' + user.username + '/profile'">
-                  <h4 class="blue--text">View Profile</h4>
-                </v-btn>
-              </v-flex>
-              <v-flex md6 xs12>
-                <v-btn flat>
-                  <h4 class="blue--text">{{ user.score || 'N/a' }}</h4>
-                </v-btn>
-              </v-flex>
-            </v-layout>
+            <div class="mt-5">
+              <v-layout row wrap justify-end>
+                <v-flex md8 text-xs-left>
+                  <h4 class="title mb-0 mt-4">{{ user.name }}</h4>
+                </v-flex>
+                <v-flex md4 text-xs-right>
+                  <v-btn flat fab>
+                    <!--<v-icon dark>add</v-icon>-->
+                    <h4 class="display-1 mb-2 mt-2 text-muted">{{ user.score || 'N/a' }}</h4>
+                  </v-btn>
+                </v-flex>
+              </v-layout>
+              <p class="caption text-grey">({{ user.department }})</p>
+              <v-tooltip bottom>
+                <div>
+                  <i slot="activator" class="text-truncate text-no-wrap">{{ user.status || 'N/A' }}</i>
+                </div>
+                <span>{{ user.status }}</span>
+              </v-tooltip>
+            </div>
+            <v-btn block flat router :to="'/team/' + user.username + '/profile'" class="mt-4">
+              <h4 class="blue--text">View Profile</h4>
+            </v-btn>
           </v-card-text>
         </v-card>
       </v-flex>
@@ -63,7 +67,7 @@
 </template>
 
 <script>
-  import {mapMutations} from 'vuex'
+  import { mapMutations } from 'vuex'
   import TeamLoader from '@/components/loaders/TeamLoader'
   import UserScore from '@/models/Score'
   import BaseMixin from '@/mixins/BaseMixin.js'
@@ -71,10 +75,12 @@
 
   export default {
     mixins: [BaseMixin],
-    components: {BreadCrumb, TeamLoader},
+    components: { BreadCrumb, TeamLoader },
     async mounted () {
       this.contentLoading = true
-      this.users = await UserScore.get()
+      await UserScore.get().then((response) => {
+        this.users = response
+      })
       this.contentLoading = false
     },
     created () {
@@ -94,8 +100,8 @@
         users: {},
         contentLoading: false,
         breadCrumbs: [
-          {text: 'Home', disabled: false, to: '/'},
-          {text: 'Team', disabled: true, to: '/settings/score/'}
+          { text: 'Home', disabled: false, to: '/' },
+          { text: 'Team', disabled: true, to: '/settings/score/' }
         ],
         notify: {}
       }

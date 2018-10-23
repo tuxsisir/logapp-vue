@@ -38,7 +38,7 @@
               <v-flex md6 class="px-3">
                 <h2 class="text-success text-center font-weight-thin">### Preview</h2>
                 <v-divider class="my-3"></v-divider>
-                <div id="markdownPreview" v-html='previewText'></div>
+                <div v-html="$md.render(md_text)" id="markdownPreview"></div>
               </v-flex>
             </v-layout>
           </v-card-text>
@@ -50,9 +50,8 @@
 <script>
   import BreadCrumb from '@/components/common/BreadCrumb'
 
-  let marked = require('marked')
   export default {
-    components: {BreadCrumb},
+    components: { BreadCrumb },
     data () {
       return {
         date: '2018-10-12',
@@ -67,21 +66,6 @@
             disabled: false
           }
         ]
-      }
-    },
-    computed: {
-      previewText () {
-        marked.setOptions({
-          renderer: new marked.Renderer(),
-          gfm: true,
-          tables: true,
-          breaks: true,
-          pedantic: true,
-          sanitize: true,
-          smartLists: true,
-          smartypants: true
-        })
-        return marked(this.md_text)
       }
     }
   }

@@ -68,9 +68,13 @@
       >
         <v-icon>notifications</v-icon>
       </v-btn>
-      <v-btn icon>
-        <v-icon>apps</v-icon>
-      </v-btn>
+      <v-avatar
+        size="30"
+        color="grey lighten-4"
+      >
+        <img :src="getUserImage" alt="avatar">
+      </v-avatar>
+      <span class="ml-3 font-weight-bold">{{ getUserFullName}} <br><small class="text-sm">({{ getUserDepartment }})</small></span>
     </v-toolbar>
     <v-content>
       <v-container class="mb-5" fluid grid-list-lg>
@@ -94,9 +98,10 @@
           <v-list-tile-title>Notifications</v-list-tile-title>
         </v-list-tile>
       </v-list>
+      <v-divider></v-divider>
       <div class="pa-2">
-        <v-alert outline icon="info">
-          Notifications coming soon!
+        <v-alert outline color="info" icon="info" :value="true">
+          Your friendly neighbourhood Notifications, coming soon!
         </v-alert>
       </div>
     </v-navigation-drawer>
@@ -105,10 +110,11 @@
 </template>
 
 <script>
+  import { mapGetters } from 'vuex'
   import VueNotify from '@/components/common/VSnackBar'
 
   export default {
-    components: {VueNotify},
+    components: { VueNotify },
     data () {
       return {
         notify: {},
@@ -116,19 +122,19 @@
         drawer: true,
         fixed: false,
         items: [
-          {icon: 'apps', title: 'Home', to: '/', hasSubMenu: false},
-          {icon: 'group', title: 'Team', to: '/team/', hasSubMenu: false},
-          {icon: 'attach_file', title: 'Work Logs', to: '/work-log/', hasSubMenu: false},
-          {icon: 'note_add', title: 'Log Work', to: '/log-work/', hasSubMenu: false},
-          {icon: 'account_box', title: 'My Profile', to: '/profile/', hasSubMenu: false},
+          { icon: 'apps', title: 'Home', to: '/', hasSubMenu: false },
+          { icon: 'group', title: 'Team', to: '/team/', hasSubMenu: false },
+          { icon: 'attach_file', title: 'Work Logs', to: '/work-log/', hasSubMenu: false },
+          { icon: 'note_add', title: 'Log Work', to: '/log-your-work/', hasSubMenu: false },
+          { icon: 'account_box', title: 'My Profile', to: '/profile/', hasSubMenu: false },
           {
             icon: 'settings',
             title: 'Settings',
             hasSubMenu: true,
             subItems: [
-              {icon: 'attachment', title: 'Work Log', to: '/settings/worklog/'},
-              {icon: 'vpn_key', title: 'Change Password', to: '/settings/change-password/'},
-              {icon: 'stars', title: 'Score', to: '/settings/score/'}
+              { icon: 'attachment', title: 'Work Log', to: '/settings/worklog/' },
+              { icon: 'vpn_key', title: 'Change Password', to: '/settings/change-password/' },
+              { icon: 'stars', title: 'Score', to: '/settings/score/' }
             ]
           },
           {
@@ -136,8 +142,8 @@
             title: 'About',
             hasSubMenu: true,
             subItems: [
-              {icon: 'code', title: 'Change Log', to: '/about/change-log/'},
-              {icon: 'info', title: 'About core.aayulogic', to: '/about/aayulogic/'}
+              { icon: 'code', title: 'Change Log', to: '/about/change-log/' },
+              { icon: 'info', title: 'About core.aayulogic', to: '/about/aayulogic/' }
             ]
           }
         ],
@@ -145,6 +151,9 @@
         right: true,
         rightDrawer: false
       }
+    },
+    computed: {
+      ...mapGetters(['getUserFullName', 'getUserImage', 'getUserDepartment'])
     }
   }
 </script>

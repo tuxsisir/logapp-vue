@@ -7,7 +7,7 @@
 <script>
   export default {
     name: 'BreadCrumb',
-    props: {breadCrumbItems: Array},
+    props: { breadCrumbItems: Array },
     data () {
       return {}
     }

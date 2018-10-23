@@ -1,5 +1,5 @@
 <template>
-  <v-layout align-center row wrap>
+  <v-layout align-center row wrap @keyup.13="login">
     <v-flex md12>
       <v-card class="elevation-6">
         <v-card-text>
@@ -19,7 +19,7 @@
                 >
                   Invalid login credentials.
                 </v-alert>
-                <v-form @enter="login">
+                <v-form>
                   <v-text-field prepend-icon="person"
                                 type="text"
                                 v-model="email"
@@ -36,7 +36,7 @@
                   </v-text-field>
                   <div class="mt-4">
                     <v-btn color="primary" @click="login">Login</v-btn>
-                    <v-btn color="white">Reset</v-btn>
+                    <v-btn color="white" @click="clearForm">Reset</v-btn>
                   </div>
                   <div class="mt-4">
                     <v-btn flat small class="text-lowercase text-muted">&copy; aayulogic 2018</v-btn>
@@ -69,7 +69,7 @@
 </template>
 
 <script>
-  import {mapGetters, mapMutations} from 'vuex'
+  import { mapGetters, mapMutations } from 'vuex'
   import BaseMixin from '@/mixins/BaseMixin.js'
   import VeeValidate from '@/mixins/veeValidate.js'
   import VueNotify from '@/components/common/VSnackBar'
@@ -78,7 +78,7 @@
     auth: false,
     layout: 'account',
     middleware: 'guest',
-    components: {VueNotify},
+    components: { VueNotify },
     mixins: [BaseMixin, VeeValidate],
     created () {
       let notifyMsg = this.$store.state.snack
@@ -118,10 +118,14 @@
             this.$router.push('/team')
           })
         } catch (error) {
-          this.notify = {text: 'Invalid Login Credentials.', color: 'red', display: true}
+          this.notify = { text: 'Invalid Login Credentials.', color: 'red', display: true }
           this.invalid = true
           this.pushErrors(error)
         }
+      },
+      clearForm () {
+        this.email = ''
+        this.password = ''
       },
       clearSnack () {
         this.setSnack('')

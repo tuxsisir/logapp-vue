@@ -11,9 +11,11 @@
         <v-divider></v-divider>
         <v-card-text>
           <p class="mb-1">Created: {{ fetchedResults.created }}</p>
-          <p>Modified: {{ fetchedResults.modified }}</p>
+          <p class="mb-1">Modified: {{ fetchedResults.modified }}</p>
+          <p v-text="'By: ' + fetchedResults"></p>
+          {{ fetchedResults.log_by.name }}
           <v-divider class="mb-3"></v-divider>
-          <div id="markdownPreview" v-html='previewLog'></div>
+          <div id="markdownPreview" v-html='$md.render(log)'></div>
         </v-card-text>
       </v-card>
     </v-flex>
@@ -93,11 +95,10 @@
   import BaseMixin from '@/mixins/BaseMixin.js'
   import BreadCrumb from '@/components/common/BreadCrumb'
 
-  let marked = require('marked')
   export default {
     mixins: [BaseMixin, VeeValidate],
-    components: {BreadCrumb},
-    validate ({params}) {
+    components: { BreadCrumb },
+    validate ({ params }) {
       return /^\d+$/.test(params.id)
     },
     created () {
@@ -106,9 +107,12 @@
     },
     methods: {
       async getLogDetail (detailID) {
-        let fetchedData = await WorkLog.find(detailID)
-        this.fetchedResults = fetchedData
-        this.log = fetchedData.log
+        await WorkLog.find(detailID).then((response) => {
+          console.log('------->> ')
+          console.log(response)
+          this.fetchedResults = response
+          this.log = response.log
+        })
       }
     },
     data () {
@@ -116,8 +120,8 @@
         htmlTitle: 'Work Log | Detail | core.aayulogic',
         log: '',
         breadCrumbs: [
-          {text: 'Home', disabled: false, to: '/'},
-          {text: 'Work Log Detail', disabled: true}
+          { text: 'Home', disabled: false, to: '/' },
+          { text: 'Work Log Detail', disabled: true }
         ],
         ratingChoices: ['Poor', 'Average', 'Good', 'Very Good', 'Excellent'],
         form: {
@@ -125,22 +129,7 @@
           checked: '',
           rating: ''
         },
-        fetchedResults: []
-      }
-    },
-    computed: {
-      previewLog () {
-        marked.setOptions({
-          renderer: new marked.Renderer(),
-          gfm: true,
-          tables: true,
-          breaks: true,
-          pedantic: true,
-          sanitize: true,
-          smartLists: true,
-          smartypants: true
-        })
-        return marked(this.log)
+        fetchedResults: {}
       }
     }
   }
