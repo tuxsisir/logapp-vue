@@ -4,18 +4,19 @@
       <bread-crumb :breadCrumbItems="breadCrumbs"></bread-crumb>
     </v-flex>
     <v-flex>
-      Logs to Review
+      <logs-to-review></logs-to-review>
     </v-flex>
   </v-layout>
 </template>
 <script>
   import BaseMixin from '@/mixins/BaseMixin.js'
   import BreadCrumb from '@/components/common/BreadCrumb'
+  import LogsToReview from '@/components/admin/LogsToReview'
 
   export default {
     middleware: ['admin'],
     mixins: [BaseMixin],
-    components: { BreadCrumb },
+    components: { BreadCrumb, LogsToReview },
     data () {
       return {
         htmlTitle: 'Logs To Review | core.aayulogic',

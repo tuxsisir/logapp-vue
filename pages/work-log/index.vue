@@ -37,19 +37,27 @@
                 <div class="pa-3" id="markdownPreview" v-html="truncatedWorkLog($md.render(props.item.log))"></div>
               </td>
               <td class="">
-                <div><span class="text-muted">Log of :</span> <span class="font-weight-bold">{{ props.item.log_date }}</span></div>
+                <div><span class="text-muted">Log of :</span> <span
+                  class="font-weight-bold">{{ props.item.log_date }}</span></div>
                 <div><span class="text-muted">Created:</span> {{ props.item.created }}</div>
                 <div><span class="text-muted">Modified:</span> {{ props.item.modified }}</div>
               </td>
               <td class="">
-                <v-btn v-if="props.item.log_reviewed" small flat icon class="mr-3 text-muted" >
-                  <v-icon small>done_all</v-icon>
+                <v-tooltip v-if="props.item.log_reviewed" bottom>
+                  <v-btn
+                    slot="activator"
+                    flat
+                    icon
+                    class="mr-3 text-muted">
+                    <v-icon>done_all</v-icon>
+                  </v-btn>
+                  <span>You cannot log your work once it has been reviewed.</span>
+                </v-tooltip>
+                <v-btn v-else flat icon class="text-muted" router :to="'/work-log/' + props.item.id + '/edit/'">
+                  <v-icon>edit</v-icon>
                 </v-btn>
-                <v-btn v-else small flat icon class="text-muted" router :to="'/work-log/' + props.item.id + '/edit/'">
-                  <v-icon small>edit</v-icon>
-                </v-btn>
-                <v-btn small flat icon class="mr-3 text-muted" router :to="'/work-log/' + props.item.id + '/detail'">
-                  <v-icon small>list</v-icon>
+                <v-btn flat icon class="text-muted" router :to="'/work-log/' + props.item.id + '/detail'">
+                  <v-icon>list</v-icon>
                 </v-btn>
               </td>
             </template>
@@ -89,18 +97,13 @@
         notify: {},
         search: '',
         endpoint: '',
-        rowsPerPageItems: [10, 20, 30, 40, 50],
+        rowsPerPageItems: [1, 2, 3, 4, 5, 10, 20, 30, 40, 50],
         contentLoading: false,
         loading: false,
-        pagination: {
-          totalItems: 0,
-          rowsPerPage: 20,
-          sortBy: ''
-        },
         headers: [
-          { text: 'Log', align: 'left', sortable: false, value: 'name' },
-          { text: 'TimeStamp', value: 'timestamp' },
-          { text: 'Action', value: 'action', sortable: false }
+          { text: 'Log', align: 'left', sortable: false, value: 'name', width: '60%' },
+          { text: 'TimeStamp', value: 'log_date', width: '20%' },
+          { text: 'Action', value: 'action', sortable: false, width: '20%' }
         ],
         logStats: {}
       }
@@ -118,8 +121,8 @@
     async mounted () {
       this.contentLoading = true
       let logs = await WorkLogs.first()
-      this.pagination.totalItems = logs.count
       this.logStats = logs.stats
+      console.log('page ma')
       this.contentLoading = false
     }
   }

@@ -9,7 +9,7 @@
           <div>
             <h3 class="headline mb-0 font-weight-thin">Distribute Score</h3>
             <small class="text-muted">
-              You will be able to provide score to your subordinates from here. Stay tuned!
+              You will be able to provide score to your team members from here. Stay tuned!
             </small>
           </div>
           <h2 class="font-weight-thin"></h2>

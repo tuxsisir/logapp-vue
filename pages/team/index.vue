@@ -29,7 +29,6 @@
             :tile="false"
             :size="120"
             color="white"
-            class=""
             style="top: 30%; left: 5%; position: absolute"
           >
             <v-img :src="user.profile_picture" alt="avatar" aspect-ratio="1.7"></v-img>

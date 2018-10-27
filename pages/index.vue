@@ -22,14 +22,12 @@
 <script>
   import Score from '@/components/home/ScoreDistribution'
   import Notice from '@/components/home/NoticeBoard'
-  import Logs from '@/components/home/LogsToReview'
   import Reviewed from '@/components/home/ReviewedLogs'
 
   export default {
     components: {
       'tab-score-distribution': Score,
       'tab-noticeboard': Notice,
-      'tab-logs-to-review': Logs,
       'tab-your-reviewed-logs': Reviewed
     },
     data () {
@@ -39,7 +37,6 @@
         tabData: [
           { 'name': 'Score Distribution', 'icon': 'star', 'count': 0 },
           { 'name': 'NoticeBoard', 'icon': 'edit', 'count': 0 },
-          { 'name': 'Logs to Review', 'icon': 'warning', 'count': 0 },
           { 'name': 'Your Reviewed Logs', 'icon': 'wc', 'count': 0 }
         ]
       }

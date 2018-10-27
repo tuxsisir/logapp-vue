@@ -1,103 +1,92 @@
 <template>
-  <v-layout row wrap>
-    <v-flex md12 xs12>
-      <bread-crumb :breadCrumbItems="breadCrumbs"></bread-crumb>
-    </v-flex>
-    <v-flex md8>
-      <v-card>
-        <v-card-title>
-          <h2 class="font-weight-thin">Work Log Detail</h2>
-        </v-card-title>
-        <v-divider></v-divider>
-        <v-card-text>
-          <p class="mb-1">Created: {{ fetchedResults.created }}</p>
-          <p class="mb-1">Modified: {{ fetchedResults.modified }}</p>
-          <p v-text="'By: ' + fetchedResults"></p>
-          {{ fetchedResults.log_by.name }}
-          <v-divider class="mb-3"></v-divider>
-          <div id="markdownPreview" v-html='$md.render(log)'></div>
-        </v-card-text>
-      </v-card>
-    </v-flex>
-    <v-flex md4>
-      <v-card>
-        <v-card-title>
-          <h2 class="font-weight-thin">Log Reviews</h2>
-        </v-card-title>
-        <v-divider></v-divider>
-        <v-card-text>
-          <v-alert color="info" :value="true" outline icon="warning">
-            No log review found.
-          </v-alert>
-        </v-card-text>
-      </v-card>
-      <v-card class="my-3">
-        <v-card-title>
-          <h2 class="font-weight-thin">Score / Review</h2>
-        </v-card-title>
-        <v-divider></v-divider>
-        <v-card-text>
-          <v-layout align-center justify-space-between>
-            <v-flex>
-              <h3 class="display-1 text-muted text-xs-center font-weight-thin">12</h3>
-            </v-flex>
-            <v-flex>
-              <h3 class="display-1 text-muted font-weight-thin text-xs-center">Good</h3>
-            </v-flex>
-          </v-layout>
-        </v-card-text>
-      </v-card>
-      <v-card>
-        <v-card-title>
-          <h2 class="font-weight-thin">Review Log</h2>
-        </v-card-title>
-        <v-divider></v-divider>
-        <v-card-text>
-          <v-form>
-            <v-flex>
-              <v-checkbox
-                v-model="form.checked"
-                label="Have you reviewed the log?"
-                type="checkbox"
-              ></v-checkbox>
-              <v-textarea
-                prepend-icon="edit"
-                v-model='form.review'
-                rows="3"
-                v-validate="'required'"
-                v-bind="this.veeValidate('review', 'Review')"
-              ></v-textarea>
-            </v-flex>
-            <v-flex>
-              <v-select
-                prepend-icon="start"
-                :items="ratingChoices"
-                v-model="form.rating"
-                v-validate="'required'"
-                v-bind="this.veeValidate('rating', 'Rating')">
-              </v-select>
-            </v-flex>
-            <v-flex>
-              <v-btn color="primary">Log Work</v-btn>
-              <v-btn>Reset</v-btn>
-            </v-flex>
-          </v-form>
-        </v-card-text>
-      </v-card>
-    </v-flex>
-  </v-layout>
+  <div>
+    <work-log-detail-loader v-if="contentLoading"></work-log-detail-loader>
+    <v-layout row wrap v-else>
+      <v-flex md12 xs12>
+        <bread-crumb :breadCrumbItems="breadCrumbs"></bread-crumb>
+      </v-flex>
+      <v-flex md8>
+        <v-card>
+          <v-card-title>
+            <h2 class="font-weight-thin">Work Log Detail</h2>
+          </v-card-title>
+          <v-divider></v-divider>
+          <v-card-text>
+            <p class="mb-1">Created: {{ fetchedResults.created }}</p>
+            <p class="mb-1">Modified: {{ fetchedResults.modified }}</p>
+            <p>By: {{ fetchedResults.log_by.name }}</p>
+            <v-divider class="mb-3"></v-divider>
+            <div id="markdownPreview" v-html='$md.render(log)'></div>
+          </v-card-text>
+        </v-card>
+      </v-flex>
+      <v-flex md4>
+        <v-card>
+          <v-card-title>
+            <h2 class="font-weight-thin">Log Reviews</h2>
+          </v-card-title>
+          <v-divider></v-divider>
+          <v-card-text>
+            <div v-if="fetchedResults.log_reviewed">
+              <v-list>
+                <v-list-tile>
+                  <v-list-tile-avatar>
+                    <user-hover-card :userDetail="fetchedResults.log_review[0].reviewer"></user-hover-card>
+                  </v-list-tile-avatar>
+                  <v-list-tile-content>
+                    {{ fetchedResults.log_review[0].remarks || 'N/A' }}
+                  </v-list-tile-content>
+                </v-list-tile>
+              </v-list>
+            </div>
+            <v-alert v-else color="info" :value="true" outline icon="warning">
+              No log review found.
+            </v-alert>
+          </v-card-text>
+        </v-card>
+        <v-card class="my-3" v-if="fetchedResults.score_data.length > 0">
+          <v-card-title>
+            <h2 class="font-weight-thin">Score / Review</h2>
+          </v-card-title>
+          <v-divider></v-divider>
+          <v-card-text>
+            <v-layout align-center justify-space-between>
+              <v-flex>
+                <h3 class="display-1 text-muted text-xs-center font-weight-thin">{{ fetchedResults.score_data[0].points_scored }}</h3>
+              </v-flex>
+              <v-flex>
+                <h3 class="display-1 text-muted font-weight-thin text-xs-center">{{ fetchedResults.score_data[0].point_name }}</h3>
+              </v-flex>
+            </v-layout>
+          </v-card-text>
+        </v-card>
+      </v-flex>
+    </v-layout>
+  </div>
 </template>
-<style scoped>
-</style>
+
 <script>
-  import VeeValidate from '@/mixins/VeeValidateMixin.js'
   import WorkLog from '@/models/WorkLog'
   import BaseMixin from '@/mixins/BaseMixin.js'
   import BreadCrumb from '@/components/common/BreadCrumb'
+  import UserHoverCard from '@/components/common/UserHoverCard'
+  import WorkLogDetailLoader from '@/components/loaders/WorkLogDetailLoader'
 
   export default {
-    mixins: [BaseMixin, VeeValidate],
-    components: { BreadCrumb },
+    mixins: [BaseMixin],
+    components: { UserHoverCard, WorkLogDetailLoader, BreadCrumb },
+    data () {
+      return {
+        htmlTitle: 'Work Log | Detail | core.aayulogic',
+        breadCrumbs: [
+          { text: 'Home', disabled: false, to: '/' },
+          { text: 'Work Log Detail', disabled: true }
+        ],
+        log: '',
+        fetchedResults: {},
+        contentLoading: true
+      }
+    },
     validate ({ params }) {
       return /^\d+$/.test(params.id)
     },
@@ -107,27 +96,12 @@
     },
     methods: {
       async getLogDetail (detailID) {
+        this.contentLoading = true
         await WorkLog.find(detailID).then((response) => {
           this.fetchedResults = response
           this.log = response.log
         })
-      }
-    },
-    data () {
-      return {
-        htmlTitle: 'Work Log | Detail | core.aayulogic',
-        log: '',
-        breadCrumbs: [
-          { text: 'Home', disabled: false, to: '/' },
-          { text: 'Work Log Detail', disabled: true }
-        ],
-        ratingChoices: ['Poor', 'Average', 'Good', 'Very Good', 'Excellent'],
-        form: {
-          review: '',
-          checked: '',
-          rating: ''
-        },
-        fetchedResults: {}
+        this.contentLoading = false
       }
     }
   }

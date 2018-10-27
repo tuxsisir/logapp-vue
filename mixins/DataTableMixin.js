@@ -1,14 +1,19 @@
 export default {
   data () {
     return {
-      fetchedResults: []
+      fetchedResults: [],
+      pagination: {
+        descending: true,
+        totalItems: 0,
+        rowsPerPage: 10 // default rows per page for all the data tables...
+      }
     }
   },
   watch: {
     search (searchQuery) {
       let params = {
         search: searchQuery,
-        offset: this.pagination.page - 1,
+        offset: this.pagination.page - 1 * this.pagination.rowsPerPage,
         limit: this.pagination.rowsPerPage
       }
       this.loading = true
@@ -20,8 +25,12 @@ export default {
         })
     },
     pagination (paginatedData) {
+      let sortBy = paginatedData.descending ? '-' + paginatedData.sortBy : paginatedData.sortBy
+      let page = paginatedData.page - 1
+      let offsetPage = page * paginatedData.rowsPerPage
       let params = {
-        offset: paginatedData.page - 1,
+        ordering: sortBy,
+        offset: offsetPage,
         limit: paginatedData.rowsPerPage
       }
       this.loading = true
