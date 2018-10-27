@@ -90,7 +90,7 @@
 <style scoped>
 </style>
 <script>
-  import VeeValidate from '@/mixins/veeValidate.js'
+  import VeeValidate from '@/mixins/VeeValidateMixin.js'
   import WorkLog from '@/models/WorkLog'
   import BaseMixin from '@/mixins/BaseMixin.js'
   import BreadCrumb from '@/components/common/BreadCrumb'

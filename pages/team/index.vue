@@ -74,7 +74,6 @@
   import BreadCrumb from '@/components/common/BreadCrumb'
 
   export default {
-    mixins: [BaseMixin],
     components: { BreadCrumb, TeamLoader },
     async mounted () {
       this.contentLoading = true
@@ -94,6 +93,7 @@
         this.clearSnack()
       }
     },
+    mixins: [BaseMixin],
     data () {
       return {
         htmlTitle: 'Team | core.aayulogic',

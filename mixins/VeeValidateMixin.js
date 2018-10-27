@@ -11,7 +11,6 @@ export default {
   $_veeValidate: {
     validator: 'new'
   },
-  template: `<vue-notify :notify="notify"></vue-notify>`,
   data () {
     return {
       nonFieldErrors: [],
@@ -40,6 +39,7 @@ export default {
       }
     },
     pushErrors (error) {
+      this.$validator.errors.clear()
       let errorResponse = JSON.parse(error.response.request.response)
       for (let errorField in errorResponse) {
         if (parseInt(Object.keys(errorResponse[errorField])[0]) === 0) {
@@ -79,7 +79,7 @@ export default {
         'label': properFieldName,
         'data-vv-as': properFieldName,
         'data-vv-name': fieldName,
-        'data-vv-validate-on': 'blur',
+        'data-vv-validate-on': 'change',
         'errors': this.collectErrors(fieldName),
         'error-messages': this.collectErrors(fieldName)
       }

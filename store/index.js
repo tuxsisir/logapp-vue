@@ -2,6 +2,7 @@ let cookieParser = require('cookieparser')
 export const state = () => ({
   sidebar: false,
   authToken: null,
+  appView: 'user',
   snack: ''
 })
 
@@ -11,9 +12,15 @@ export const mutations = {
   },
   setSnack (state, snack) {
     state.snack = snack
+  },
+  setAppView (state, view) {
+    state.appView = view
   }
 }
 export const getters = {
+  getAppView (state) {
+    return state.appView
+  },
   getAuthToken (state) {
     return state.authToken
   },

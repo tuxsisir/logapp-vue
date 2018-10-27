@@ -71,7 +71,7 @@
 <script>
   import { mapGetters, mapMutations } from 'vuex'
   import BaseMixin from '@/mixins/BaseMixin.js'
-  import VeeValidate from '@/mixins/veeValidate.js'
+  import VeeValidate from '@/mixins/VeeValidateMixin.js'
   import VueNotify from '@/components/common/VSnackBar'
 
   export default {

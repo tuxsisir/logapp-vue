@@ -43,7 +43,7 @@
 </template>
 
 <script>
-  import VeeValidate from '@/mixins/veeValidate.js'
+  import VeeValidate from '@/mixins/VeeValidateMixin.js'
   import BaseMixin from '@/mixins/BaseMixin.js'
   import BreadCrumb from '@/components/common/BreadCrumb'
 

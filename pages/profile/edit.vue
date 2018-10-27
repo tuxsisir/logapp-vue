@@ -32,7 +32,7 @@
                   v-model="form.contact_number"
                   v-validate="'digits:10|required|max:10'"
                   :counter="10"
-                  v-bind="this.veeValidate('contact_number', 'Contact Number')">>
+                  v-bind="this.veeValidate('contact_number', 'Contact Number')">
                 </v-text-field>
               </v-flex>
               <v-flex md4>
@@ -70,7 +70,7 @@
 <script>
   import User from '@/models/User'
   import BaseMixin from '@/mixins/BaseMixin.js'
-  import VeeValidate from '@/mixins/veeValidate.js'
+  import VeeValidate from '@/mixins/VeeValidateMixin.js'
   import BreadCrumb from '@/components/common/BreadCrumb'
   import FileUpload from '@/components/common/FileUpload'
 

@@ -50,7 +50,7 @@
 
 
     </v-navigation-drawer>
-    <v-toolbar fixed app :clipped-left="clipped" dark>
+    <v-toolbar fixed app :clipped-left="clipped" dark class="bg-al">
       <v-toolbar-side-icon @click="drawer = !drawer"></v-toolbar-side-icon>
       <v-btn
         icon
@@ -62,19 +62,57 @@
         <img src="/images/logo-white.png" height="40px">
       </span>
       <v-spacer></v-spacer>
-      <v-btn
-        icon
-        @click.stop="rightDrawer = !rightDrawer"
-      >
-        <v-icon>notifications</v-icon>
-      </v-btn>
       <v-avatar
         size="30"
         color="grey lighten-4"
       >
         <img :src="getUserImage" alt="avatar">
       </v-avatar>
-      <span class="ml-3 font-weight-bold">{{ getUserFullName}} <br><small class="text-sm">({{ getUserDepartment }})</small></span>
+      <span class="ml-3 font-weight-bold hidden-xs-only">{{ getUserFullName}} <br><small
+        class="text-sm">({{ getUserDepartment }})</small></span>
+      <v-btn
+        icon
+        @click.stop="rightDrawer = !rightDrawer"
+      >
+        <v-icon>notifications</v-icon>
+      </v-btn>
+      <v-menu
+        offset-y
+        bottom
+        nudge-bottom="10"
+        transition="scale-transition"
+      >
+        <v-btn
+          icon
+          slot="activator"
+        >
+          <v-icon>apps</v-icon>
+        </v-btn>
+        <v-list>
+          <!-- View as admin if the user has subordinates -->
+          <v-list-tile v-if="getAppView === 'user'" @click="switchAppView('admin')" >
+            <v-list-tile-action>
+              <v-icon>explore</v-icon>
+            </v-list-tile-action>
+            <v-list-tile-title>View as Admin</v-list-tile-title>
+          </v-list-tile>
+          <!-- / view as admin if the user has subordinates -->
+          <!-- View as admin if the user has subordinates -->
+          <v-list-tile  v-else @click="switchAppView('user')">
+            <v-list-tile-action>
+              <v-icon>group</v-icon>
+            </v-list-tile-action>
+            <v-list-tile-title>View as User</v-list-tile-title>
+          </v-list-tile>
+          <!-- / view as admin if the user has subordinates -->
+          <v-list-tile to="/accounts/logout/">
+            <v-list-tile-action>
+              <v-icon>power_settings_new</v-icon>
+            </v-list-tile-action>
+            <v-list-tile-title>Logout</v-list-tile-title>
+          </v-list-tile>
+        </v-list>
+      </v-menu>
     </v-toolbar>
     <v-content>
       <v-container class="mb-5" fluid grid-list-lg>
@@ -110,50 +148,42 @@
 </template>
 
 <script>
-  import { mapGetters } from 'vuex'
+  import { mapGetters, mapMutations } from 'vuex'
+  import SideBar from '@/utils/sidebar/index.js'
   import VueNotify from '@/components/common/VSnackBar'
 
   export default {
     components: { VueNotify },
+    created () {
+      this.items = SideBar().USER
+    },
     data () {
       return {
         notify: {},
         clipped: true,
         drawer: true,
         fixed: false,
-        items: [
-          { icon: 'apps', title: 'Home', to: '/', hasSubMenu: false },
-          { icon: 'group', title: 'Team', to: '/team/', hasSubMenu: false },
-          { icon: 'attach_file', title: 'Work Logs', to: '/work-log/', hasSubMenu: false },
-          { icon: 'note_add', title: 'Log Work', to: '/log-your-work/', hasSubMenu: false },
-          { icon: 'account_box', title: 'My Profile', to: '/profile/', hasSubMenu: false },
-          {
-            icon: 'settings',
-            title: 'Settings',
-            hasSubMenu: true,
-            subItems: [
-              { icon: 'attachment', title: 'Work Log', to: '/settings/worklog/' },
-              { icon: 'vpn_key', title: 'Change Password', to: '/settings/change-password/' },
-              { icon: 'stars', title: 'Score', to: '/settings/score/' }
-            ]
-          },
-          {
-            icon: 'info',
-            title: 'About',
-            hasSubMenu: true,
-            subItems: [
-              { icon: 'code', title: 'Change Log', to: '/about/change-log/' },
-              { icon: 'info', title: 'About core.aayulogic', to: '/about/aayulogic/' }
-            ]
-          }
-        ],
+        items: [],
         miniVariant: false,
         right: true,
         rightDrawer: false
       }
     },
     computed: {
-      ...mapGetters(['getUserFullName', 'getUserImage', 'getUserDepartment'])
+      ...mapGetters(['getUserFullName', 'getUserImage', 'getUserDepartment', 'getAppView'])
+    },
+    methods: {
+      ...mapMutations(['setAppView']),
+      switchAppView (view) {
+        this.setAppView(view)
+        if (view === 'admin') {
+          this.items = SideBar().ADMIN
+          this.$router.push('/admin/admin-page/')
+        } else {
+          this.items = SideBar().USER
+          this.$router.push('/')
+        }
+      }
     }
   }
 </script>

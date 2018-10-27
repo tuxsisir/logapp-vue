@@ -1,11 +1,38 @@
-// Import Vuetify styling
+$body-font-family =  'Fira Sans', sans-serif
+
 @require '~vuetify/src/stylus/main.styl'
 
 .page
   @extend .fade-transition
 
-.text-muted{color:#636c72!important}
-.bg-white{background-color: white}
-  #markdownPreview > hr{
-    margin: 20px 0px;
-  }
+is-size-7 = 3rem
+is-size-6 =	2.5rem
+is-size-5 = 2rem
+is-size-4 = 1.5rem
+is-size-3 = 1.25rem
+is-size-2 = 1rem
+is-size-1 = 0.75rem
+is-size-0 = 0.65rem
+
+for i in 0..7
+  .text-{i}
+    font-size: lookup('is-size-' + i)
+
+.v-list__tile--active
+  border-left: 5px solid #002446
+  background: rgba(0,0,0,0.04)
+
+.theme--light.application
+  background: #F2F2F2  !important
+
+.text-muted
+  color:#636c72 !important
+.bg-white
+  background-color: white
+
+#markdownPreview
+  hr
+    margin: 20px 0px
+
+.bg-al
+  background: #002446 !important
