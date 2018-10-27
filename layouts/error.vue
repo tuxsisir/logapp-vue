@@ -12,10 +12,20 @@
                 <h4 class="display-1 font-weight-thin my-4">Page Not Found</h4>
                 <p class="">The page you are looking for does not exist.</p>
               </div>
-              <div v-if="error.statusCode === 500">
-                <h3 class="display-2">404</h3>
+              <div v-else-if="error.statusCode === 500">
+                <h3 class="display-2">500</h3>
                 <h4 class="display-1 font-weight-thin my-4">Internal Server Error</h4>
-                <p class="">The page you are looking for does not exist.</p>
+                <p class="">We will look into this a-s-a-p.</p>
+              </div>
+              <div v-else-if="error.statusCode === 403">
+                <h3 class="display-2">500</h3>
+                <h4 class="display-1 font-weight-thin my-4">Permission Denied</h4>
+                <p class="">This action has been reported. You are not authorized to view this page.</p>
+              </div>
+              <div v-else>
+                <h3 class="display-2">Gahh..!!</h3>
+                <h4 class="display-1 font-weight-thin my-4">Something Went Wrong ...</h4>
+                <p class="">We will look into this a-s-a-p.</p>
               </div>
               <v-btn color="primary" @click="goBack">Go Back</v-btn>
               <v-divider class="hidden-sm-and-up my-3"></v-divider>

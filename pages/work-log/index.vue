@@ -2,6 +2,7 @@
   <div>
     <work-log-list-content-loader v-if="contentLoading"></work-log-list-content-loader>
     <v-layout v-else row align-center fill-height wrap>
+      <vue-notify :notify="notify"></vue-notify>
       <v-flex md12 xs12>
         <bread-crumb :breadCrumbItems="breadCrumbs"></bread-crumb>
       </v-flex>
@@ -36,18 +37,19 @@
                 <div class="pa-3" id="markdownPreview" v-html="truncatedWorkLog($md.render(props.item.log))"></div>
               </td>
               <td class="">
+                <div><span class="text-muted">Log of :</span> <span class="font-weight-bold">{{ props.item.log_date }}</span></div>
                 <div><span class="text-muted">Created:</span> {{ props.item.created }}</div>
                 <div><span class="text-muted">Modified:</span> {{ props.item.modified }}</div>
               </td>
               <td class="">
-                <v-btn small flat icon class="mr-3 text-muted" router :to="'/work-log/' + props.item.id + '/detail'">
-                  <v-icon small>list</v-icon>
-                </v-btn>
-                <v-btn small flat icon class="mr-3 text-muted">
+                <v-btn v-if="props.item.log_reviewed" small flat icon class="mr-3 text-muted" >
                   <v-icon small>done_all</v-icon>
                 </v-btn>
-                <v-btn small flat icon class="text-muted">
+                <v-btn v-else small flat icon class="text-muted" router :to="'/work-log/' + props.item.id + '/edit/'">
                   <v-icon small>edit</v-icon>
+                </v-btn>
+                <v-btn small flat icon class="mr-3 text-muted" router :to="'/work-log/' + props.item.id + '/detail'">
+                  <v-icon small>list</v-icon>
                 </v-btn>
               </td>
             </template>
@@ -80,29 +82,31 @@
     data () {
       return {
         htmlTitle: 'My Work Logs | core.aayulogic.com',
+        breadCrumbs: [
+          { text: 'Home', disabled: false },
+          { text: 'My Work Logs', disabled: true }
+        ],
+        notify: {},
         search: '',
         endpoint: '',
-        rowsPerPageItems: [1, 2, 3, 4],
+        rowsPerPageItems: [10, 20, 30, 40, 50],
         contentLoading: false,
         loading: false,
         pagination: {
           totalItems: 0,
-          rowsPerPage: 4,
+          rowsPerPage: 20,
           sortBy: ''
         },
         headers: [
           { text: 'Log', align: 'left', sortable: false, value: 'name' },
           { text: 'TimeStamp', value: 'timestamp' },
-          { text: 'Action', value: 'action' }
+          { text: 'Action', value: 'action', sortable: false }
         ],
-        logStats: {},
-        breadCrumbs: [
-          { text: 'Home', disabled: false },
-          { text: 'My Work Logs', disabled: false }
-        ]
+        logStats: {}
       }
     },
     created () {
+      this.displaySnack()
       let model = new WorkLogs()
       this.endpoint = model.endpoint()
     },

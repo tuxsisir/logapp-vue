@@ -90,21 +90,29 @@
         </v-btn>
         <v-list>
           <!-- View as admin if the user has subordinates -->
-          <v-list-tile v-if="getAppView === 'user'" @click="switchAppView('admin')" >
+          <div v-if="canSwitch">
+            <v-list-tile v-if="getAppView === 'user'" @click="switchAppView('admin')">
+              <v-list-tile-action>
+                <v-icon>explore</v-icon>
+              </v-list-tile-action>
+              <v-list-tile-title>View as Team Leader</v-list-tile-title>
+            </v-list-tile>
+            <!-- / view as admin if the user has subordinates -->
+            <!-- View as admin if the user has subordinates -->
+            <v-list-tile v-else @click="switchAppView('user')">
+              <v-list-tile-action>
+                <v-icon>group</v-icon>
+              </v-list-tile-action>
+              <v-list-tile-title>View as User</v-list-tile-title>
+            </v-list-tile>
+            <!-- / view as admin if the user has subordinates -->
+          </div>
+          <v-list-tile to="/profile/edit/">
             <v-list-tile-action>
-              <v-icon>explore</v-icon>
+              <v-icon>edit</v-icon>
             </v-list-tile-action>
-            <v-list-tile-title>View as Admin</v-list-tile-title>
+            <v-list-tile-title>Edit Profile</v-list-tile-title>
           </v-list-tile>
-          <!-- / view as admin if the user has subordinates -->
-          <!-- View as admin if the user has subordinates -->
-          <v-list-tile  v-else @click="switchAppView('user')">
-            <v-list-tile-action>
-              <v-icon>group</v-icon>
-            </v-list-tile-action>
-            <v-list-tile-title>View as User</v-list-tile-title>
-          </v-list-tile>
-          <!-- / view as admin if the user has subordinates -->
           <v-list-tile to="/accounts/logout/">
             <v-list-tile-action>
               <v-icon>power_settings_new</v-icon>
@@ -118,7 +126,7 @@
       <v-container class="mb-5" fluid grid-list-lg>
         <nuxt/>
       </v-container>
-      <v-footer :fixed="fixed" absolute class="px-3 py-4">
+      <v-footer :fixed="fixed" absolute class="px-3 py-4 footer-border" color="white">
         <span class="mx-3">&copy; 2018 core.aayulogic - Powered By GCP</span>
       </v-footer>
     </v-content>
@@ -170,7 +178,10 @@
       }
     },
     computed: {
-      ...mapGetters(['getUserFullName', 'getUserImage', 'getUserDepartment', 'getAppView'])
+      ...mapGetters(['getUserFullName', 'getUserImage', 'getUserDepartment', 'getAppView', 'isUserReviewer']),
+      canSwitch () {
+        return !!(this.getUserDepartment === 'Management' || this.isUserReviewer)
+      }
     },
     methods: {
       ...mapMutations(['setAppView']),
@@ -178,7 +189,7 @@
         this.setAppView(view)
         if (view === 'admin') {
           this.items = SideBar().ADMIN
-          this.$router.push('/admin/admin-page/')
+          this.$router.push('/admin/overview/')
         } else {
           this.items = SideBar().USER
           this.$router.push('/')

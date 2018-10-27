@@ -47,6 +47,13 @@ export const getters = {
     } else {
       return ''
     }
+  },
+  isUserReviewer (state) {
+    if (state.auth.user !== null) {
+      return state.auth.user.is_reviewer
+    } else {
+      return ''
+    }
   }
 }
 

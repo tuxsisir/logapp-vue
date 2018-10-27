@@ -27,10 +27,10 @@ export default function SideBar () {
       }
     ],
     ADMIN: [
-      { icon: 'apps', title: 'Admin View A', to: '/admin/admin-page/', hasSubMenu: false },
-      { icon: 'apps', title: 'Admin View B', to: '/admin/admin-page/', hasSubMenu: false },
-      { icon: 'apps', title: 'Admin View C', to: '/admin/admin-page/', hasSubMenu: false },
-      { icon: 'apps', title: 'Admin View D', to: '/admin/admin-page/', hasSubMenu: false }
+      { icon: 'apps', title: 'Overview', to: '/admin/overview/', hasSubMenu: false },
+      { icon: 'comment', title: 'Logs To Review', to: '/admin/review-logs/', hasSubMenu: false },
+      { icon: 'comment', title: 'Logs Reviewed By You', to: '/admin/reviewed-logs/', hasSubMenu: false },
+      { icon: 'stars', title: 'Distribute Score', to: '/admin/distribute-score/', hasSubMenu: false }
     ]
   }
 }

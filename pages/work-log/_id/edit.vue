@@ -10,8 +10,8 @@
             Write down your work log here and you can preview your markdown on the other side.
           </v-card-title>
           <v-divider></v-divider>
-          <v-card-text>
-            <work-log-form></work-log-form>
+          <v-card-text v-if="fetched">
+            <work-log-form v-bind:formData="editData"></work-log-form>
           </v-card-text>
         </v-card>
       </v-flex>
@@ -19,6 +19,7 @@
   </div>
 </template>
 <script>
+  import WorkLog from '@/models/WorkLog'
   import BaseMixin from '@/mixins/BaseMixin.js'
   import BreadCrumb from '@/components/common/BreadCrumb'
   import WorkLogForm from '@/components/forms/WorkLogForm'
@@ -26,13 +27,30 @@
   export default {
     mixins: [BaseMixin],
     components: { BreadCrumb, WorkLogForm },
+    validate ({ params }) {
+      return /^\d+$/.test(params.id)
+    },
+    created () {
+      let detailID = this.$route.params.id
+      this.getLogDetail(detailID)
+    },
+    methods: {
+      async getLogDetail (detailID) {
+        await WorkLog.find(detailID).then((response) => {
+          this.editData = response
+          this.fetched = true
+        })
+      }
+    },
     data () {
       return {
-        htmlTitle: 'Log Your Work | core.aayulogic',
+        htmlTitle: 'Edit Log | core.aayulogic',
         breadCrumbs: [
-          { text: 'Home', disabled: false },
-          { text: 'Log your Work', disabled: false }
-        ]
+          { text: 'Home', disabled: false, to: '/' },
+          { text: 'Edit Log', disabled: true }
+        ],
+        fetched: false,
+        editData: {}
       }
     }
   }

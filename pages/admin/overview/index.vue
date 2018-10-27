@@ -4,6 +4,7 @@
       <bread-crumb :breadCrumbItems="breadCrumbs"></bread-crumb>
     </v-flex>
     <v-flex>
+      Overview
     </v-flex>
   </v-layout>
 </template>
@@ -17,9 +18,9 @@
     components: { BreadCrumb },
     data () {
       return {
-        htmlTitle: 'Application Switch | core.aayulogic',
+        htmlTitle: 'Overview',
         breadCrumbs: [
-          { text: 'Application Switch', disabled: true }
+          { text: 'Overview', disabled: true }
         ]
       }
     }

@@ -20,14 +20,14 @@
                   Invalid login credentials.
                 </v-alert>
                 <v-form>
-                  <v-text-field prepend-icon="person"
+                  <v-text-field prepend-icon="email"
                                 type="text"
                                 v-model="email"
                                 v-validate="'email|max:50'"
                                 :counter="50"
                                 v-bind="this.veeValidate('email', 'Email Address')">
                   </v-text-field>
-                  <v-text-field prepend-icon="lock"
+                  <v-text-field prepend-icon="vpn_key"
                                 type="password"
                                 v-model="password"
                                 v-validate="'max:30'"
@@ -81,15 +81,7 @@
     components: { VueNotify },
     mixins: [BaseMixin, VeeValidate],
     created () {
-      let notifyMsg = this.$store.state.snack
-      if (notifyMsg !== '') {
-        this.notify = {
-          text: notifyMsg,
-          color: 'green',
-          display: true
-        }
-        this.clearSnack()
-      }
+      this.displaySnack()
     },
     data () {
       return {
@@ -104,7 +96,7 @@
       ...mapGetters(['getUserFullName'])
     },
     methods: {
-      ...mapMutations(['updateAuthToken', 'setSnack']),
+      ...mapMutations(['updateAuthToken']),
       async login () {
         try {
           await this.$auth.loginWith('local', {
@@ -126,9 +118,6 @@
       clearForm () {
         this.email = ''
         this.password = ''
-      },
-      clearSnack () {
-        this.setSnack('')
       }
     },
     props: {

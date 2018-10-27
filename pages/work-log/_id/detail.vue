@@ -108,8 +108,6 @@
     methods: {
       async getLogDetail (detailID) {
         await WorkLog.find(detailID).then((response) => {
-          console.log('------->> ')
-          console.log(response)
           this.fetchedResults = response
           this.log = response.log
         })
