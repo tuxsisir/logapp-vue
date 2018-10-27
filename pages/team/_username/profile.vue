@@ -2,6 +2,7 @@
   <v-layout row wrap align-center justify-center>
     <v-flex md12>
       <bread-crumb :breadCrumbItems="breadCrumbs"></bread-crumb>
+      <vue-notify :notify="notify"></vue-notify>
     </v-flex>
     <v-flex>
       <v-img
@@ -71,13 +72,12 @@
   }
 </style>
 <script>
-  import User from '@/models/User'
-  import GeneralInformation from '@/components/userDetail/GeneralInformation'
-  import ScoreSummary from '@/components/userDetail/ScoreSummary'
-  import LogReviewer from '@/components/userDetail/LogReviewer'
-  import WorkLogSummary from '@/components/userDetail/WorkLogSummary'
   import BaseMixin from '@/mixins/BaseMixin.js'
   import BreadCrumb from '@/components/common/BreadCrumb'
+  import User from '@/models/User'
+  import GeneralInformation from '@/components/userDetail/GeneralInformation'
+  import LogReviewer from '@/components/userDetail/LogReviewer'
+  import WorkLogSummary from '@/components/userDetail/WorkLogSummary'
 
   export default {
     mixins: [BaseMixin],
@@ -85,10 +85,10 @@
       'bread-crumb': BreadCrumb,
       'tab-general-information': GeneralInformation,
       'tab-work-log': WorkLogSummary,
-      'tab-score-summary': ScoreSummary,
       'tab-log-reviewers': LogReviewer
     },
     created () {
+      this.displaySnack()
       let username = this.$route.params.username
       this.getUserDetail(username)
     },
@@ -103,15 +103,16 @@
     },
     data () {
       return {
-        currentTab: 'General Information',
         htmlTitle: 'Team | Profile | core.aayulogic',
-        tabHeadings: ['General Information', 'Work Log', 'Score Summary', 'Log Reviewers'],
-        userDetail: {},
         breadCrumbs: [
           { text: 'Home', disabled: false, to: '/' },
           { text: 'Team', disabled: false, to: '/team' },
           { text: 'Profile', disabled: true }
-        ]
+        ],
+        notify: {},
+        currentTab: 'General Information',
+        tabHeadings: ['General Information', 'Work Log', 'Log Reviewers'],
+        userDetail: {}
       }
     },
     computed: {

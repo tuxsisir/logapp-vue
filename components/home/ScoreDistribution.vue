@@ -25,14 +25,14 @@
                 <v-card-title class="title">{{ item.user.name }} {{ item.points_scored }} Point/s</v-card-title>
                 <v-card-text class="white text--primary">
                   <p class="subheading"><i>{{ item.text }}</i></p>
-                  <v-btn
-                    v-if="item.score_criteria.title == 'Work Log'"
-                    :color="item.score_color"
-                    class="mx-0"
-                    outline
-                  >
-                    View Work Log
-                  </v-btn>
+                  <!--<v-btn-->
+                    <!--v-if="item.score_criteria.title == 'Work Log'"-->
+                    <!--:color="item.score_color"-->
+                    <!--class="mx-0"-->
+                    <!--outline-->
+                  <!--&gt;-->
+                    <!--View Work Log-->
+                  <!--</v-btn>-->
                 </v-card-text>
               </v-card>
             </v-timeline-item>

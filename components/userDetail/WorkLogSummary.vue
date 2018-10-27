@@ -7,7 +7,12 @@
         </v-card-title>
         <v-divider></v-divider>
         <v-card-text>
-          <v-expansion-panel v-if="items.length > 0">
+          <div v-if="logsHidden">
+            <v-alert :value="true" outline color="info" icon="info">
+              Logs are hidden for {{ userDetail.name }}.
+            </v-alert>
+          </div>
+          <v-expansion-panel v-if="items.length > 0 && !logsHidden">
             <v-expansion-panel-content
               v-for="(item, index) in items"
               :key="index"
@@ -28,7 +33,7 @@
             </v-expansion-panel-content>
           </v-expansion-panel>
         </v-card-text>
-        <no-ssr>
+        <no-ssr v-if="!logsHidden">
           <infinite-loading @infinite="infiniteHandlerLogs" ref="infiniteLoading">
             <span slot="no-more">No further data found.</span>
             <span slot="no-results">No further data found.</span>
@@ -48,7 +53,8 @@
       return {
         items: [],
         nextLimit: null,
-        nextOffset: null
+        nextOffset: null,
+        logsHidden: false
       }
     },
     methods: {
@@ -60,6 +66,9 @@
               offset: this.nextOffset
             }
           }).then((response) => {
+          if (Object.keys(response).includes('detail')) {
+            this.logsHidden = true
+          }
           if (response.next) {
             this.extractLimitOffset(response.next)
             this.items = this.items.concat(response.results)

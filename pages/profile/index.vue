@@ -2,6 +2,7 @@
   <v-layout row wrap>
     <v-flex md12>
       <bread-crumb :breadCrumbItems="breadCrumbs"></bread-crumb>
+      <vue-notify :notify="notify"></vue-notify>
     </v-flex>
     <v-flex md12>
       <v-card>
@@ -64,21 +65,25 @@
         <v-divider></v-divider>
         <v-card-text>
           <v-layout row wrap align-center justify-center class="text-md-center">
-            <v-flex md3>
-              <h2 class="font-weight-thin">Username</h2>
-              <p class="title mt-2">{{ userInfo.username }}</p>
+            <v-flex>
+              <h3 class="font-weight-thin">Username</h3>
+              <p class="title mt-2 font-weight-bold">{{ userInfo.username }}</p>
             </v-flex>
-            <v-flex md3>
-              <h2 class="font-weight-thin">Full Name</h2>
-              <p class="title mt-2">{{ userInfo.name }}</p>
+            <v-flex>
+              <h3 class="font-weight-thin">Full Name</h3>
+              <p class="title mt-2 font-weight-bold">{{ userInfo.name }}</p>
             </v-flex>
-            <v-flex md3>
-              <h2 class="font-weight-thin">Department</h2>
-              <p class="title mt-2">{{ userInfo.department }}</p>
+            <v-flex>
+              <h3 class="font-weight-thin">Department</h3>
+              <p class="title mt-2 font-weight-bold">{{ userInfo.department }}</p>
             </v-flex>
-            <v-flex md3>
-              <h2 class="font-weight-thin">Joined Date</h2>
-              <p class="title mt-2">{{ userInfo.date_joined }}</p>
+            <v-flex>
+              <h3 class="font-weight-thin">Joined Date</h3>
+              <p class="title mt-2 font-weight-bold">{{ userInfo.date_joined }}</p>
+            </v-flex>
+            <v-flex>
+              <h3 class="font-weight-thin">Contact</h3>
+              <p class="title mt-2 font-weight-bold">{{ userInfo.contact_number }}</p>
             </v-flex>
           </v-layout>
         </v-card-text>
@@ -95,6 +100,9 @@
   export default {
     mixins: [BaseMixin],
     components: { BreadCrumb },
+    created () {
+      this.displaySnack()
+    },
     async mounted () {
       let user = await User.find('me')
       this.userInfo = user
@@ -102,11 +110,12 @@
     data () {
       return {
         htmlTitle: 'My Profile | core.aayulogic',
-        userInfo: {},
         breadCrumbs: [
           { text: 'Home', disabled: false, to: '/' },
           { text: 'My Profile', disabled: true }
-        ]
+        ],
+        notify: {},
+        userInfo: {},
       }
     }
   }

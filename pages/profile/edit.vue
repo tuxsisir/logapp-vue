@@ -57,7 +57,7 @@
                 ></v-textarea>
               </v-flex>
               <v-flex md12>
-                <v-btn color="info" @click="editProfile">Submit</v-btn>
+                <v-btn color="info" @click="editProfile" :disabled="errors.any()">Submit</v-btn>
                 <v-btn>Reset</v-btn>
               </v-flex>
             </v-layout>
@@ -68,6 +68,7 @@
   </v-layout>
 </template>
 <script>
+  import { mapMutations } from 'vuex'
   import User from '@/models/User'
   import BaseMixin from '@/mixins/BaseMixin.js'
   import VeeValidate from '@/mixins/VeeValidateMixin.js'
@@ -88,6 +89,7 @@
       }
     },
     methods: {
+      ...mapMutations(['setSnack']),
       updateFileData (fileData, fileChanged) {
         this.form.profile_picture = fileData
         if (fileChanged) this.fileChanged = true
@@ -104,6 +106,10 @@
         let user = new User({ username: this.form.username })
         user.patchData(data).then((response) => {
           console.log(response)
+          this.setSnack('Successfully edited profile!')
+          this.$router.push('/profile/')
+        }).catch((error) => {
+          this.pushErrors(error)
         })
         // await this.$axios.$patch('user/detail/' + this.form.username + '/', data).then((response) => {
         //   console.log((response))

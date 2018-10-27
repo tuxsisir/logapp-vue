@@ -79,7 +79,7 @@ export default {
         'label': properFieldName,
         'data-vv-as': properFieldName,
         'data-vv-name': fieldName,
-        'data-vv-validate-on': 'change',
+        'data-vv-validate-on': 'blur',
         'errors': this.collectErrors(fieldName),
         'error-messages': this.collectErrors(fieldName)
       }
