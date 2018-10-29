@@ -106,7 +106,7 @@
         htmlTitle: 'Team | Profile | core.aayulogic',
         breadCrumbs: [
           { text: 'Home', disabled: false, to: '/' },
-          { text: 'Team', disabled: false, to: '/team' },
+          { text: 'Team', disabled: false, to: '/team/' },
           { text: 'Profile', disabled: true }
         ],
         notify: {},

@@ -23,11 +23,6 @@
               <v-card>
                 <v-card-text>
                   <div id="markdownPreview" v-html='$md.render(item.log)'></div>
-                  <v-divider class="my-4"></v-divider>
-                  {{ item }}
-                  <v-btn router :to="'/work-log/' + item.id + '/detail/'" outline color="info">
-                    View Log Details
-                  </v-btn>
                 </v-card-text>
               </v-card>
             </v-expansion-panel-content>
@@ -59,7 +54,7 @@
     },
     methods: {
       infiniteHandlerLogs ($state) {
-        this.$axios.$get('/work-log/public/' + this.userDetail.username + '/',
+        this.$axios.$get('/work-log/public/user/' + this.userDetail.username + '/',
           {
             params: {
               limit: this.nextLimit,

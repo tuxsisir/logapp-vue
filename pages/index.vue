@@ -20,6 +20,7 @@
 </template>
 
 <script>
+  import BaseMixin from '@/mixins/baseMixin.js'
   import Score from '@/components/home/ScoreDistribution'
   import Notice from '@/components/home/NoticeBoard'
   import Reviewed from '@/components/home/ReviewedLogs'
@@ -30,8 +31,10 @@
       'tab-noticeboard': Notice,
       'tab-your-reviewed-logs': Reviewed
     },
+    mixins: [BaseMixin],
     data () {
       return {
+        htmlTitle: 'Home | core.aayulogic',
         currentTab: 'Score Distribution',
         text: 'sdf',
         tabData: [

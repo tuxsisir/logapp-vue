@@ -85,7 +85,7 @@
     },
     data () {
       return {
-        htmlTitle: 'Login | Aayulogic',
+        htmlTitle: 'Account | Login | Aayulogic',
         email: '',
         password: '',
         invalid: false,

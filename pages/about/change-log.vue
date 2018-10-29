@@ -28,6 +28,7 @@
     components: { BreadCrumb },
     data () {
       return {
+        htmlTitle: 'About | Change Log | core.aayulogic',
         breadCrumbs: [
           { text: 'Home', disabled: false, to: '/' },
           { text: 'About', disabled: true },
