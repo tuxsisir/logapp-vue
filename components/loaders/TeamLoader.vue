@@ -1,6 +1,6 @@
 <template>
   <v-layout row wrap align-center>
-    <v-flex md3
+    <v-flex md3 xs12
             v-for="count in numberOfLoaders"
             :key="count"
             class="mb-5">
