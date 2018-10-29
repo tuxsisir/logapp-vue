@@ -1,6 +1,6 @@
 <template>
   <v-layout row wrap align-center justify-center>
-    <v-flex md10 offset-md-1>
+    <v-flex md12>
       <v-card>
         <v-card-title>
           <div>
@@ -13,7 +13,7 @@
         </v-card-title>
         <v-divider></v-divider>
         <v-card-text>
-          <v-expansion-panel v-if="items.length > 0">
+          <v-expansion-panel v-if="items.length > 0" inset>
             <v-expansion-panel-content
               v-for="(item, index) in items"
               :key="index"
@@ -23,8 +23,25 @@
               </div>
               <v-card>
                 <v-card-text>
-                  <div id="markdownPreview" v-html='$md.render(item.log.log)'></div>
+                  <v-layout row wrap>
+                    <v-flex md8>
+                      <div id="markdownPreview" v-html='$md.render(item.log.log)'></div>
+                    </v-flex>
+                    <v-flex md4>
+                      <h4>Log Review</h4>
+                      <v-divider class="my-4"></v-divider>
+                      <p>{{ item.remarks }}</p>
+                      <v-divider class="my-4"></v-divider>
+                      <p class="font-weight-bold">{{ item.rating }}</p>
+                    </v-flex>
+                  </v-layout>
                 </v-card-text>
+                <v-divider></v-divider>
+                <v-card-actions>
+                  <v-btn flat color="info" router :to="'/admin/review-logs/' + item.log.id + '/detail/'">
+                    View Log Details
+                  </v-btn>
+                </v-card-actions>
               </v-card>
             </v-expansion-panel-content>
           </v-expansion-panel>

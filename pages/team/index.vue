@@ -33,7 +33,7 @@
           >
             <v-img :src="user.profile_picture" alt="avatar" aspect-ratio="1.7"></v-img>
           </v-avatar>
-          <v-card-text>
+          <v-card-text min-height="100px">
             <div class="mt-5">
               <v-layout row wrap justify-end>
                 <v-flex md8 text-xs-left>
@@ -47,6 +47,12 @@
                 </v-flex>
               </v-layout>
               <p class="caption text-grey">({{ user.department }})</p>
+              <v-tooltip bottom>
+                <p slot="activator" class="text-truncate text-3 font-italic">
+                  {{ user.status || '-' }}
+                </p>
+                <span>{{ user.status || 'N/A' }}</span>
+              </v-tooltip>
               <v-tooltip bottom>
                 <div>
                   <i slot="activator" class="text-truncate text-no-wrap">{{ user.status || 'N/A' }}</i>
@@ -69,7 +75,7 @@
   import { mapMutations } from 'vuex'
   import TeamLoader from '@/components/loaders/TeamLoader'
   import UserScore from '@/models/Score'
-  import BaseMixin from '@/mixins/BaseMixin.js'
+  import BaseMixin from '@/mixins/baseMixin.js'
   import BreadCrumb from '@/components/common/BreadCrumb'
 
   export default {

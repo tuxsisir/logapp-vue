@@ -27,7 +27,7 @@
 </template>
 <script>
   import { mapMutations } from 'vuex'
-  import BaseMixin from '@/mixins/BaseMixin.js'
+  import BaseMixin from '@/mixins/baseMixin.js'
   import BreadCrumb from '@/components/common/BreadCrumb'
 
   const Cookie = process.client ? require('js-cookie') : undefined

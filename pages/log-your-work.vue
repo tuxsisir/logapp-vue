@@ -19,7 +19,7 @@
   </div>
 </template>
 <script>
-  import BaseMixin from '@/mixins/BaseMixin.js'
+  import BaseMixin from '@/mixins/baseMixin.js'
   import BreadCrumb from '@/components/common/BreadCrumb'
   import WorkLogForm from '@/components/forms/WorkLogForm'
 

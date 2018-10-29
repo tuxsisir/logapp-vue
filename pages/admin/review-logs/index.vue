@@ -9,18 +9,19 @@
   </v-layout>
 </template>
 <script>
-  import BaseMixin from '@/mixins/BaseMixin.js'
+  import BaseMixin from '@/mixins/baseMixin.js'
   import BreadCrumb from '@/components/common/BreadCrumb'
   import LogsToReview from '@/components/admin/LogsToReview'
 
   export default {
     middleware: ['admin'],
     mixins: [BaseMixin],
-    components: { BreadCrumb, LogsToReview },
+    components: { LogsToReview, BreadCrumb },
     data () {
       return {
         htmlTitle: 'Logs To Review | core.aayulogic',
         breadCrumbs: [
+          { text: 'Overview', disabled: false, to: '/admin/overview/' },
           { text: 'Logs To Review', disabled: true }
         ]
       }

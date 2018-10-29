@@ -78,8 +78,8 @@
 </template>
 <script>
   import WorkLogListContentLoader from '@/components/loaders/WorkLogListLoader'
-  import BaseMixin from '@/mixins/BaseMixin.js'
-  import DataTableMixin from '@/mixins/DataTableMixin.js'
+  import BaseMixin from '@/mixins/baseMixin.js'
+  import DataTableMixin from '@/mixins/dataTableMixin.js'
   import WorkLogs from '@/models/WorkLog'
   import BreadCrumb from '@/components/common/BreadCrumb'
   import WorkLogStats from '@/components/worklog/StatsCounter'

@@ -1,6 +1,6 @@
 <template>
   <v-layout row wrap align-center justify-center>
-    <v-flex md10 offset-md-1>
+    <v-flex md12>
       <v-card>
         <v-card-title>
           <div>
@@ -9,11 +9,13 @@
               Review the logs that has been sent to you.
             </small>
           </div>
-          <h2 class="font-weight-thin"></h2>
+          <v-flex class="text-xs-right">
+            <span>You have total {{ total }} logs to review.</span>
+          </v-flex>
         </v-card-title>
         <v-divider></v-divider>
         <v-card-text>
-          <v-expansion-panel v-if="items.length > 0">
+          <v-expansion-panel v-if="items.length > 0" focusable popout>
             <v-expansion-panel-content
               v-for="(item, index) in items"
               :key="index"
@@ -25,6 +27,12 @@
                 <v-card-text>
                   <div id="markdownPreview" v-html='$md.render(item.log)'></div>
                 </v-card-text>
+                <v-divider></v-divider>
+                <v-card-actions>
+                  <v-btn flat color="info" router :to="'/admin/review-logs/' + item.id + '/detail/'">
+                    View Log Details to Review
+                  </v-btn>
+                </v-card-actions>
               </v-card>
             </v-expansion-panel-content>
           </v-expansion-panel>
@@ -44,6 +52,7 @@
     data () {
       return {
         items: [],
+        total: null,
         nextLimit: null,
         nextOffset: null
       }
@@ -57,6 +66,7 @@
               offset: this.nextOffset
             }
           }).then((response) => {
+          this.total = response.count
           if (response.next) {
             this.extractLimitOffset(response.next)
             this.items = this.items.concat(response.results)

@@ -30,15 +30,16 @@
 </template>
 
 <script>
-  import BaseMixin from '@/mixins/BaseMixin.js'
+  import BaseMixin from '@/mixins/baseMixin.js'
   import BreadCrumb from '@/components/common/BreadCrumb'
 
   export default {
+    middleware: ['admin'],
     mixins: [BaseMixin],
     components: { BreadCrumb },
     data () {
       return {
-        htmlTitle: 'Overview',
+        htmlTitle: 'Overview | Admin | core.aayulogic',
         breadCrumbs: [
           { text: 'core.aayulogic', disabled: false },
           { text: 'Overview', disabled: true }

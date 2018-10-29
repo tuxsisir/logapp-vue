@@ -1,8 +1,8 @@
 <template>
   <div>
     <work-log-detail-loader v-if="contentLoading"></work-log-detail-loader>
-    <v-layout v-else row wrap>
-      <v-flex md12 xs12>
+    <v-layout v-if="fetched" row wrap>
+      <v-flex md12>
         <bread-crumb :breadCrumbItems="breadCrumbs"></bread-crumb>
       </v-flex>
       <v-flex md8>
@@ -21,7 +21,7 @@
         </v-card>
       </v-flex>
       <v-flex md4>
-        <v-card>
+        <v-card class="mb-3">
           <v-card-title>
             <h2 class="font-weight-thin">Log Reviews</h2>
           </v-card-title>
@@ -44,7 +44,7 @@
             </v-alert>
           </v-card-text>
         </v-card>
-        <v-card class="my-3" v-if="fetchedResults.score_data.length > 0">
+        <v-card class="mb-3" v-if="fetchedResults.score_data.length > 0">
           <v-card-title>
             <h2 class="font-weight-thin">Score / Review</h2>
           </v-card-title>
@@ -52,36 +52,40 @@
           <v-card-text>
             <v-layout align-center justify-space-between>
               <v-flex>
-                <h3 class="display-1 text-muted text-xs-center font-weight-thin">{{ fetchedResults.score_data[0].points_scored }}</h3>
+                <h3 class="display-1 text-muted text-xs-center font-weight-thin">{{
+                  fetchedResults.score_data[0].points_scored }}</h3>
               </v-flex>
               <v-flex>
-                <h3 class="display-1 text-muted font-weight-thin text-xs-center">{{ fetchedResults.score_data[0].point_name }}</h3>
+                <h3 class="display-1 text-muted font-weight-thin text-xs-center">{{
+                  fetchedResults.score_data[0].point_name }}</h3>
               </v-flex>
             </v-layout>
           </v-card-text>
         </v-card>
+        <work-log-review v-bind:formData="fetchedResults"></work-log-review>
       </v-flex>
     </v-layout>
   </div>
 </template>
-
 <script>
-  import WorkLog from '@/models/WorkLog'
   import BaseMixin from '@/mixins/baseMixin.js'
   import BreadCrumb from '@/components/common/BreadCrumb'
   import UserHoverCard from '@/components/common/UserHoverCard'
   import WorkLogDetailLoader from '@/components/loaders/WorkLogDetailLoader'
+  import WorkLogReview from '@/components/forms/WorkLogReview'
 
   export default {
+    components: { WorkLogDetailLoader, BreadCrumb, WorkLogReview, UserHoverCard },
+    middleware: ['admin'],
     mixins: [BaseMixin],
-    components: { UserHoverCard, WorkLogDetailLoader, BreadCrumb },
     data () {
       return {
-        htmlTitle: 'Work Log | Detail | core.aayulogic',
+        htmlTitle: 'Log Review | core.aayulogic',
         breadCrumbs: [
-          { text: 'Home', disabled: false, to: '/' },
-          { text: 'Work Log Detail', disabled: true }
+          { text: 'Overview', disabled: false, to: '/admin/overview/' },
+          { text: 'Log Review', disabled: true }
         ],
+        fetched: false,
         log: '',
         fetchedResults: {},
         contentLoading: true
@@ -97,9 +101,10 @@
     methods: {
       async getLogDetail (detailID) {
         this.contentLoading = true
-        await WorkLog.find(detailID).then((response) => {
+        this.$axios.$get('/work-log/public/detail/' + detailID + '/').then((response) => {
           this.fetchedResults = response
           this.log = response.log
+          this.fetched = true
         })
         this.contentLoading = false
       }

@@ -94,7 +94,7 @@
 
 <script>
   import User from '@/models/User'
-  import BaseMixin from '@/mixins/BaseMixin.js'
+  import BaseMixin from '@/mixins/baseMixin.js'
   import BreadCrumb from '@/components/common/BreadCrumb'
 
   export default {

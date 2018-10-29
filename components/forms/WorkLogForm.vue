@@ -45,7 +45,7 @@
 
 <script>
   import { mapMutations } from 'vuex'
-  import VeeValidate from '@/mixins/VeeValidateMixin.js'
+  import VeeValidate from '@/mixins/veeValidateMixin.js'
 
   export default {
     mixins: [VeeValidate],

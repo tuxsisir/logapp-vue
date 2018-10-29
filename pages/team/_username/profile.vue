@@ -72,7 +72,7 @@
   }
 </style>
 <script>
-  import BaseMixin from '@/mixins/BaseMixin.js'
+  import BaseMixin from '@/mixins/baseMixin.js'
   import BreadCrumb from '@/components/common/BreadCrumb'
   import User from '@/models/User'
   import GeneralInformation from '@/components/userDetail/GeneralInformation'

@@ -20,7 +20,7 @@
 </template>
 
 <script>
-  import BaseMixin from '@/mixins/BaseMixin.js'
+  import BaseMixin from '@/mixins/baseMixin.js'
   import BreadCrumb from '@/components/common/BreadCrumb'
 
   export default {

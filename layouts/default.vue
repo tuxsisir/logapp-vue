@@ -107,12 +107,6 @@
             </v-list-tile>
             <!-- / view as admin if the user has subordinates -->
           </div>
-          <v-list-tile to="/profile/edit/">
-            <v-list-tile-action>
-              <v-icon>edit</v-icon>
-            </v-list-tile-action>
-            <v-list-tile-title>Edit Profile</v-list-tile-title>
-          </v-list-tile>
           <v-list-tile to="/accounts/logout/">
             <v-list-tile-action>
               <v-icon>power_settings_new</v-icon>

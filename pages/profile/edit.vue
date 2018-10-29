@@ -70,8 +70,8 @@
 <script>
   import { mapMutations } from 'vuex'
   import User from '@/models/User'
-  import BaseMixin from '@/mixins/BaseMixin.js'
-  import VeeValidate from '@/mixins/VeeValidateMixin.js'
+  import BaseMixin from '@/mixins/baseMixin.js'
+  import VeeValidate from '@/mixins/veeValidateMixin.js'
   import BreadCrumb from '@/components/common/BreadCrumb'
   import FileUpload from '@/components/common/FileUpload'
 

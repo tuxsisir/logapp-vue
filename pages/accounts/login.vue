@@ -70,8 +70,8 @@
 
 <script>
   import { mapGetters, mapMutations } from 'vuex'
-  import BaseMixin from '@/mixins/BaseMixin.js'
-  import VeeValidate from '@/mixins/VeeValidateMixin.js'
+  import BaseMixin from '@/mixins/baseMixin.js'
+  import VeeValidate from '@/mixins/veeValidateMixin.js'
   import VueNotify from '@/components/common/VSnackBar'
 
   export default {
