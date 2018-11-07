@@ -1,7 +1,9 @@
 <template>
-  <v-layout row wrap>
-    <v-flex md12 xs12>
-      <bread-crumb :breadCrumbItems="breadCrumbs"></bread-crumb>
+  <v-layout row
+            wrap>
+    <v-flex md12
+            xs12>
+      <bread-crumb :bread-crumb-items="breadCrumbs"></bread-crumb>
     </v-flex>
     <v-flex>
       <v-card>
@@ -16,7 +18,8 @@
         </v-card-title>
         <v-divider></v-divider>
         <v-card-text>
-          <v-card class="text-xs-center" dark>
+          <v-card class="text-xs-center"
+                  dark>
             <v-card-text>
               <p class="subheading">Distribute Score</p>
               <v-divider></v-divider>
@@ -34,13 +37,13 @@
 
   export default {
     middleware: ['admin'],
-    mixins: [BaseMixin],
     components: { BreadCrumb },
+    mixins: [BaseMixin],
     data () {
       return {
         htmlTitle: 'Distribute Score | core.aayulogic',
         breadCrumbs: [
-          { text: 'Overview', disabled: false, to: '/admin/overview/'},
+          { text: 'Overview', disabled: false, to: '/admin/overview/' },
           { text: 'Distribute Score', disabled: true }
         ]
       }

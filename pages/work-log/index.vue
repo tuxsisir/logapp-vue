@@ -1,13 +1,19 @@
 <template>
   <div>
     <work-log-list-content-loader v-if="contentLoading"></work-log-list-content-loader>
-    <v-layout v-else row align-center fill-height wrap>
+    <v-layout v-else
+              row
+              align-center
+              fill-height
+              wrap>
       <vue-notify :notify="notify"></vue-notify>
-      <v-flex md12 xs12>
-        <bread-crumb :breadCrumbItems="breadCrumbs"></bread-crumb>
+      <v-flex md12
+              xs12>
+        <bread-crumb :bread-crumb-items="breadCrumbs"></bread-crumb>
       </v-flex>
-      <v-flex md12 xs12>
-        <work-log-stats :statsData="logStats"></work-log-stats>
+      <v-flex md12
+              xs12>
+        <work-log-stats :stats-data="logStats"></work-log-stats>
       </v-flex>
       <v-flex md12>
         <v-card>
@@ -31,10 +37,15 @@
             :rows-per-page-items="rowsPerPageItems"
             class="elevation-1"
           >
-            <v-progress-linear slot="progress" color="blue" indeterminate></v-progress-linear>
-            <template slot="items" slot-scope="props">
+            <v-progress-linear slot="progress"
+                               color="blue"
+                               indeterminate></v-progress-linear>
+            <template slot="items"
+                      slot-scope="props">
               <td>
-                <div class="pa-3" id="markdownPreview" v-html="truncatedWorkLog($md.render(props.item.log))"></div>
+                <div id="markdownPreview"
+                     class="pa-3"
+                     v-html="truncatedWorkLog($md.render(props.item.log))"></div>
               </td>
               <td class="">
                 <div><span class="text-muted">Log of :</span> <span
@@ -43,7 +54,8 @@
                 <div><span class="text-muted">Modified:</span> {{ props.item.modified }}</div>
               </td>
               <td class="">
-                <v-tooltip v-if="props.item.log_reviewed" bottom>
+                <v-tooltip v-if="props.item.log_reviewed"
+                           bottom>
                   <v-btn
                     slot="activator"
                     flat
@@ -53,15 +65,28 @@
                   </v-btn>
                   <span>You cannot log your work once it has been reviewed.</span>
                 </v-tooltip>
-                <v-btn v-else flat icon class="text-muted" router :to="'/work-log/' + props.item.id + '/edit/'">
+                <v-btn v-else
+                       :to="'/work-log/' + props.item.id + '/edit/'"
+                       flat
+                       icon
+                       class="text-muted"
+                       router>
                   <v-icon>edit</v-icon>
                 </v-btn>
-                <v-btn flat icon class="text-muted" router :to="'/work-log/' + props.item.id + '/detail'">
+                <v-btn :to="'/work-log/' + props.item.id + '/detail'"
+                       flat
+                       icon
+                       class="text-muted"
+                       router>
                   <v-icon>list</v-icon>
                 </v-btn>
               </td>
             </template>
-            <v-alert slot="no-data" :value="true" color="info" icon="warning" class="my-3">
+            <v-alert slot="no-data"
+                     :value="true"
+                     color="info"
+                     icon="warning"
+                     class="my-3">
               <span v-if="search.length > 0">Your search for "{{ search }}" found no results.</span>
               <span v-else>No data found.</span>
             </v-alert>
@@ -85,8 +110,8 @@
   import WorkLogStats from '@/components/worklog/StatsCounter'
 
   export default {
-    mixins: [BaseMixin, DataTableMixin],
     components: { BreadCrumb, WorkLogStats, WorkLogListContentLoader },
+    mixins: [BaseMixin, DataTableMixin],
     data () {
       return {
         htmlTitle: 'My Work Logs | core.aayulogic.com',
@@ -113,17 +138,17 @@
       let model = new WorkLogs()
       this.endpoint = model.endpoint()
     },
-    methods: {
-      truncatedWorkLog (log) {
-        return this.$options.filters.truncate(log, 100)
-      }
-    },
     async mounted () {
       this.contentLoading = true
       let logs = await WorkLogs.first()
       this.logStats = logs.stats
       console.log('page ma')
       this.contentLoading = false
+    },
+    methods: {
+      truncatedWorkLog (log) {
+        return this.$options.filters.truncate(log, 100)
+      }
     }
   }
 </script>

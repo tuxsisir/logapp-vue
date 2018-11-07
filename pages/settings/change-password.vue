@@ -1,9 +1,12 @@
 <template>
-  <v-layout row wrap justify-center>
+  <v-layout row
+            wrap
+            justify-center>
     <v-flex xs12>
-      <bread-crumb :breadCrumbItems="breadCrumbs"></bread-crumb>
+      <bread-crumb :bread-crumb-items="breadCrumbs"></bread-crumb>
     </v-flex>
-    <v-flex md8 offset-md-2>
+    <v-flex md8
+            offset-md-2>
       <v-card>
         <v-card-title>
           <h2 class="font-weight-thin">Change Password</h2>
@@ -12,32 +15,34 @@
         <v-card-text>
           <v-form>
             <v-text-field
-              prepend-icon="vpn_key"
+              v-validate="'required'"
               v-model="form.old_password"
-              type="password"
-              v-validate="'required'"
-              v-bind="this.veeValidate('old_password', 'Old Password')">
+              v-bind="veeValidate('old_password', 'Old Password')"
+              prepend-icon="vpn_key"
+              type="password">
             </v-text-field>
             <v-text-field
-              prepend-icon="lock"
+              v-validate="'required'"
               v-model="form.new_password"
-              type="password"
-              v-validate="'required'"
-              v-bind="this.veeValidate('new_password', 'New Password')">
+              v-bind="veeValidate('new_password', 'New Password')"
+              prepend-icon="lock"
+              type="password">
             </v-text-field>
             <v-text-field
-              prepend-icon="lock_open"
-              v-model="form.confirm_password"
-              type="password"
               v-validate="'required'"
-              v-bind="this.veeValidate('confirm_password', 'Confirm Password')">
+              v-model="form.confirm_password"
+              v-bind="veeValidate('confirm_password', 'Confirm Password')"
+              prepend-icon="lock_open"
+              type="password">
             </v-text-field>
-            <v-btn color="info" :disabled="errors.any()" @click="submitForm">Submit</v-btn>
+            <v-btn :disabled="errors.any()"
+                   color="info"
+                   @click="submitForm">Submit</v-btn>
             <v-btn>Reset</v-btn>
           </v-form>
         </v-card-text>
       </v-card>
-      <vue-notify :notify="notify"></vue-notify:>
+      <vue-notify :notify="notify"></vue-notify>
     </v-flex>
   </v-layout>
 </template>
@@ -48,8 +53,23 @@
   import BreadCrumb from '@/components/common/BreadCrumb'
 
   export default {
-    mixins: [BaseMixin, VeeValidate],
     components: { BreadCrumb },
+    mixins: [BaseMixin, VeeValidate],
+    data () {
+      return {
+        htmlTitle: 'Settings | Change Password | core.aayulogic',
+        form: {
+          old_password: '',
+          new_password: '',
+          confirm_password: ''
+        },
+        breadCrumbs: [
+          { text: 'Home', disabled: false },
+          { text: 'Settings', disabled: true },
+          { text: 'Change Password', disabled: true }
+        ]
+      }
+    },
     methods: {
       submitForm () {
         this.$axios.$post('/user/detail/change-password/', this.form).then((response) => {
@@ -64,21 +84,6 @@
         Object.keys(formData).forEach(function (key) {
           formData[key] = ''
         })
-      }
-    },
-    data () {
-      return {
-        htmlTitle: 'Settings | Change Password | core.aayulogic',
-        form: {
-          old_password: '',
-          new_password: '',
-          confirm_password: ''
-        },
-        breadCrumbs: [
-          { text: 'Home', disabled: false },
-          { text: 'Settings', disabled: true },
-          { text: 'Change Password', disabled: true }
-        ]
       }
     }
   }

@@ -1,7 +1,8 @@
 <template>
-  <v-layout row wrap>
+  <v-layout row
+            wrap>
     <v-flex md12>
-      <bread-crumb :breadCrumbItems="breadCrumbs"></bread-crumb>
+      <bread-crumb :bread-crumb-items="breadCrumbs"></bread-crumb>
       <vue-notify :notify="notify"></vue-notify>
     </v-flex>
     <v-flex md12>
@@ -19,11 +20,12 @@
           <v-icon>edit</v-icon>
         </v-btn>
         <v-img
+          :src="`https://picsum.photos/1200/300/?random`"
+          :lazy-src="`https://picsum.photos/1200/300/?random`"
           style="border: 1px solid #efefef"
           height="300"
           aspect-ratio="2"
-          :src="`https://picsum.photos/1200/300/?random`"
-          :lazy-src="`https://picsum.photos/1200/300/?random`" cover>
+          cover>
           <v-layout
             slot="placeholder"
             fill-height
@@ -31,10 +33,16 @@
             justify-center
             ma-0
           >
-            <v-progress-circular indeterminate color="blue lighten-5"></v-progress-circular>
+            <v-progress-circular indeterminate
+                                 color="blue lighten-5"></v-progress-circular>
           </v-layout>
         </v-img>
-        <v-btn fab absolute top left flat color="transparent">
+        <v-btn fab
+               absolute
+               top
+               left
+               flat
+               color="transparent">
           <v-avatar
             :tile="false"
             :size="150"
@@ -42,7 +50,9 @@
             class=""
             style="top: 220px; left: 60px;"
           >
-            <v-img :src="userInfo.profile_picture" alt="avatar" aspect-ratio="1.7">
+            <v-img :src="userInfo.profile_picture"
+                   alt="avatar"
+                   aspect-ratio="1.7">
               <v-layout
                 slot="placeholder"
                 fill-height
@@ -50,12 +60,14 @@
                 justify-center
                 ma-0
               >
-                <v-progress-circular indeterminate color="blue lighten-5"></v-progress-circular>
+                <v-progress-circular indeterminate
+                                     color="blue lighten-5"></v-progress-circular>
               </v-layout>
             </v-img>
           </v-avatar>
         </v-btn>
-        <v-card-title primary-title class="mt-3">
+        <v-card-title primary-title
+                      class="mt-3">
           <div class="mt-3">
             <h3 class="headline mb-0 font-weight-bold mr-3 text-md-left">{{ userInfo.name }}</h3>
             <span class="caption text-grey">({{ userInfo.department }})</span>
@@ -64,7 +76,11 @@
         </v-card-title>
         <v-divider></v-divider>
         <v-card-text>
-          <v-layout row wrap align-center justify-center class="text-md-center">
+          <v-layout row
+                    wrap
+                    align-center
+                    justify-center
+                    class="text-md-center">
             <v-flex>
               <h3 class="font-weight-thin">Username</h3>
               <p class="title mt-2 font-weight-bold">{{ userInfo.username }}</p>
@@ -98,15 +114,8 @@
   import BreadCrumb from '@/components/common/BreadCrumb'
 
   export default {
-    mixins: [BaseMixin],
     components: { BreadCrumb },
-    created () {
-      this.displaySnack()
-    },
-    async mounted () {
-      let user = await User.find('me')
-      this.userInfo = user
-    },
+    mixins: [BaseMixin],
     data () {
       return {
         htmlTitle: 'My Profile | core.aayulogic',
@@ -115,8 +124,15 @@
           { text: 'My Profile', disabled: true }
         ],
         notify: {},
-        userInfo: {},
+        userInfo: {}
       }
+    },
+    created () {
+      this.displaySnack()
+    },
+    async mounted () {
+      let user = await User.find('me')
+      this.userInfo = user
     }
   }
 </script>

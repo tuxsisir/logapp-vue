@@ -1,7 +1,8 @@
 <template>
-  <v-layout row wrap>
+  <v-layout row
+            wrap>
     <v-flex md12>
-      <bread-crumb :breadCrumbItems="breadCrumbs"></bread-crumb>
+      <bread-crumb :bread-crumb-items="breadCrumbs"></bread-crumb>
     </v-flex>
     <v-flex md12>
       <v-card>
@@ -14,34 +15,35 @@
         <v-divider></v-divider>
         <v-card-text>
           <v-form enctype="multipart/form-data">
-            <v-layout row wrap>
+            <v-layout row
+                      wrap>
               <v-flex md4>
                 <v-text-field
-                  prepend-icon="account_box"
-                  type="text"
-                  v-model="form.name"
                   v-validate="'alpha_spaces|required|max:50'"
+                  v-model="form.name"
                   :counter="50"
-                  v-bind="this.veeValidate('name', 'Full Name')">>
+                  v-bind="veeValidate('name', 'Full Name')"
+                  prepend-icon="account_box"
+                  type="text">>
                 </v-text-field>
               </v-flex>
               <v-flex md4>
                 <v-text-field
-                  prepend-icon="phone"
-                  type="text"
-                  v-model="form.contact_number"
                   v-validate="'digits:10|required|max:10'"
+                  v-model="form.contact_number"
                   :counter="10"
-                  v-bind="this.veeValidate('contact_number', 'Contact Number')">
+                  v-bind="veeValidate('contact_number', 'Contact Number')"
+                  prepend-icon="phone"
+                  type="text">
                 </v-text-field>
               </v-flex>
               <v-flex md4>
                 <v-select
-                  prepend-icon="wc"
+                  v-validate="'required'"
                   :items="genderChoices"
                   v-model="form.gender"
-                  v-validate="'required'"
-                  v-bind="this.veeValidate('gender', 'Gender')">
+                  v-bind="veeValidate('gender', 'Gender')"
+                  prepend-icon="wc">
                 </v-select>
               </v-flex>
               <v-flex md6>
@@ -49,15 +51,18 @@
               </v-flex>
               <v-flex md6>
                 <v-textarea
-                  prepend-icon="note"
-                  v-model="form.status"
                   v-validate="'required'"
-                  v-bind="this.veeValidate('status', 'Status')"
+                  v-model="form.status"
+                  v-bind="veeValidate('status', 'Status')"
+                  prepend-icon="note"
                   rows="1"
                 ></v-textarea>
               </v-flex>
               <v-flex md12>
-                <v-btn color="info" @click="editProfile" :disabled="errors.any()">Submit</v-btn>
+                <v-btn :disabled="errors.any()"
+                       color="info"
+                       @click="editProfile">Submit
+                </v-btn>
                 <v-btn>Reset</v-btn>
               </v-flex>
             </v-layout>
@@ -76,8 +81,27 @@
   import FileUpload from '@/components/common/FileUpload'
 
   export default {
-    mixins: [BaseMixin, VeeValidate],
     components: { BreadCrumb, FileUpload },
+    mixins: [BaseMixin, VeeValidate],
+    data () {
+      return {
+        htmlTitle: 'My Profile | Edit | core.aayulogic',
+        genderChoices: ['Male', 'Female', 'Other'],
+        fileChanged: false,
+        form: {
+          username: '',
+          name: '',
+          status: '',
+          gender: 'Male',
+          contact_number: '',
+          profile_picture: null
+        },
+        breadCrumbs: [
+          { text: 'My Profile', disabled: false, to: '/profile/' },
+          { text: 'Edit Profile', disabled: true }
+        ]
+      }
+    },
     async mounted () {
       this.userData = await User.find('me')
       this.form = {
@@ -116,25 +140,6 @@
         //   this.$router.push('/profile/')
         //   this.notifyUser('Successfully edited profile!', 'green')
         // })
-      }
-    },
-    data () {
-      return {
-        htmlTitle: 'My Profile | Edit | core.aayulogic',
-        genderChoices: ['Male', 'Female', 'Other'],
-        fileChanged: false,
-        form: {
-          username: '',
-          name: '',
-          status: '',
-          gender: 'Male',
-          contact_number: '',
-          profile_picture: null
-        },
-        breadCrumbs: [
-          { text: 'My Profile', disabled: false, to: '/profile/' },
-          { text: 'Edit Profile', disabled: true }
-        ]
       }
     }
   }

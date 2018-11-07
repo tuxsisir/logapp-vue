@@ -1,13 +1,13 @@
 <template>
   <div>
-    <v-text-field label="Select File/Image"
-                  @click='pickFile'
-                  v-model='fileName'
-                  prepend-icon='attach_file'></v-text-field>
+    <v-text-field v-model="fileName"
+                  label="Select File/Image"
+                  prepend-icon="attach_file"
+                  @click="pickFile"></v-text-field>
     <input
+      ref="file"
       type="file"
       style="display: none"
-      ref="file"
       accept="image/*"
       @change="onFilePicked"
     >

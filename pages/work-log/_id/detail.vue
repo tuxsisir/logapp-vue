@@ -1,9 +1,12 @@
 <template>
   <div>
     <work-log-detail-loader v-if="contentLoading"></work-log-detail-loader>
-    <v-layout v-else row wrap>
-      <v-flex md12 xs12>
-        <bread-crumb :breadCrumbItems="breadCrumbs"></bread-crumb>
+    <v-layout v-else
+              row
+              wrap>
+      <v-flex md12
+              xs12>
+        <bread-crumb :bread-crumb-items="breadCrumbs"></bread-crumb>
       </v-flex>
       <v-flex md8>
         <v-card>
@@ -16,7 +19,8 @@
             <p class="mb-1">Modified: {{ fetchedResults.modified }}</p>
             <p>By: {{ fetchedResults.log_by.name }}</p>
             <v-divider class="mb-3"></v-divider>
-            <div id="markdownPreview" v-html='$md.render(log)'></div>
+            <div id="markdownPreview"
+                 v-html="$md.render(log)"></div>
           </v-card-text>
         </v-card>
       </v-flex>
@@ -31,7 +35,7 @@
               <v-list>
                 <v-list-tile>
                   <v-list-tile-avatar>
-                    <user-hover-card :userDetail="fetchedResults.log_review[0].reviewer"></user-hover-card>
+                    <user-hover-card :user-detail="fetchedResults.log_review[0].reviewer"></user-hover-card>
                   </v-list-tile-avatar>
                   <v-list-tile-content>
                     {{ fetchedResults.log_review[0].remarks || 'N/A' }}
@@ -39,18 +43,24 @@
                 </v-list-tile>
               </v-list>
             </div>
-            <v-alert v-else color="info" :value="true" outline icon="warning">
+            <v-alert v-else
+                     :value="true"
+                     color="info"
+                     outline
+                     icon="warning">
               No log review found.
             </v-alert>
           </v-card-text>
         </v-card>
-        <v-card class="my-3" v-if="fetchedResults.score_data.length > 0">
+        <v-card v-if="fetchedResults.score_data.length > 0"
+                class="my-3">
           <v-card-title>
             <h2 class="font-weight-thin">Score / Review</h2>
           </v-card-title>
           <v-divider></v-divider>
           <v-card-text>
-            <v-layout align-center justify-space-between>
+            <v-layout align-center
+                      justify-space-between>
               <v-flex>
                 <h3 class="display-1 text-muted text-xs-center font-weight-thin">{{ fetchedResults.score_data[0].points_scored }}</h3>
               </v-flex>
@@ -73,8 +83,8 @@
   import WorkLogDetailLoader from '@/components/loaders/WorkLogDetailLoader'
 
   export default {
-    mixins: [BaseMixin],
     components: { UserHoverCard, WorkLogDetailLoader, BreadCrumb },
+    mixins: [BaseMixin],
     data () {
       return {
         htmlTitle: 'Work Log | Detail | core.aayulogic',

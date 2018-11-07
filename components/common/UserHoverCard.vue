@@ -7,9 +7,9 @@
     open-on-hover
   >
     <v-avatar
+      slot="activator"
       size="50"
       color="grey lighten-4"
-      slot="activator"
     >
       <v-img :src="userDetail.profile_picture"></v-img>
     </v-avatar>
@@ -28,7 +28,8 @@
       <v-divider></v-divider>
       <v-card-actions>
         <v-spacer></v-spacer>
-        <v-btn flat @click="menu = false">Cancel</v-btn>
+        <v-btn flat
+               @click="menu = false">Cancel</v-btn>
       </v-card-actions>
     </v-card>
   </v-menu>

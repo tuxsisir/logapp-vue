@@ -52,11 +52,9 @@ export default {
         } else {
           for (let errorFieldInner in errorResponse[errorField]) {
             if (this.$validator.fields.find({ 'name': errorFieldInner })) {
-              this.addFieldValidation(errorFieldInner,
-                errorResponse[errorField][errorFieldInner][0])
+              this.addFieldValidation(errorFieldInner, errorResponse[errorField][errorFieldInner][0])
             } else {
-              this.addNonFieldValidation(errorFieldInner,
-                errorResponse[errorField][errorFieldInner][0])
+              this.addNonFieldValidation(errorFieldInner, errorResponse[errorField][errorFieldInner][0])
             }
           }
         }

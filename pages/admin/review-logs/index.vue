@@ -1,7 +1,9 @@
 <template>
-  <v-layout row wrap>
-    <v-flex md12 xs12>
-      <bread-crumb :breadCrumbItems="breadCrumbs"></bread-crumb>
+  <v-layout row
+            wrap>
+    <v-flex md12
+            xs12>
+      <bread-crumb :bread-crumb-items="breadCrumbs"></bread-crumb>
     </v-flex>
     <v-flex>
       <logs-to-review></logs-to-review>
@@ -15,8 +17,8 @@
 
   export default {
     middleware: ['admin'],
-    mixins: [BaseMixin],
     components: { LogsToReview, BreadCrumb },
+    mixins: [BaseMixin],
     data () {
       return {
         htmlTitle: 'Logs To Review | core.aayulogic',

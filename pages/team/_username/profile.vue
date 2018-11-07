@@ -1,15 +1,19 @@
 <template>
-  <v-layout row wrap align-center justify-center>
+  <v-layout row
+            wrap
+            align-center
+            justify-center>
     <v-flex md12>
-      <bread-crumb :breadCrumbItems="breadCrumbs"></bread-crumb>
+      <bread-crumb :bread-crumb-items="breadCrumbs"></bread-crumb>
       <vue-notify :notify="notify"></vue-notify>
     </v-flex>
     <v-flex>
       <v-img
+        :src="`https://picsum.photos/1200/300/?random`"
+        :lazy-src="`https://picsum.photos/1200/300/?random`"
         height="300"
         aspect-ratio="2"
-        :src="`https://picsum.photos/1200/300/?random`"
-        :lazy-src="`https://picsum.photos/1200/300/?random`" cover>
+        cover>
         <v-layout
           slot="placeholder"
           fill-height
@@ -17,17 +21,25 @@
           justify-center
           ma-0
         >
-          <v-progress-circular indeterminate color="blue lighten-5"></v-progress-circular>
+          <v-progress-circular indeterminate
+                               color="blue lighten-5"></v-progress-circular>
         </v-layout>
       </v-img>
-      <v-btn fab absolute top left flat color="transparent">
+      <v-btn fab
+             absolute
+             top
+             left
+             flat
+             color="transparent">
         <v-avatar
           :tile="false"
           :size="150"
           color="white"
           class="public-profile-image"
         >
-          <v-img :src="userDetail.profile_picture" alt="avatar" aspect-ratio="1.7">
+          <v-img :src="userDetail.profile_picture"
+                 alt="avatar"
+                 aspect-ratio="1.7">
             <v-layout
               slot="placeholder"
               fill-height
@@ -35,12 +47,16 @@
               justify-center
               ma-0
             >
-              <v-progress-circular indeterminate color="blue lighten-5"></v-progress-circular>
+              <v-progress-circular indeterminate
+                                   color="blue lighten-5"></v-progress-circular>
             </v-layout>
           </v-img>
         </v-avatar>
       </v-btn>
-      <v-toolbar color="blue" height="40" dark tabs>
+      <v-toolbar color="blue"
+                 height="40"
+                 dark
+                 tabs>
         <v-tabs
           slot="extension"
           centered
@@ -50,7 +66,7 @@
           <v-tab
             v-for="tab in tabHeadings"
             :key="tab"
-            v-on:click="currentTab = tab">
+            @click="currentTab = tab">
             {{ tab }}
           </v-tab>
         </v-tabs>
@@ -58,7 +74,8 @@
       <v-tabs-items>
         <v-tab-item v-for="tab in tabHeadings"
                     :key="tab">
-          <component v-bind:is="currentComponent" :userDetail="userDetail"></component>
+          <component :is="currentComponent"
+                     :user-detail="userDetail"></component>
         </v-tab-item>
       </v-tabs-items>
 
@@ -80,27 +97,13 @@
   import WorkLogSummary from '@/components/userDetail/WorkLogSummary'
 
   export default {
-    mixins: [BaseMixin],
     components: {
       'bread-crumb': BreadCrumb,
       'tab-general-information': GeneralInformation,
       'tab-work-log': WorkLogSummary,
       'tab-log-reviewers': LogReviewer
     },
-    created () {
-      this.displaySnack()
-      let username = this.$route.params.username
-      this.getUserDetail(username)
-    },
-    methods: {
-      async getUserDetail (username) {
-        let user = await User.find(username)
-        this.userDetail = user
-      }
-    },
-    validate ({ params }) {
-      return /^[a-zA-Z0-9._-]+$/.test(params.username)
-    },
+    mixins: [BaseMixin],
     data () {
       return {
         htmlTitle: 'Team | Profile | core.aayulogic',
@@ -120,6 +123,20 @@
         let tabComponent = this.currentTab.split(' ').join('-').toLowerCase()
         return 'tab-' + tabComponent
       }
+    },
+    created () {
+      this.displaySnack()
+      let username = this.$route.params.username
+      this.getUserDetail(username)
+    },
+    methods: {
+      async getUserDetail (username) {
+        let user = await User.find(username)
+        this.userDetail = user
+      }
+    },
+    validate ({ params }) {
+      return /^[a-zA-Z0-9._-]+$/.test(params.username)
     }
   }
 </script>

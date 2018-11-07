@@ -10,12 +10,13 @@
       <v-tab
         v-for="tab in tabData"
         :key="tab.name"
-        v-on:click="currentTab = tab.name">
+        @click="currentTab = tab.name">
         {{ tab.name }}
         <v-icon>{{ tab.icon }}</v-icon>
       </v-tab>
     </v-tabs>
-    <component v-bind:is="currentTabComponent" class="tab"></component>
+    <component :is="currentTabComponent"
+               class="tab"></component>
   </div>
 </template>
 
@@ -51,4 +52,3 @@
     }
   }
 </script>
-

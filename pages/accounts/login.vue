@@ -1,12 +1,23 @@
 <template>
-  <v-layout align-center row wrap @keyup.13="login">
+  <v-layout align-center
+            justify-center
+            row
+            wrap
+            @keyup.13="login">
     <v-flex md12>
       <v-card class="elevation-6">
         <v-card-text>
-          <v-layout justify-center row wrap>
-            <v-flex md6 xs12>
+          <v-layout
+            align-center
+            justify-center
+            row
+            wrap>
+            <v-flex md6
+                    xs12>
               <div class="pa-3 mx-2">
-                <v-img src="/images/logo-blue.png" height="60px" contain></v-img>
+                <v-img src="/images/logo-blue.png"
+                       height="60px"
+                       contain></v-img>
                 <v-divider class="mt-4 mb-5"></v-divider>
                 <vue-notify :notify="notify"></vue-notify>
                 <v-alert
@@ -20,36 +31,46 @@
                   Invalid login credentials.
                 </v-alert>
                 <v-form>
-                  <v-text-field prepend-icon="email"
-                                type="text"
+                  <v-text-field v-validate="'email|max:50'"
                                 v-model="email"
-                                v-validate="'email|max:50'"
                                 :counter="50"
-                                v-bind="this.veeValidate('email', 'Email Address')">
+                                v-bind="veeValidate('email', 'Email Address')"
+                                prepend-icon="email"
+                                type="text">
                   </v-text-field>
-                  <v-text-field prepend-icon="vpn_key"
-                                type="password"
+                  <v-text-field v-validate="'max:50'"
                                 v-model="password"
-                                v-validate="'max:30'"
-                                :counter="30"
-                                v-bind="this.veeValidate('password', 'Password')">
+                                :counter="50"
+                                v-bind="veeValidate('password', 'Password')"
+                                prepend-icon="vpn_key"
+                                type="password">
                   </v-text-field>
                   <div class="mt-4">
-                    <v-btn color="primary" @click="login">Login</v-btn>
-                    <v-btn color="white" @click="clearForm">Reset</v-btn>
+                    <v-btn color="primary"
+                           @click="login">Login
+                    </v-btn>
+                    <v-btn color="white"
+                           @click="clearForm">Reset
+                    </v-btn>
                   </div>
                   <div class="mt-4">
-                    <v-btn flat small class="text-lowercase text-muted">&copy; aayulogic 2018</v-btn>
+                    <v-btn flat
+                           small
+                           class="text-lowercase text-muted">&copy; aayulogic 2018
+                    </v-btn>
                   </div>
                 </v-form>
               </div>
               <v-divider class="hidden-sm-and-up my-3"></v-divider>
             </v-flex>
-            <v-flex md6 xs12>
+            <v-flex md6
+                    xs12>
               <v-img
-                style="border: 1px solid #efefef"
                 :src="`https://picsum.photos/900/900/?random`"
-                :lazy-src="`https://picsum.photos/900/900/?random`" aspect-ratio="1.1" cover>
+                :lazy-src="`https://picsum.photos/900/900/?random`"
+                style="border: 1px solid #efefef"
+                aspect-ratio="1.1"
+                cover>
                 <v-layout
                   slot="placeholder"
                   fill-height
@@ -57,7 +78,8 @@
                   justify-center
                   ma-0
                 >
-                  <v-progress-circular indeterminate color="blue lighten-5"></v-progress-circular>
+                  <v-progress-circular indeterminate
+                                       color="blue lighten-5"></v-progress-circular>
                 </v-layout>
               </v-img>
             </v-flex>
@@ -75,14 +97,11 @@
   import VueNotify from '@/components/common/VSnackBar'
 
   export default {
+    components: { VueNotify },
+    mixins: [BaseMixin, VeeValidate],
     auth: false,
     layout: 'account',
     middleware: 'guest',
-    components: { VueNotify },
-    mixins: [BaseMixin, VeeValidate],
-    created () {
-      this.displaySnack()
-    },
     data () {
       return {
         htmlTitle: 'Account | Login | Aayulogic',
@@ -94,6 +113,9 @@
     },
     computed: {
       ...mapGetters(['getUserFullName'])
+    },
+    created () {
+      this.displaySnack()
     },
     methods: {
       ...mapMutations(['updateAuthToken']),
@@ -119,9 +141,6 @@
         this.email = ''
         this.password = ''
       }
-    },
-    props: {
-      source: String
     }
   }
 </script>

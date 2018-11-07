@@ -1,8 +1,9 @@
 <template>
   <div>
-    <v-layout row wrap>
+    <v-layout row
+              wrap>
       <v-flex md12>
-        <bread-crumb :breadCrumbItems="breadCrumbs"></bread-crumb>
+        <bread-crumb :bread-crumb-items="breadCrumbs"></bread-crumb>
       </v-flex>
       <v-flex md12>
         <v-card>
@@ -11,7 +12,7 @@
           </v-card-title>
           <v-divider></v-divider>
           <v-card-text v-if="fetched">
-            <work-log-form v-bind:formData="editData"></work-log-form>
+            <work-log-form :form-data="editData"></work-log-form>
           </v-card-text>
         </v-card>
       </v-flex>
@@ -25,10 +26,21 @@
   import WorkLogForm from '@/components/forms/WorkLogForm'
 
   export default {
-    mixins: [BaseMixin],
     components: { BreadCrumb, WorkLogForm },
+    mixins: [BaseMixin],
     validate ({ params }) {
       return /^\d+$/.test(params.id)
+    },
+    data () {
+      return {
+        htmlTitle: 'Edit Log | core.aayulogic',
+        breadCrumbs: [
+          { text: 'Home', disabled: false, to: '/' },
+          { text: 'Edit Log', disabled: true }
+        ],
+        fetched: false,
+        editData: {}
+      }
     },
     created () {
       let detailID = this.$route.params.id
@@ -40,17 +52,6 @@
           this.editData = response
           this.fetched = true
         })
-      }
-    },
-    data () {
-      return {
-        htmlTitle: 'Edit Log | core.aayulogic',
-        breadCrumbs: [
-          { text: 'Home', disabled: false, to: '/' },
-          { text: 'Edit Log', disabled: true }
-        ],
-        fetched: false,
-        editData: {}
       }
     }
   }

@@ -1,5 +1,8 @@
 <template>
-  <v-layout row wrap align-center justify-center>
+  <v-layout row
+            wrap
+            align-center
+            justify-center>
     <v-flex md12>
       <v-card>
         <v-card-title>
@@ -15,21 +18,28 @@
         </v-card-title>
         <v-divider></v-divider>
         <v-card-text>
-          <v-expansion-panel v-if="items.length > 0" focusable popout>
+          <v-expansion-panel v-if="items.length > 0"
+                             focusable
+                             popout>
             <v-expansion-panel-content
               v-for="(item, index) in items"
               :key="index"
             >
-              <div slot="header" class="title">
+              <div slot="header"
+                   class="title">
                 {{ item.log_by.name }} - {{ item.log_date }}
               </div>
               <v-card>
                 <v-card-text>
-                  <div id="markdownPreview" v-html='$md.render(item.log)'></div>
+                  <div id="markdownPreview"
+                       v-html="$md.render(item.log)"></div>
                 </v-card-text>
                 <v-divider></v-divider>
                 <v-card-actions>
-                  <v-btn flat color="info" router :to="'/admin/review-logs/' + item.id + '/detail/'">
+                  <v-btn :to="'/admin/review-logs/' + item.id + '/detail/'"
+                         flat
+                         color="info"
+                         router>
                     View Log Details to Review
                   </v-btn>
                 </v-card-actions>
@@ -38,7 +48,8 @@
           </v-expansion-panel>
         </v-card-text>
         <no-ssr>
-          <infinite-loading @infinite="infiniteHandlerLogs" ref="infiniteLoading">
+          <infinite-loading ref="infiniteLoading"
+                            @infinite="infiniteHandlerLogs">
             <span slot="no-more">No further data found.</span>
             <span slot="no-results">No further data found.</span>
           </infinite-loading>
@@ -60,12 +71,12 @@
     methods: {
       infiniteHandlerLogs ($state) {
         this.$axios.$get('/work-log/to/review/',
-          {
-            params: {
-              limit: this.nextLimit,
-              offset: this.nextOffset
-            }
-          }).then((response) => {
+                         {
+                           params: {
+                             limit: this.nextLimit,
+                             offset: this.nextOffset
+                           }
+        }).then((response) => {
           this.total = response.count
           if (response.next) {
             this.extractLimitOffset(response.next)

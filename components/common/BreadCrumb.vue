@@ -1,6 +1,7 @@
 <template>
   <v-card>
-    <v-breadcrumbs class="py-2 px-3 mb-1" :items="breadCrumbItems">
+    <v-breadcrumbs :items="breadCrumbItems"
+                   class="py-2 px-3 mb-1">
       <v-icon slot="divider">chevron_right</v-icon>
     </v-breadcrumbs>
   </v-card>
@@ -9,7 +10,12 @@
 <script>
   export default {
     name: 'BreadCrumb',
-    props: { breadCrumbItems: Array },
+    props: {
+      breadCrumbItems: {
+        type: Array,
+        required: true
+      }
+    },
     data () {
       return {}
     }

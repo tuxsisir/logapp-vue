@@ -1,9 +1,13 @@
 <template>
-  <v-layout align-center justify-center row wrap>
+  <v-layout align-center
+            justify-center
+            row
+            wrap>
     <v-flex md12>
-      <bread-crumb :breadCrumbItems="breadCrumbs"></bread-crumb>
+      <bread-crumb :bread-crumb-items="breadCrumbs"></bread-crumb>
     </v-flex>
-    <v-flex md6 offset-md-3>
+    <v-flex md6
+            offset-md-3>
       <v-card>
         <v-card-title>
           <h2 class="font-weight-thin">About core.aayulogic.com</h2>
@@ -24,8 +28,8 @@
   import BreadCrumb from '@/components/common/BreadCrumb'
 
   export default {
-    mixins: [BaseMixin],
     components: { BreadCrumb },
+    mixins: [BaseMixin],
     data () {
       return {
         htmlTitle: 'About | core.aayulogic',

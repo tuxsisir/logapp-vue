@@ -1,6 +1,10 @@
 <template>
-  <v-layout row wrap align-center justify-center>
-    <v-flex md10 offset-md-1>
+  <v-layout row
+            wrap
+            align-center
+            justify-center>
+    <v-flex md10
+            offset-md-1>
       <v-card>
         <v-card-title>
           <div>
@@ -15,8 +19,8 @@
             <v-timeline-item
               v-for="(item, i) in items"
               :color="item.score_color"
-              icon="star"
               :key="i"
+              icon="star"
             >
               <v-card
                 :color="item.score_color"
@@ -26,19 +30,20 @@
                 <v-card-text class="white text--primary">
                   <p class="subheading"><i>{{ item.text }}</i></p>
                   <!--<v-btn-->
-                    <!--v-if="item.score_criteria.title == 'Work Log'"-->
-                    <!--:color="item.score_color"-->
-                    <!--class="mx-0"-->
-                    <!--outline-->
+                  <!--v-if="item.score_criteria.title == 'Work Log'"-->
+                  <!--:color="item.score_color"-->
+                  <!--class="mx-0"-->
+                  <!--outline-->
                   <!--&gt;-->
-                    <!--View Work Log-->
+                  <!--View Work Log-->
                   <!--</v-btn>-->
                 </v-card-text>
               </v-card>
             </v-timeline-item>
           </v-timeline>
           <no-ssr>
-            <infinite-loading @infinite="infiniteHandler" ref="infiniteLoading">
+            <infinite-loading ref="infiniteLoading"
+                              @infinite="infiniteHandler">
               <span slot="no-more">No more data found ...</span>
             </infinite-loading>
           </no-ssr>
@@ -59,12 +64,12 @@
     methods: {
       infiniteHandler ($state) {
         this.$axios.$get('/score/log/',
-          {
-            params: {
-              limit: this.nextLimit,
-              offset: this.nextOffset
-            }
-          }).then((response) => {
+                         {
+                           params: {
+                             limit: this.nextLimit,
+                             offset: this.nextOffset
+                           }
+        }).then((response) => {
           if (response.next) {
             this.extractLimitOffset(response.next)
             this.items = this.items.concat(response.results)

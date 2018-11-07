@@ -1,10 +1,10 @@
 <template>
   <v-snackbar
-    right
     :value="true"
     :timeout="notify.time || 6000"
     :color="notify.color"
     v-model="notify.display"
+    right
   >
     {{ notify.text }}
     <v-btn
@@ -16,9 +16,14 @@
     </v-btn>
   </v-snackbar>
 </template>
-​
+
 <script>
   export default {
-    props: ['notify']
+    props: {
+      notify: {
+        type: Object,
+        required: true
+      }
+    }
   }
 </script>

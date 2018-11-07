@@ -1,9 +1,13 @@
 <template>
-  <v-layout align-center justify-center row wrap>
+  <v-layout align-center
+            justify-center
+            row
+            wrap>
     <v-flex md12>
-      <bread-crumb :breadCrumbItems="breadCrumbs"></bread-crumb>
+      <bread-crumb :bread-crumb-items="breadCrumbs"></bread-crumb>
     </v-flex>
-    <v-flex md6 offset-md-3>
+    <v-flex md6
+            offset-md-3>
       <v-card class="text-xs-center">
         <v-card-title>
           <h2 class="text-xs-center font-weight-thin">You are logging out from the application!</h2>
@@ -12,8 +16,10 @@
         <v-card-text>
           <p>Are you sure you want to logout?</p>
           <v-divider class="my-4"></v-divider>
-          <v-btn color="info" @click="logout">Yes Log Me Out</v-btn>
-          <v-card class="text-xs-center mt-5" dark>
+          <v-btn color="info"
+                 @click="logout">Yes Log Me Out</v-btn>
+          <v-card class="text-xs-center mt-5"
+                  dark>
             <v-card-text>
               <p>See you soon on the other side ;)</p>
               <v-divider></v-divider>
@@ -33,8 +39,8 @@
   const Cookie = process.client ? require('js-cookie') : undefined
 
   export default {
-    mixins: [BaseMixin],
     components: { BreadCrumb },
+    mixins: [BaseMixin],
     data () {
       return {
         htmlTitle: 'Account | Logout | core.aayulogic ',

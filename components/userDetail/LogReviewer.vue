@@ -1,6 +1,10 @@
 <template>
-  <v-layout row wrap align-center justify-center>
-    <v-flex md8 md-offset-2>
+  <v-layout row
+            wrap
+            align-center
+            justify-center>
+    <v-flex md8
+            md-offset-2>
       <v-card>
         <v-card-title primary-title>
           <div>
@@ -30,7 +34,10 @@
 <script>
   export default {
     props: {
-      userDetail: Object
+      userDetail: {
+        type: Object,
+        required: true
+      }
     },
     data () {
       return {

@@ -9,12 +9,12 @@
     >
       <v-list>
         <v-list-tile
-          router
-          :to="item.to"
           v-for="(item, index) in items"
           v-if="item.hasSubMenu === false"
-          v-bind:data="item.title"
-          v-bind:key="index">
+          :to="item.to"
+          :data="item.title"
+          :key="index"
+          router>
           <v-list-tile-action>
             <v-icon v-html="item.icon"></v-icon>
           </v-list-tile-action>
@@ -22,16 +22,19 @@
             <v-list-tile-title v-text="item.title"></v-list-tile-title>
           </v-list-tile-content>
         </v-list-tile>
-        <v-list-group :prepend-icon="item.icon" v-else no-action>
-          <v-list-tile slot="activator" text-xs-center>
+        <v-list-group v-else
+                      :prepend-icon="item.icon"
+                      no-action>
+          <v-list-tile slot="activator"
+                       text-xs-center>
             <v-list-tile-title v-text="item.title"></v-list-tile-title>
           </v-list-tile>
           <v-list-tile
-            router
             v-for="(subItem, index) in item.subItems"
             :to="subItem.to"
-            v-bind:data="subItem.title"
-            v-bind:key="subItem.title"
+            :data="subItem.title"
+            :key="index"
+            router
           >
             <v-list-tile-title v-text="subItem.title"></v-list-tile-title>
           </v-list-tile>
@@ -48,9 +51,12 @@
         </v-list-tile>
       </v-list>
 
-
     </v-navigation-drawer>
-    <v-toolbar fixed app :clipped-left="clipped" dark class="bg-al">
+    <v-toolbar :clipped-left="clipped"
+               fixed
+               app
+               dark
+               class="bg-al">
       <v-toolbar-side-icon @click="drawer = !drawer"></v-toolbar-side-icon>
       <v-btn
         icon
@@ -59,16 +65,18 @@
         <v-icon v-html="miniVariant ? 'chevron_right' : 'chevron_left'"></v-icon>
       </v-btn>
       <span>
-        <img src="/images/logo-white.png" height="40px">
+        <img src="/images/logo-white.png"
+             height="40px">
       </span>
       <v-spacer></v-spacer>
       <v-avatar
         size="30"
         color="grey lighten-4"
       >
-        <img :src="getUserImage" alt="avatar">
+        <img :src="getUserImage"
+             alt="avatar">
       </v-avatar>
-      <span class="ml-3 font-weight-bold hidden-xs-only">{{ getUserFullName}} <br><small
+      <span class="ml-3 font-weight-bold hidden-xs-only">{{ getUserFullName }} <br><small
         class="text-sm">({{ getUserDepartment }})</small></span>
       <v-btn
         icon
@@ -83,15 +91,16 @@
         transition="scale-transition"
       >
         <v-btn
-          icon
           slot="activator"
+          icon
         >
           <v-icon>apps</v-icon>
         </v-btn>
         <v-list>
           <!-- View as admin if the user has subordinates -->
           <div v-if="canSwitch">
-            <v-list-tile v-if="getAppView === 'user'" @click="switchAppView('admin')">
+            <v-list-tile v-if="getAppView === 'user'"
+                         @click="switchAppView('admin')">
               <v-list-tile-action>
                 <v-icon>explore</v-icon>
               </v-list-tile-action>
@@ -99,7 +108,8 @@
             </v-list-tile>
             <!-- / view as admin if the user has subordinates -->
             <!-- View as admin if the user has subordinates -->
-            <v-list-tile v-else @click="switchAppView('user')">
+            <v-list-tile v-else
+                         @click="switchAppView('user')">
               <v-list-tile-action>
                 <v-icon>group</v-icon>
               </v-list-tile-action>
@@ -117,17 +127,22 @@
       </v-menu>
     </v-toolbar>
     <v-content>
-      <v-container class="mb-5" fluid grid-list-lg>
-        <nuxt/>
+      <v-container class="mb-5"
+                   fluid
+                   grid-list-lg>
+        <nuxt></nuxt>
       </v-container>
-      <v-footer :fixed="fixed" absolute class="px-3 py-4 footer-border" color="white">
+      <v-footer :fixed="fixed"
+                absolute
+                class="px-3 py-4 footer-border"
+                color="white">
         <span class="mx-3">&copy; 2018 core.aayulogic - Powered By GCP</span>
       </v-footer>
     </v-content>
     <v-navigation-drawer
-      temporary
       :right="right"
       v-model="rightDrawer"
+      temporary
       fixed
     >
       <v-list>
@@ -140,7 +155,10 @@
       </v-list>
       <v-divider></v-divider>
       <div class="pa-2">
-        <v-alert outline color="info" icon="info" :value="true">
+        <v-alert :value="true"
+                 outline
+                 color="info"
+                 icon="info">
           Your friendly neighbourhood Notifications, coming soon!
         </v-alert>
       </div>
@@ -152,15 +170,12 @@
 
 <script>
   import { mapGetters, mapMutations } from 'vuex'
-  import SideBar from '@/utils/sidebar/index.js'
+  import sideBar from '@/utils/sidebar/index.js'
   import VueNotify from '@/components/common/VSnackBar'
   import WelcomeDialog from '@/components/WelcomeDialog'
 
   export default {
     components: { VueNotify, WelcomeDialog },
-    created () {
-      this.items = SideBar().USER
-    },
     data () {
       return {
         notify: {},
@@ -179,15 +194,18 @@
         return !!(this.getUserDepartment === 'Management' || this.isUserReviewer)
       }
     },
+    created () {
+      this.items = sideBar().USER
+    },
     methods: {
       ...mapMutations(['setAppView']),
       switchAppView (view) {
         this.setAppView(view)
         if (view === 'admin') {
-          this.items = SideBar().ADMIN
+          this.items = sideBar().ADMIN
           this.$router.push('/admin/overview/')
         } else {
-          this.items = SideBar().USER
+          this.items = sideBar().USER
           this.$router.push('/')
         }
       }

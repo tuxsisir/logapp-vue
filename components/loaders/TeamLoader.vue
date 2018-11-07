@@ -1,8 +1,11 @@
 <template>
-  <v-layout row wrap align-center>
-    <v-flex md3 xs12
-            v-for="count in numberOfLoaders"
+  <v-layout row
+            wrap
+            align-center>
+    <v-flex v-for="count in numberOfLoaders"
             :key="count"
+            md3
+            xs12
             class="mb-5">
       <instagram-loader :speed="1"></instagram-loader>
     </v-flex>

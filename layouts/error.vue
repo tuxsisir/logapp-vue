@@ -1,10 +1,16 @@
 <template>
-  <v-layout align-center row wrap>
+  <v-layout align-center
+            row
+            wrap>
     <v-flex md12>
       <v-card class="elevation-6">
         <v-card-text>
-          <v-layout justify-center row wrap>
-            <v-flex md6 xs12 class="text-xs-center px-4">
+          <v-layout justify-center
+                    row
+                    wrap>
+            <v-flex md6
+                    xs12
+                    class="text-xs-center px-4">
               <h2 class="font-weight-thin">Whoah.. Such a darkness here!</h2>
               <v-divider class="mt-4 mb-5"></v-divider>
               <div v-if="error.statusCode === 404">
@@ -27,14 +33,18 @@
                 <h4 class="display-1 font-weight-thin my-4">Something Went Wrong ...</h4>
                 <p class="">We will look into this a-s-a-p.</p>
               </div>
-              <v-btn color="primary" @click="goBack">Go Back</v-btn>
+              <v-btn color="primary"
+                     @click="goBack">Go Back</v-btn>
               <v-divider class="hidden-sm-and-up my-3"></v-divider>
             </v-flex>
-            <v-flex md6 xs12>
+            <v-flex md6
+                    xs12>
               <v-img
-                style="border: 1px solid #efefef"
                 :src="`https://picsum.photos/900/900/?random`"
-                :lazy-src="`https://picsum.photos/900/900/?random`" aspect-ratio="1.1" cover>
+                :lazy-src="`https://picsum.photos/900/900/?random`"
+                style="border: 1px solid #efefef"
+                aspect-ratio="1.1"
+                cover>
                 <v-layout
                   slot="placeholder"
                   fill-height
@@ -42,7 +52,8 @@
                   justify-center
                   ma-0
                 >
-                  <v-progress-circular indeterminate color="blue lighten-5"></v-progress-circular>
+                  <v-progress-circular indeterminate
+                                       color="blue lighten-5"></v-progress-circular>
                 </v-layout>
               </v-img>
             </v-flex>
@@ -58,7 +69,10 @@
   export default {
     layout: 'blank',
     props: {
-      error: Object
+      error: {
+        type: Object,
+        required: true
+      }
     },
     data () {
       return {}

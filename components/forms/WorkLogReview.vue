@@ -8,24 +8,26 @@
       <v-card-text>
         <v-flex>
           <v-textarea
-            prepend-icon="edit"
-            v-model='remarks'
-            rows="5"
             v-validate="'required'"
-            v-bind="this.veeValidate('remarks', 'Review')"
+            v-model="remarks"
+            v-bind="veeValidate('remarks', 'Review')"
+            prepend-icon="edit"
+            rows="5"
           ></v-textarea>
           <v-select
-            prepend-icon="start"
+            v-validate="'required'"
             :items="ratingChoices"
             v-model="rating"
-            v-validate="'required'"
-            v-bind="this.veeValidate('rating', 'Rating')">
+            v-bind="veeValidate('rating', 'Rating')"
+            prepend-icon="start">
           </v-select>
         </v-flex>
       </v-card-text>
       <v-divider></v-divider>
       <v-card-actions class="pa-3">
-        <v-btn color="primary" :disabled="errors.any()" @click="reviewLog">Review Log</v-btn>
+        <v-btn :disabled="errors.any()"
+               color="primary"
+               @click="reviewLog">Review Log</v-btn>
         <v-btn flat>Reset</v-btn>
       </v-card-actions>
     </v-card>
@@ -37,10 +39,19 @@
   import VeeValidate from '@/mixins/veeValidateMixin.js'
 
   export default {
+    mixins: [VeeValidate],
     props: {
       formData: {
         type: Object,
         required: true
+      }
+    },
+    data () {
+      return {
+        logId: '',
+        remarks: '',
+        rating: 'Average',
+        ratingChoices: ['Poor', 'Average', 'Good', 'Very Good', 'Excellent']
       }
     },
     mounted () {
@@ -48,15 +59,6 @@
       if (this.formData.log_review.length > 0) {
         this.rating = this.formData.log_review[0].rating
         this.remarks = this.formData.log_review[0].remarks
-      }
-    },
-    mixins: [VeeValidate],
-    data () {
-      return {
-        logId: '',
-        remarks: '',
-        rating: 'Average',
-        ratingChoices: ['Poor', 'Average', 'Good', 'Very Good', 'Excellent']
       }
     },
     methods: {

@@ -1,18 +1,22 @@
 <template>
   <v-form>
-    <v-layout row wrap>
-      <v-flex md6 style="border-right: 1px solid #efefef;" class="px-3">
+    <v-layout row
+              wrap>
+      <v-flex md6
+              style="border-right: 1px solid #efefef;"
+              class="px-3">
         <h2 class="text-success text-center font-weight-thin mb-3">
           Log your work
         </h2>
-        <a href='https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet' target='_blank'>
+        <a href="https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet"
+           target="_blank">
           View Markdown Reference
         </a>
         <v-textarea
-          type="text"
-          v-model='formValues.log'
           v-validate="'required'"
-          v-bind="this.veeValidate('log', '')"
+          v-model="formValues.log"
+          v-bind="veeValidate('log', '')"
+          type="text"
           rows="10"
         ></v-textarea>
         <v-date-picker
@@ -23,21 +27,27 @@
           class="mt-3 mb-4"
         ></v-date-picker>
         <v-text-field
-          v-model="formValues.log_date"
           v-validate="'required'"
+          v-model="formValues.log_date"
+          v-bind="veeValidate('log_date', 'Log Date')"
           type="text"
           disabled
-          v-bind="this.veeValidate('log_date', 'Log Date')"
         ></v-text-field>
         <v-divider class="my-4"></v-divider>
-        <v-btn color="primary" @click="editLog" v-if="formValues.id">Edit Log</v-btn>
-        <v-btn color="primary" @click="createLog" v-else>Log Work</v-btn>
+        <v-btn v-if="formValues.id"
+               color="primary"
+               @click="editLog">Edit Log</v-btn>
+        <v-btn v-else
+               color="primary"
+               @click="createLog">Log Work</v-btn>
         <v-btn @click="clearForm">Reset</v-btn>
       </v-flex>
-      <v-flex md6 class="px-3">
+      <v-flex md6
+              class="px-3">
         <h2 class="text-success text-center font-weight-thin">### Preview</h2>
         <v-divider class="my-3"></v-divider>
-        <div v-html="$md.render(formValues.log)" id="markdownPreview"></div>
+        <div id="markdownPreview"
+             v-html="$md.render(formValues.log)"></div>
       </v-flex>
     </v-layout>
   </v-form>
@@ -55,7 +65,7 @@
         required: false,
         default: () => ({
           log_date: new Date().toISOString().substring(0, 10),
-          log: '### Work Log ...',
+          log: '### Work Log ...'
         })
       }
     },

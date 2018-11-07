@@ -1,7 +1,10 @@
 <template>
-  <v-layout align-center justify-center row wrap>
+  <v-layout align-center
+            justify-center
+            row
+            wrap>
     <v-flex md12>
-      <bread-crumb :breadCrumbItems="breadCrumbs"></bread-crumb>
+      <bread-crumb :bread-crumb-items="breadCrumbs"></bread-crumb>
     </v-flex>
     <v-flex>
       <v-card>
@@ -16,7 +19,8 @@
         </v-card-title>
         <v-divider></v-divider>
         <v-card-text>
-          <v-card class="text-xs-center" dark>
+          <v-card class="text-xs-center"
+                  dark>
             <v-card-text>
               <p class="subheading">Team Leader Overview</p>
               <v-divider></v-divider>
@@ -35,8 +39,8 @@
 
   export default {
     middleware: ['admin'],
-    mixins: [BaseMixin],
     components: { BreadCrumb },
+    mixins: [BaseMixin],
     data () {
       return {
         htmlTitle: 'Overview | Admin | core.aayulogic',

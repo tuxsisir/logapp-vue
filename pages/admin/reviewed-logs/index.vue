@@ -1,7 +1,9 @@
 <template>
-  <v-layout row wrap>
-    <v-flex md12 xs12>
-      <bread-crumb :breadCrumbItems="breadCrumbs"></bread-crumb>
+  <v-layout row
+            wrap>
+    <v-flex md12
+            xs12>
+      <bread-crumb :bread-crumb-items="breadCrumbs"></bread-crumb>
       <vue-notify :notify="notify"></vue-notify>
     </v-flex>
     <v-flex>
@@ -16,11 +18,8 @@
 
   export default {
     middleware: ['admin'],
-    mixins: [BaseMixin],
     components: { BreadCrumb, ReviewedByMe },
-    created () {
-      this.displaySnack()
-    },
+    mixins: [BaseMixin],
     data () {
       return {
         htmlTitle: 'Reviewed Logs | core.aayulogic',
@@ -30,6 +29,9 @@
         ],
         notify: {}
       }
+    },
+    created () {
+      this.displaySnack()
     }
   }
 </script>

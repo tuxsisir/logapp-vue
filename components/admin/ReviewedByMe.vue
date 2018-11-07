@@ -1,5 +1,8 @@
 <template>
-  <v-layout row wrap align-center justify-center>
+  <v-layout row
+            wrap
+            align-center
+            justify-center>
     <v-flex md12>
       <v-card>
         <v-card-title>
@@ -13,19 +16,23 @@
         </v-card-title>
         <v-divider></v-divider>
         <v-card-text>
-          <v-expansion-panel v-if="items.length > 0" inset>
+          <v-expansion-panel v-if="items.length > 0"
+                             inset>
             <v-expansion-panel-content
               v-for="(item, index) in items"
               :key="index"
             >
-              <div slot="header" class="title">
+              <div slot="header"
+                   class="title">
                 {{ item.log.log_by.name }} - {{ item.log.log_date }}
               </div>
               <v-card>
                 <v-card-text>
-                  <v-layout row wrap>
+                  <v-layout row
+                            wrap>
                     <v-flex md8>
-                      <div id="markdownPreview" v-html='$md.render(item.log.log)'></div>
+                      <div id="markdownPreview"
+                           v-html="$md.render(item.log.log)"></div>
                     </v-flex>
                     <v-flex md4>
                       <h4>Log Review</h4>
@@ -38,7 +45,10 @@
                 </v-card-text>
                 <v-divider></v-divider>
                 <v-card-actions>
-                  <v-btn flat color="info" router :to="'/admin/review-logs/' + item.log.id + '/detail/'">
+                  <v-btn :to="'/admin/review-logs/' + item.log.id + '/detail/'"
+                         flat
+                         color="info"
+                         router>
                     View Log Details
                   </v-btn>
                 </v-card-actions>
@@ -47,7 +57,8 @@
           </v-expansion-panel>
         </v-card-text>
         <no-ssr>
-          <infinite-loading @infinite="infiniteHandlerLogs" ref="infiniteLoading">
+          <infinite-loading ref="infiniteLoading"
+                            @infinite="infiniteHandlerLogs">
             <span slot="no-more">No further data found.</span>
             <span slot="no-results">No further data found.</span>
           </infinite-loading>
@@ -68,12 +79,12 @@
     methods: {
       infiniteHandlerLogs ($state) {
         this.$axios.$get('/work-log/reviewed/by/me/',
-          {
-            params: {
-              limit: this.nextLimit,
-              offset: this.nextOffset
-            }
-          }).then((response) => {
+                         {
+                           params: {
+                             limit: this.nextLimit,
+                             offset: this.nextOffset
+                           }
+        }).then((response) => {
           if (response.next) {
             this.extractLimitOffset(response.next)
             this.items = this.items.concat(response.results)

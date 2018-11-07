@@ -1,8 +1,9 @@
 <template>
   <div>
-    <v-layout row wrap>
+    <v-layout row
+              wrap>
       <v-flex md12>
-        <bread-crumb :breadCrumbItems="breadCrumbs"></bread-crumb>
+        <bread-crumb :bread-crumb-items="breadCrumbs"></bread-crumb>
       </v-flex>
       <v-flex md12>
         <v-card>
@@ -24,8 +25,8 @@
   import WorkLogForm from '@/components/forms/WorkLogForm'
 
   export default {
-    mixins: [BaseMixin],
     components: { BreadCrumb, WorkLogForm },
+    mixins: [BaseMixin],
     data () {
       return {
         htmlTitle: 'Log Your Work | core.aayulogic',

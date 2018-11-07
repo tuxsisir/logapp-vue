@@ -1,10 +1,15 @@
 <template>
-  <v-layout row wrap align-center justify-center>
+  <v-layout row
+            wrap
+            align-center
+            justify-center>
     <v-flex md12>
-      <bread-crumb :breadCrumbItems="breadCrumbs"></bread-crumb>
+      <bread-crumb :bread-crumb-items="breadCrumbs"></bread-crumb>
     </v-flex>
-    <v-flex md8 offset-md-2>
-      <v-progress-linear indeterminate v-if="loading"></v-progress-linear>
+    <v-flex md8
+            offset-md-2>
+      <v-progress-linear v-if="loading"
+                         indeterminate></v-progress-linear>
       <div v-else>
         <v-card>
           <v-card-title>
@@ -13,10 +18,18 @@
           <v-divider></v-divider>
           <v-card-text>
             <div>
-              <v-alert v-if="logsHidden" color="info" :value="true" icon="info" outline>
+              <v-alert v-if="logsHidden"
+                       :value="true"
+                       color="info"
+                       icon="info"
+                       outline>
                 Your work logs are hidden and only your reviewers can view them.
               </v-alert>
-              <v-alert v-else :value="true" color="warning" icon="warning" outline>
+              <v-alert v-else
+                       :value="true"
+                       color="warning"
+                       icon="warning"
+                       outline>
                 Kudos, your work logs are not hidden with any one from the team.
               </v-alert>
             </div>
@@ -31,9 +44,8 @@
             <v-list two-line>
               <template v-for="(item, index) in reviewers">
                 <v-list-tile
-                  :key="item.reviewer.name"
+                  :key="index"
                   avatar
-                  @click=""
                 >
                   <v-list-tile-avatar>
                     <v-img :src="item.reviewer.profile_picture"></v-img>
@@ -59,7 +71,6 @@
                 <v-list-tile
                   :key="index"
                   avatar
-                  @click=""
                 >
                   <v-list-tile-avatar>
                     <v-img :src="item.user.profile_picture"></v-img>
@@ -84,8 +95,8 @@
   import BreadCrumb from '@/components/common/BreadCrumb'
 
   export default {
-    mixins: [BaseMixin],
     components: { BreadCrumb },
+    mixins: [BaseMixin],
     data () {
       return {
         htmlTitle: 'Settings | Work Log | core.aayulogic',

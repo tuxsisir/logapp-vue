@@ -1,6 +1,10 @@
 <template>
-  <v-layout row wrap align-center justify-center>
-    <v-flex md8 offset-md-2>
+  <v-layout row
+            wrap
+            align-center
+            justify-center>
+    <v-flex md8
+            offset-md-2>
       <v-card>
         <v-card-title>
           <div>
@@ -14,7 +18,8 @@
         </v-card-title>
         <v-divider></v-divider>
         <v-card-text>
-          <v-card class="text-xs-center" dark>
+          <v-card class="text-xs-center"
+                  dark>
             <v-card-text>
               <p class="subheading">aayulogic's very own Noticeboard. Coming soon!</p>
               <v-divider></v-divider>

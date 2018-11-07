@@ -1,13 +1,18 @@
 <template>
-  <v-layout row wrap>
+  <v-layout row
+            wrap>
     <v-flex xs12>
-      <bread-crumb :breadCrumbItems="breadCrumbs"></bread-crumb>
+      <bread-crumb :bread-crumb-items="breadCrumbs"></bread-crumb>
     </v-flex>
     <v-flex xs12>
       <v-card class="elevation-6">
         <v-card-text>
-          <v-layout justify-center row wrap align-center>
-            <v-flex md6 xs12>
+          <v-layout justify-center
+                    row
+                    wrap
+                    align-center>
+            <v-flex md6
+                    xs12>
               <div class="pa-3 mx-2 text-xs-center">
                 <h4 class="display-4 text-muted">{{ score }}</h4>
                 Your total points.
@@ -18,11 +23,14 @@
               </div>
               <v-divider class="hidden-sm-and-up my-3"></v-divider>
             </v-flex>
-            <v-flex md6 xs12>
+            <v-flex md6
+                    xs12>
               <v-img
-                style="border: 1px solid #efefef"
                 :src="`https://picsum.photos/900/900/?random`"
-                :lazy-src="`https://picsum.photos/900/900/?random`" aspect-ratio="1.1" cover>
+                :lazy-src="`https://picsum.photos/900/900/?random`"
+                style="border: 1px solid #efefef"
+                aspect-ratio="1.1"
+                cover>
                 <v-layout
                   slot="placeholder"
                   fill-height
@@ -30,7 +38,8 @@
                   justify-center
                   ma-0
                 >
-                  <v-progress-circular indeterminate color="blue lighten-5"></v-progress-circular>
+                  <v-progress-circular indeterminate
+                                       color="blue lighten-5"></v-progress-circular>
                 </v-layout>
               </v-img>
             </v-flex>
@@ -46,8 +55,8 @@
   import BreadCrumb from '@/components/common/BreadCrumb'
 
   export default {
-    mixins: [BaseMixin],
     components: { BreadCrumb },
+    mixins: [BaseMixin],
     data () {
       return {
         htmlTitle: 'Settings | Score | core.aayulogic',
