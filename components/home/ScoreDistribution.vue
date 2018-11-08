@@ -15,38 +15,64 @@
         </v-card-title>
         <v-divider></v-divider>
         <v-card-text>
-          <v-timeline align-top>
-            <v-timeline-item
-              v-for="(item, i) in items"
-              :color="item.score_color"
-              :key="i"
-              icon="star"
-            >
-              <v-card
-                :color="item.score_color"
-                dark
-              >
-                <v-card-title class="title">{{ item.user.name }} {{ item.points_scored }} Point/s</v-card-title>
-                <v-card-text class="white text--primary">
-                  <p class="subheading"><i>{{ item.text }}</i></p>
-                  <!--<v-btn-->
-                  <!--v-if="item.score_criteria.title == 'Work Log'"-->
-                  <!--:color="item.score_color"-->
-                  <!--class="mx-0"-->
-                  <!--outline-->
-                  <!--&gt;-->
-                  <!--View Work Log-->
-                  <!--</v-btn>-->
-                </v-card-text>
-              </v-card>
-            </v-timeline-item>
-          </v-timeline>
-          <no-ssr>
-            <infinite-loading ref="infiniteLoading"
-                              @infinite="infiniteHandler">
-              <span slot="no-more">No more data found ...</span>
-            </infinite-loading>
-          </no-ssr>
+          <v-layout
+            row
+            wrap
+            align-center
+            justify-center>
+            <v-flex md8
+                    offset-md-2>
+              <v-timeline dense>
+                <v-timeline-item
+                  v-for="(item, i) in items"
+                  :color="item.score_color"
+                  :key="i"
+                  icon="star"
+                >
+                  <v-card class="elevation-0">
+                    <v-expansion-panel>
+                      <v-expansion-panel-content
+                        expand-icon=""
+                      >
+                        <div slot="header"
+                             class="subheading">
+                          <v-layout>
+                            <v-flex>
+                              <v-avatar
+                                :tile="tile"
+                                size="30"
+                                color="grey lighten-4"
+                              >
+                                <v-img :src="item.user.profile_picture"
+                                       alt="avatar"></v-img>
+                              </v-avatar>
+                              {{ item.user.name }} scored {{ item.points_scored }} Point/s on {{
+                              item.score_criteria.title }}
+                            </v-flex>
+                            <v-flex class="text-xs-right grey--text hidden-xs-only">
+                              <v-icon
+                                size="20"
+                                class="mr-1"
+                              >calendar_today
+                              </v-icon>
+                              {{ item.dated_on }}
+                            </v-flex>
+                          </v-layout>
+                        </div>
+                        <p class="px-4"><i>{{ item.text }}</i></p>
+                      </v-expansion-panel-content>
+                    </v-expansion-panel>
+                  </v-card>
+                </v-timeline-item>
+              </v-timeline>
+              <no-ssr>
+                <infinite-loading ref="infiniteLoading"
+                                  @infinite="infiniteHandler">
+                  <span slot="no-more">No more data found ...</span>
+                </infinite-loading>
+              </no-ssr>
+            </v-flex>
+          </v-layout>
         </v-card-text>
       </v-card>
     </v-flex>
@@ -63,12 +89,11 @@
     },
     methods: {
       infiniteHandler ($state) {
-        this.$axios.$get('/score/log/',
-                         {
-                           params: {
-                             limit: this.nextLimit,
-                             offset: this.nextOffset
-                           }
+        this.$axios.$get('/score/log/', {
+          params: {
+            limit: this.nextLimit,
+            offset: this.nextOffset
+          }
         }).then((response) => {
           if (response.next) {
             this.extractLimitOffset(response.next)
