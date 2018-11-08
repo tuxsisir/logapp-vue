@@ -164,7 +164,6 @@
       </div>
     </v-navigation-drawer>
     <vue-notify :notify="notify"></vue-notify>
-    <welcome-dialog></welcome-dialog>
   </v-app>
 </template>
 
@@ -172,10 +171,9 @@
   import { mapGetters, mapMutations } from 'vuex'
   import sideBar from '@/utils/sidebar/index.js'
   import VueNotify from '@/components/common/VSnackBar'
-  import WelcomeDialog from '@/components/WelcomeDialog'
 
   export default {
-    components: { VueNotify, WelcomeDialog },
+    components: { VueNotify },
     data () {
       return {
         notify: {},

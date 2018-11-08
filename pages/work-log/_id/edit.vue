@@ -22,11 +22,10 @@
 <script>
   import WorkLog from '@/models/WorkLog'
   import BaseMixin from '@/mixins/baseMixin.js'
-  import BreadCrumb from '@/components/common/BreadCrumb'
   import WorkLogForm from '@/components/forms/WorkLogForm'
 
   export default {
-    components: { BreadCrumb, WorkLogForm },
+    components: { WorkLogForm },
     mixins: [BaseMixin],
     validate ({ params }) {
       return /^\d+$/.test(params.id)

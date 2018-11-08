@@ -50,10 +50,8 @@
 <script>
   import VeeValidate from '@/mixins/veeValidateMixin.js'
   import BaseMixin from '@/mixins/baseMixin.js'
-  import BreadCrumb from '@/components/common/BreadCrumb'
 
   export default {
-    components: { BreadCrumb },
     mixins: [BaseMixin, VeeValidate],
     data () {
       return {

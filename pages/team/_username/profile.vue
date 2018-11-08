@@ -90,7 +90,6 @@
 </style>
 <script>
   import BaseMixin from '@/mixins/baseMixin.js'
-  import BreadCrumb from '@/components/common/BreadCrumb'
   import User from '@/models/User'
   import GeneralInformation from '@/components/userDetail/GeneralInformation'
   import LogReviewer from '@/components/userDetail/LogReviewer'
@@ -98,7 +97,6 @@
 
   export default {
     components: {
-      'bread-crumb': BreadCrumb,
       'tab-general-information': GeneralInformation,
       'tab-work-log': WorkLogSummary,
       'tab-log-reviewers': LogReviewer

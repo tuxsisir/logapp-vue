@@ -33,11 +33,9 @@
 </template>
 <script>
   import BaseMixin from '@/mixins/baseMixin.js'
-  import BreadCrumb from '@/components/common/BreadCrumb'
 
   export default {
     middleware: ['admin'],
-    components: { BreadCrumb },
     mixins: [BaseMixin],
     data () {
       return {

@@ -78,12 +78,11 @@
 <script>
   import WorkLog from '@/models/WorkLog'
   import BaseMixin from '@/mixins/baseMixin.js'
-  import BreadCrumb from '@/components/common/BreadCrumb'
   import UserHoverCard from '@/components/common/UserHoverCard'
   import WorkLogDetailLoader from '@/components/loaders/WorkLogDetailLoader'
 
   export default {
-    components: { UserHoverCard, WorkLogDetailLoader, BreadCrumb },
+    components: { UserHoverCard, WorkLogDetailLoader },
     mixins: [BaseMixin],
     data () {
       return {

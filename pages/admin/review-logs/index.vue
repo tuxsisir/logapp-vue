@@ -12,12 +12,11 @@
 </template>
 <script>
   import BaseMixin from '@/mixins/baseMixin.js'
-  import BreadCrumb from '@/components/common/BreadCrumb'
   import LogsToReview from '@/components/admin/LogsToReview'
 
   export default {
     middleware: ['admin'],
-    components: { LogsToReview, BreadCrumb },
+    components: { LogsToReview },
     mixins: [BaseMixin],
     data () {
       return {

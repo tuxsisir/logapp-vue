@@ -6,6 +6,7 @@ export default function SideBar () {
       { icon: 'attach_file', title: 'Work Logs', to: '/work-log/', hasSubMenu: false },
       { icon: 'note_add', title: 'Log Work', to: '/log-your-work/', hasSubMenu: false },
       { icon: 'account_box', title: 'My Profile', to: '/profile/', hasSubMenu: false },
+      { icon: 'bug_report', title: 'Bug Report', to: '/bug-report/', hasSubMenu: false },
       {
         icon: 'settings',
         title: 'Settings',

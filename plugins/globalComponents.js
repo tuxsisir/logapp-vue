@@ -3,7 +3,7 @@ import VueNotify from '@/components/common/VSnackBar.vue'
 import BreadCrumb from '@/components/common/BreadCrumb'
 
 Vue.component('vue-notify', VueNotify)
-Vue.component('vue-breadcrumb', BreadCrumb)
+Vue.component('bread-crumb', BreadCrumb)
 
 Vue.mixin({
   filters: {

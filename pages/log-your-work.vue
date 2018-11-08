@@ -21,11 +21,10 @@
 </template>
 <script>
   import BaseMixin from '@/mixins/baseMixin.js'
-  import BreadCrumb from '@/components/common/BreadCrumb'
   import WorkLogForm from '@/components/forms/WorkLogForm'
 
   export default {
-    components: { BreadCrumb, WorkLogForm },
+    components: { WorkLogForm },
     mixins: [BaseMixin],
     data () {
       return {

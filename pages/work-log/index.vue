@@ -106,11 +106,10 @@
   import BaseMixin from '@/mixins/baseMixin.js'
   import DataTableMixin from '@/mixins/dataTableMixin.js'
   import WorkLogs from '@/models/WorkLog'
-  import BreadCrumb from '@/components/common/BreadCrumb'
   import WorkLogStats from '@/components/worklog/StatsCounter'
 
   export default {
-    components: { BreadCrumb, WorkLogStats, WorkLogListContentLoader },
+    components: { WorkLogStats, WorkLogListContentLoader },
     mixins: [BaseMixin, DataTableMixin],
     data () {
       return {

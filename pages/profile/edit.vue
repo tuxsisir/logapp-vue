@@ -77,11 +77,10 @@
   import User from '@/models/User'
   import BaseMixin from '@/mixins/baseMixin.js'
   import VeeValidate from '@/mixins/veeValidateMixin.js'
-  import BreadCrumb from '@/components/common/BreadCrumb'
   import FileUpload from '@/components/common/FileUpload'
 
   export default {
-    components: { BreadCrumb, FileUpload },
+    components: { FileUpload },
     mixins: [BaseMixin, VeeValidate],
     data () {
       return {

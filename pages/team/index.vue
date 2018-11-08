@@ -97,10 +97,9 @@
   import TeamLoader from '@/components/loaders/TeamLoader'
   import UserScore from '@/models/Score'
   import BaseMixin from '@/mixins/baseMixin.js'
-  import BreadCrumb from '@/components/common/BreadCrumb'
 
   export default {
-    components: { BreadCrumb, TeamLoader },
+    components: { TeamLoader },
     mixins: [BaseMixin],
     data () {
       return {
