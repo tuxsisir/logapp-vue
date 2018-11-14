@@ -20,8 +20,8 @@
             wrap
             align-center
             justify-center>
-            <v-flex md8
-                    offset-md-2>
+            <v-flex md10
+                    offset-md-1>
               <v-timeline dense>
                 <v-timeline-item
                   v-for="(item, i) in items"

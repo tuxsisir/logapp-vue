@@ -1,4 +1,4 @@
-$body-font-family =  'Fira Sans', sans-serif
+$body-font-family = 'Fira Sans', sans-serif
 
 @require '~vuetify/src/stylus/main.styl'
 
@@ -9,7 +9,7 @@ $body-font-family =  'Fira Sans', sans-serif
   font-size: 10rem
 
 is-size-7 = 3rem
-is-size-6 =	2.5rem
+is-size-6 = 2.5rem
 is-size-5 = 2rem
 is-size-4 = 1.5rem
 is-size-3 = 1.25rem
@@ -18,7 +18,7 @@ is-size-1 = 0.75rem
 is-size-0 = 0.65rem
 
 .footer-border
-  border-top: 1px solid rgba(0,0,0,0.12) !important
+  border-top: 1px solid rgba(0, 0, 0, 0.12) !important
 
 for i in 0..7
   .text-{i}
@@ -26,19 +26,30 @@ for i in 0..7
 
 .v-list__tile--active
   border-left: 5px solid #002446
-  background: rgba(0,0,0,0.04)
+  background: rgba(0, 0, 0, 0.04)
 
 .theme--light.application
-  background: #F2F2F2  !important
+  background: #F2F2F2 !important
 
 .text-muted
-  color:#636c72 !important
+  color: #636c72 !important
+
 .bg-white
   background-color: white
 
-#markdownPreview
+#markdownPreview, .markdownPreview
   hr
     margin: 20px 0px
 
 .bg-al
   background: #002446 !important
+
+#speed-dial .v-speed-dial
+  position: absolute
+  bottom: 50px
+
+#speed-dial .v-btn--floating
+  position: relative
+
+.v-btn--floating.v-btn--fixed, .v-btn--floating.v-btn--absolute
+    z-index: 2 !important

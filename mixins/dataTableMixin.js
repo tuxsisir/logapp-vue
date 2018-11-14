@@ -5,7 +5,7 @@ export default {
       pagination: {
         descending: true,
         totalItems: 0,
-        rowsPerPage: 10 // default rows per page for all the data tables...
+        rowsPerPage: 7 // default rows per page for all the data tables...
       }
     }
   },

@@ -6,7 +6,17 @@ export default function SideBar () {
       { icon: 'attach_file', title: 'Work Logs', to: '/work-log/', hasSubMenu: false },
       { icon: 'note_add', title: 'Log Work', to: '/log-your-work/', hasSubMenu: false },
       { icon: 'account_box', title: 'My Profile', to: '/profile/', hasSubMenu: false },
-      { icon: 'bug_report', title: 'Bug Report', to: '/bug-report/', hasSubMenu: false },
+      // { icon: 'watch', title: 'Daily Schedule Log', to: '/schedule/', hasSubMenu: false },
+      {
+        icon: 'bug_report',
+        title: 'Bug Report',
+        hasSubMenu: true,
+        subItems: [
+          { title: 'Bug Board', to: '/bug-report/projects/' },
+          { title: 'Reported By Me', to: '/bug-report/by-me/' }
+          // { title: 'My Involvement', to: '/bug-report/my-involvement/' }
+        ]
+      },
       {
         icon: 'settings',
         title: 'Settings',

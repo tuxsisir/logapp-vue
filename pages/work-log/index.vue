@@ -133,7 +133,6 @@
       }
     },
     created () {
-      this.displaySnack()
       let model = new WorkLogs()
       this.endpoint = model.endpoint()
     },
@@ -141,7 +140,6 @@
       this.contentLoading = true
       let logs = await WorkLogs.first()
       this.logStats = logs.stats
-      console.log('page ma')
       this.contentLoading = false
     },
     methods: {

@@ -114,11 +114,8 @@
     computed: {
       ...mapGetters(['getUserFullName'])
     },
-    created () {
-      this.displaySnack()
-    },
     methods: {
-      ...mapMutations(['updateAuthToken']),
+      ...mapMutations(['updateAuthToken', 'setSnack']),
       async login () {
         try {
           await this.$auth.loginWith('local', {

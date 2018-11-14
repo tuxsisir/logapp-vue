@@ -123,7 +123,6 @@
       }
     },
     created () {
-      this.displaySnack()
       let username = this.$route.params.username
       this.getUserDetail(username)
     },

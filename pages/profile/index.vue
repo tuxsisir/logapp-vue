@@ -125,9 +125,6 @@
         userInfo: {}
       }
     },
-    created () {
-      this.displaySnack()
-    },
     async mounted () {
       let user = await User.find('me')
       this.userInfo = user

@@ -5,6 +5,7 @@
       :clipped="clipped"
       v-model="drawer"
       fixed
+      width="270"
       app
     >
       <v-list>
@@ -55,6 +56,7 @@
     <v-toolbar :clipped-left="clipped"
                fixed
                app
+               height="55"
                dark
                class="bg-al">
       <v-toolbar-side-icon @click="drawer = !drawer"></v-toolbar-side-icon>
@@ -168,12 +170,14 @@
 </template>
 
 <script>
+  import LayoutMixin from '@/mixins/layoutMixin.js'
   import { mapGetters, mapMutations } from 'vuex'
   import sideBar from '@/utils/sidebar/index.js'
   import VueNotify from '@/components/common/VSnackBar'
 
   export default {
     components: { VueNotify },
+    mixins: [LayoutMixin],
     data () {
       return {
         notify: {},
@@ -193,6 +197,7 @@
       }
     },
     created () {
+      this.displaySnack()
       this.items = sideBar().USER
     },
     methods: {
