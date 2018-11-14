@@ -101,17 +101,25 @@
             </v-timeline>
           </v-flex>
           <v-flex md6>
-            <v-layout row
-                      wrap>
-              <v-flex text-xs-right>
-                <strong class="display-4">8</strong>
+            <v-layout align-center>
+              <v-flex
+                md2
+                class="mt-4">
+                <strong class="display-4 grey--text">{{ today[2] }}</strong>
               </v-flex>
+              <v-flex md2>
+                <div class="headline font-weight-light mt-5"
+                     v-text="today[0]">
+                </div>
+                <div class="text-uppercase font-weight-light">{{ today[1] }} {{ today[3] }}</div>
+              </v-flex>
+              <v-flex md8
+                      text-xs-left>
+                <p class="headline mt-5">{{ greetings }} {{ getUserFullName }} ...</p>
+              </v-flex>
+            </v-layout>
+            <v-layout>
               <v-flex>
-                <div class="headline font-weight-light white--text">Monday</div>
-                <div class="text-uppercase font-weight-light">February 2015</div>
-                {{ greetings }}
-              </v-flex>
-              <v-flex md12>
                 <v-textarea
                   v-model="remarks"
                   :messages="['Remarks for your clock actions.']"
@@ -177,6 +185,7 @@
 </template>
 
 <script>
+  import { mapGetters } from 'vuex'
   export default {
     data () {
       return {
@@ -185,6 +194,11 @@
       }
     },
     computed: {
+      ...mapGetters(['getUserFullName']),
+      today () {
+        let date = new Date()
+        return date.toDateString().split(' ')
+      },
       greetings () {
         let date = new Date()
         let hours = date.getHours()
