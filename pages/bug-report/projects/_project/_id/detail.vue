@@ -164,12 +164,15 @@
         </v-card-text>
       </v-card>
     </v-flex>
+    <vue-notify :notify="notify"></vue-notify>
   </v-layout>
 </template>
 <script>
+  import BaseMixin from '@/mixins/baseMixin.js'
   import BugReport from '@/models/BugReport'
 
   export default {
+    mixins: [BaseMixin],
     data () {
       return {
         breadCrumbs: [
@@ -178,6 +181,7 @@
           { text: 'Bug Detail', disabled: true }
         ],
         bugDetails: {},
+        notify: {},
         fetched: false
       }
     },
@@ -185,6 +189,7 @@
       return /^\d+$/.test(params.id)
     },
     created () {
+      this.displaySnack()
       this.getBugDetails(this.$route.params.id)
     },
     methods: {
@@ -194,7 +199,6 @@
         this.fetched = true
       },
       actionMapper (action) {
-        console.log(action)
         let mapper = {
           'created': { 'text': 'created', 'icon': 'star', 'color': 'green darken-1' },
           'modified_title': { 'text': 'modified title of', 'icon': 'title', 'color': 'brown darken-1' },
@@ -220,7 +224,8 @@
           'UI': 'deep-purple lighten-4',
           'Functional': 'cyan lighten-4',
           'Typo': 'light-green lighten-4',
-          'Client': 'amber lighten-4'
+          'Client': 'amber lighten-4',
+          'API': 'teal lighten-4'
         }
         return categoryColor[category]
       },

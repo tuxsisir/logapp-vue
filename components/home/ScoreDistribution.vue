@@ -39,7 +39,6 @@
                           <v-layout>
                             <v-flex>
                               <v-avatar
-                                :tile="tile"
                                 size="30"
                                 color="grey lighten-4"
                               >

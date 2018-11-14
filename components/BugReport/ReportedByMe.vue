@@ -44,7 +44,7 @@
         </td>
         <td class="">
           <v-btn
-            :to="`/bug-report/${props.item.id}/detail/`"
+            :to="bugDetailsPath(props.item.project, props.item.id)"
             icon
             flat
             class="text-muted"
@@ -75,8 +75,8 @@
         headers: [
           { text: 'Bug Title', align: 'left', sortable: true, value: 'title' },
           { text: 'Bug Description', align: 'left', sortable: false, width: '30%' },
-          { text: 'Project', align: 'left', sortable: false, value: 'name' },
-          { text: 'Category', align: 'left', sortable: false, value: 'name' },
+          { text: 'Project', align: 'left', sortable: true, value: 'project' },
+          { text: 'Category', align: 'left', sortable: true, value: 'category' },
           { text: 'Status', align: 'left', sortable: true, value: 'status' },
           { text: 'Priority', align: 'left', sortable: true, value: 'priority' },
           { text: 'Reported By', value: 'log_date' },
@@ -95,6 +95,16 @@
     methods: {
       truncateBugDescription (bugDescription) {
         return this.$options.filters.truncate(bugDescription, 100)
+      },
+      bugDetailsPath (project, bugID) {
+        let projectsMap = {
+          'RealHRsoft': 'realhrsoft',
+          'Merojob': 'merojob',
+          'Rojgari': 'rojgari',
+          'Real Solutions Pvt. Ltd.': 'rspl',
+          'core.aayulogic': 'core-aayulogic'
+        }
+        return `/bug-report/projects/${projectsMap[project]}/${bugID}/detail/`
       }
     }
   }

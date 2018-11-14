@@ -87,6 +87,7 @@
         </v-card-text>
       </v-card>
     </v-flex>
+    <vue-notify :notify="notify"></vue-notify>
   </v-layout>
 </template>
 
@@ -113,6 +114,9 @@
     },
     computed: {
       ...mapGetters(['getUserFullName'])
+    },
+    created () {
+      this.displaySnack()
     },
     methods: {
       ...mapMutations(['updateAuthToken', 'setSnack']),

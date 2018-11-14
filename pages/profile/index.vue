@@ -3,7 +3,6 @@
             wrap>
     <v-flex md12>
       <bread-crumb :bread-crumb-items="breadCrumbs"></bread-crumb>
-      <vue-notify :notify="notify"></vue-notify>
     </v-flex>
     <v-flex md12>
       <v-card>
@@ -104,6 +103,7 @@
           </v-layout>
         </v-card-text>
       </v-card>
+      <vue-notify :notify="notify"></vue-notify>
     </v-flex>
   </v-layout>
 </template>
@@ -125,9 +125,15 @@
         userInfo: {}
       }
     },
-    async mounted () {
-      let user = await User.find('me')
-      this.userInfo = user
+    created () {
+      this.displaySnack()
+      this.fetchUserInfo()
+    },
+    methods: {
+      async fetchUserInfo () {
+        let user = await User.find('me')
+        this.userInfo = user
+      }
     }
   }
 </script>

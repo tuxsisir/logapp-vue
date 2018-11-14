@@ -28,6 +28,9 @@
         ],
         notify: {}
       }
+    },
+    created () {
+      this.displaySnack()
     }
   }
 </script>

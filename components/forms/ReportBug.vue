@@ -135,7 +135,8 @@
       createBug () {
         let bug = new BugReport(this.formValues)
         bug.save().then((response) => {
-          this.$router.push(`/bug-report/${this.$route.params.project}/${response.id}/detail/`)
+          this.setSnack('Successfully created bug and logged the action.')
+          this.$router.push(`/bug-report/projects/${this.$route.params.project}/${response.id}/detail/`)
         }).catch((error) => {
           this.pushErrors(error)
         })
@@ -151,10 +152,9 @@
           'remarks': this.formValues.remarks
         }
         this.$axios.$patch('/bug/report/' + this.formValues.id + '/', editData).then((response) => {
-          this.setSnack('Successfully edited bug.')
-          this.$router.push(`/bug-report/${this.$route.params.project}/${response.id}/detail/`)
+          this.setSnack('Successfully edited bug and logged the action.')
+          this.$router.push(`/bug-report/projects/${this.$route.params.project}/${response.id}/detail/`)
         }).catch((error) => {
-          console.log(error)
           this.pushErrors(error)
         })
       }

@@ -170,14 +170,10 @@
 </template>
 
 <script>
-  import LayoutMixin from '@/mixins/layoutMixin.js'
   import { mapGetters, mapMutations } from 'vuex'
   import sideBar from '@/utils/sidebar/index.js'
-  import VueNotify from '@/components/common/VSnackBar'
 
   export default {
-    components: { VueNotify },
-    mixins: [LayoutMixin],
     data () {
       return {
         notify: {},
@@ -197,7 +193,6 @@
       }
     },
     created () {
-      this.displaySnack()
       this.items = sideBar().USER
     },
     methods: {

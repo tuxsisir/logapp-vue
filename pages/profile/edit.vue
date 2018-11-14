@@ -128,7 +128,6 @@
         }
         let user = new User({ username: this.form.username })
         user.patchData(data).then((response) => {
-          console.log(response)
           this.setSnack('Successfully edited profile!')
           this.$router.push('/profile/')
         }).catch((error) => {

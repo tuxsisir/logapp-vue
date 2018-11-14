@@ -41,7 +41,8 @@
           </v-card-title>
           <v-divider></v-divider>
           <v-card-text>
-            <v-list two-line>
+            <v-list v-if="reviewers.length > 0"
+                    two-line>
               <template v-for="(item, index) in reviewers">
                 <v-list-tile
                   :key="index"
@@ -58,6 +59,9 @@
                 </v-list-tile>
               </template>
             </v-list>
+            <div v-else>
+              No one seems to be reviewing your log!
+            </div>
           </v-card-text>
         </v-card>
         <v-card>
@@ -66,7 +70,8 @@
           </v-card-title>
           <v-divider></v-divider>
           <v-card-text>
-            <v-list two-line>
+            <v-list v-if="asReviewer.length > 0"
+                    two-line>
               <template v-for="(item, index) in asReviewer">
                 <v-list-tile
                   :key="index"
@@ -83,6 +88,9 @@
                 </v-list-tile>
               </template>
             </v-list>
+            <div v-else>
+              You are not reviewer of anyone's log.
+            </div>
           </v-card-text>
         </v-card>
       </div>

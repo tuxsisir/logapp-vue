@@ -118,10 +118,9 @@
           { text: 'Home', disabled: false },
           { text: 'My Work Logs', disabled: true }
         ],
-        notify: {},
         search: '',
         endpoint: '',
-        rowsPerPageItems: [1, 2, 3, 4, 5, 10, 20, 30, 40, 50],
+        rowsPerPageItems: [5, 7, 10, 20, 30, 40, 50],
         contentLoading: false,
         loading: false,
         headers: [
@@ -129,12 +128,14 @@
           { text: 'TimeStamp', value: 'log_date', width: '20%' },
           { text: 'Action', value: 'action', sortable: false, width: '20%' }
         ],
-        logStats: {}
+        logStats: {},
+        notify: {}
       }
     },
     created () {
+      this.displaySnack()
       let model = new WorkLogs()
-      this.endpoint = model.endpoint()
+      this.endpoint = model.endpoint() + '/'
     },
     async mounted () {
       this.contentLoading = true

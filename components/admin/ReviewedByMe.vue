@@ -37,7 +37,7 @@
                     <v-flex md4>
                       <h4>Log Review</h4>
                       <v-divider class="my-4"></v-divider>
-                      <p>{{ item.remarks }}</p>
+                      <p>{{ item.remarks || "N/A" }}</p>
                       <v-divider class="my-4"></v-divider>
                       <p class="font-weight-bold">{{ item.rating }}</p>
                     </v-flex>

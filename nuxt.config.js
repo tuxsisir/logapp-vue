@@ -1,9 +1,6 @@
 require('dotenv').config()
 
 module.exports = {
-  env: {
-    baseUrl: process.env.BASE_URL || 'http://localhost:3000'
-  },
   // ** Headers of the page
   head: {
     title: 'Aayulogic',
@@ -42,8 +39,8 @@ module.exports = {
     breaks: true
   },
   axios: {
-    baseURL: 'http://localhost:8000/api/',
-    debug: true
+    baseURL: `${process.env.PROTOCOL}://${process.env.API_HOST}:${process.env.API_PORT}/api/`,
+    debug: process.env.DEBUG
   },
   auth: {
     strategies: {

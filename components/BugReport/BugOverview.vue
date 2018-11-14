@@ -48,11 +48,7 @@
                   <strong class="title">{{ category.name }} Bugs</strong>
                 </div>
                 <v-spacer></v-spacer>
-                <v-btn icon>
-                  <v-icon class="grey--text"
-                          size="25">info
-                  </v-icon>
-                </v-btn>
+                <p class="subheading">Displaying the bugs of {{ project }}.</p>
               </v-layout>
             </v-card-title>
             <v-divider></v-divider>
@@ -72,6 +68,7 @@
     components: { BugDataTable },
     data () {
       return {
+        project: this.$route.params.project,
         bugCategory: {
           'ui': {
             name: 'UI',

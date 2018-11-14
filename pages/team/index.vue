@@ -93,7 +93,6 @@
 </template>
 
 <script>
-  import { mapMutations } from 'vuex'
   import TeamLoader from '@/components/loaders/TeamLoader'
   import UserScore from '@/models/Score'
   import BaseMixin from '@/mixins/baseMixin.js'
@@ -113,29 +112,15 @@
         notify: {}
       }
     },
+    created () {
+      this.displaySnack()
+    },
     async mounted () {
       this.contentLoading = true
       await UserScore.get().then((response) => {
         this.users = response
       })
       this.contentLoading = false
-    },
-    created () {
-      let notifyMsg = this.$store.state.snack
-      if (notifyMsg !== '') {
-        this.notify = {
-          text: notifyMsg,
-          color: 'green',
-          display: true
-        }
-        this.clearSnack()
-      }
-    },
-    methods: {
-      ...mapMutations(['setSnack']),
-      clearSnack () {
-        this.setSnack('')
-      }
     }
   }
 </script>
