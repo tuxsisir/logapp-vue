@@ -75,8 +75,9 @@
         size="30"
         color="grey lighten-4"
       >
-        <img :src="getUserImage"
-             alt="avatar">
+        <v-img :src="getUserImage"
+               cover
+               alt="avatar"></v-img>
       </v-avatar>
       <span class="ml-3 font-weight-bold hidden-xs-only">{{ getUserFullName }} <br><small
         class="text-sm">({{ getUserDepartment }})</small></span>

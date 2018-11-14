@@ -53,14 +53,14 @@
           </v-img>
         </v-avatar>
       </v-btn>
-      <v-toolbar color="blue"
+      <v-toolbar color="light-blue lighten-3"
                  height="40"
                  dark
                  tabs>
         <v-tabs
           slot="extension"
           centered
-          color="blue"
+          color="light-blue lighten-3"
           slider-color="yellow"
         >
           <v-tab

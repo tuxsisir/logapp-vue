@@ -98,7 +98,7 @@
           log: this.formValues.log
         }
         this.$axios.$patch('/work-log/' + this.formValues.id + '/', postData).then((response) => {
-          this.setSnack('Successfully updated your work log of ' + this.formValues.log_date + '.')
+          this.setSnack('Successfully edited your work log of ' + this.formValues.log_date + '.')
           this.$router.push('/work-log/')
         }).catch((error) => {
           this.pushErrors(error)
