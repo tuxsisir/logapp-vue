@@ -10,7 +10,7 @@
             offset-md-3>
       <v-card>
         <v-card-title>
-          <h2 class="font-weight-thin">About core.aayulogic.com</h2>
+          <h2 class="font-weight-thin">About core.aayulogic</h2>
         </v-card-title>
         <v-divider></v-divider>
         <v-card-text>

@@ -113,7 +113,7 @@
     mixins: [BaseMixin, DataTableMixin],
     data () {
       return {
-        htmlTitle: 'My Work Logs | core.aayulogic.com',
+        htmlTitle: 'My Work Logs | core.aayulogic',
         breadCrumbs: [
           { text: 'Home', disabled: false },
           { text: 'My Work Logs', disabled: true }
