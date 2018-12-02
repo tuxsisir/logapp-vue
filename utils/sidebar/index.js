@@ -1,7 +1,7 @@
 export default function sideBar (isAdmin) {
   const USER = [
     { title: 'Team', subheader: true },
-    { icon: 'apps', title: 'Score Distribution', to: '/', hasSubMenu: false },
+    { icon: 'apps', title: 'Home', to: '/', hasSubMenu: false },
     { icon: 'group', title: 'Team', to: '/team/', hasSubMenu: false },
     { title: 'Work Logs', subheader: true },
     { icon: 'attach_file', title: 'Logs History', to: '/work-log/', hasSubMenu: false },

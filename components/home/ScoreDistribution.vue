@@ -26,8 +26,8 @@
                 <v-timeline-item
                   v-for="(item, i) in items"
                   :color="item.score_color"
+                  :icon="item.score_criteria.icon_class || 'star'"
                   :key="i"
-                  icon="star"
                 >
                   <v-card class="elevation-0">
                     <v-expansion-panel>

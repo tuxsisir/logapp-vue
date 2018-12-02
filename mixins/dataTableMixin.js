@@ -29,6 +29,7 @@ export default {
       let page = paginatedData.page - 1
       let offsetPage = page * paginatedData.rowsPerPage
       let params = {
+        search: this.search,
         ordering: sortBy,
         offset: offsetPage,
         limit: paginatedData.rowsPerPage

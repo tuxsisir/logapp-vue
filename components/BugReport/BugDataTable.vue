@@ -21,14 +21,17 @@
                          indeterminate></v-progress-linear>
       <template slot="items"
                 slot-scope="props">
-        <td>{{ props.item.title }}</td>
         <td>
+          <div><i>Title:</i> {{ truncateBugTitle(props.item.title) }}</div>
           <div id="markdownPreview"
-               class="pa-3"
+               class="text-muted"
                v-html="truncateBugDescription($md.render(props.item.description))"></div>
+
         </td>
-        <td>{{ props.item.project }}</td>
-        <td>{{ props.item.category }}</td>
+        <td>
+          <div>{{ props.item.project }}</div>
+          <div>{{ props.item.category }}</div>
+        </td>
         <td>{{ props.item.status }}</td>
         <td>{{ props.item.priority }}</td>
         <td>
@@ -42,14 +45,17 @@
           </v-avatar>
           {{ props.item.reporter.name }}
         </td>
-        <td class="">
+        <td>
           <v-btn
             :to="`/bug-report/projects/${currentProject}/${props.item.id}/detail/`"
-            icon
             flat
-            class="text-muted"
-            router>
-            <v-icon>view_list</v-icon>
+            type="link"
+            light
+            nuxt
+            small
+            class="blue--text"
+            color="transparent">
+            View Details
           </v-btn>
         </td>
       </template>
@@ -82,14 +88,12 @@
     data () {
       return {
         headers: [
-          { text: 'Bug Title', align: 'left', sortable: true, value: 'title' },
-          { text: 'Bug Description', align: 'left', sortable: false, width: '30%' },
-          { text: 'Project', align: 'left', sortable: false, value: 'name' },
-          { text: 'Category', align: 'left', sortable: false, value: 'name' },
+          { text: 'Bug Title', align: 'left', sortable: true, value: 'title', width: '20%' },
+          { text: 'Project / Category', align: 'left', sortable: false },
           { text: 'Status', align: 'left', sortable: true, value: 'status' },
           { text: 'Priority', align: 'left', sortable: true, value: 'priority' },
-          { text: 'Reported By', value: 'log_date' },
-          { text: 'Action', value: 'action', sortable: false }
+          { text: 'Reported By', sortable: false, width: '20%' },
+          { text: 'Action', align: 'left' }
         ],
         search: '',
         endpoint: '',
@@ -104,7 +108,10 @@
     },
     methods: {
       truncateBugDescription (bugDescription) {
-        return this.$options.filters.truncate(bugDescription, 100)
+        return this.$options.filters.truncate(bugDescription, 50)
+      },
+      truncateBugTitle (bugTitle) {
+        return this.$options.filters.truncate(bugTitle, 20)
       }
     }
   }

@@ -198,7 +198,7 @@
     mixins: [BaseMixin],
     data () {
       return {
-        htmlTitle: 'Daily Schedule | Aayulogic',
+        htmlTitle: 'Daily Schedule | core.aayulogic',
         valid: true,
         fab: '',
         remarks: '',

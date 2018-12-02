@@ -57,13 +57,16 @@
   </div>
 </template>
 <script>
+  import BaseMixin from '@/mixins/baseMixin.js'
   import BugOverview from '@/components/BugReport/BugOverview'
   import BugStats from '@/components/BugReport/BugStats'
 
   export default {
     components: { BugOverview, BugStats },
+    mixins: [BaseMixin],
     data () {
       return {
+        htmlTitle: 'Bug Report Project | Overview | core.aayulogic',
         fab: false,
         breadCrumbs: [],
         bugStats: '',

@@ -50,8 +50,8 @@
         <no-ssr>
           <infinite-loading ref="infiniteLoading"
                             @infinite="infiniteHandlerLogs">
-            <span slot="no-more">No further data found.</span>
-            <span slot="no-results">No further data found.</span>
+            <span slot="no-more"></span>
+            <span slot="no-results"></span>
           </infinite-loading>
         </no-ssr>
       </v-card>
