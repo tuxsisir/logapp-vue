@@ -1,5 +1,5 @@
 export default function ({ store, redirect }) {
-  if (store.state.appView !== 'admin') {
+  if (!(store.getters.getUserDepartment === 'Management' || store.getters.isUserReviewer)) {
     return redirect('/')
   }
 }

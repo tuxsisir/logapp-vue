@@ -81,17 +81,23 @@
               </v-flex>
               <v-flex md8
                       text-xs-left>
-                <p class="headline mt-5 font-weight-thin">{{ greetings }}, <span class="primary--text font-weight-bold">{{ getUserFullName }}!</span></p>
+                <p class="headline mt-5 font-weight-thin">{{ greetings }}, <span class="primary--text font-weight-bold">{{ getUserFullName }}!</span>
+                </p>
               </v-flex>
             </v-layout>
             <v-layout>
               <v-flex>
-                <v-textarea
-                  v-model="remarks"
-                  :messages="['Remarks for your clock actions.']"
-                  type="text"
-                  rows="3"
-                ></v-textarea>
+                <v-form ref="form"
+                        v-model="valid"
+                        lazy-validation>
+                  <v-textarea
+                    v-model="remarks"
+                    :rules="remarksRules"
+                    label="Remarks for your clock actions."
+                    type="text"
+                    rows="3"
+                  ></v-textarea>
+                </v-form>
               </v-flex>
             </v-layout>
           </v-flex>
@@ -104,7 +110,7 @@
               max-width="400">
       <v-card>
         <v-card-title class="headline">
-          Delete Clock
+          Delete Clock Time
           <v-spacer></v-spacer>
           <v-btn icon
                  @click="dialog = false">
@@ -193,8 +199,12 @@
     data () {
       return {
         htmlTitle: 'Daily Schedule | Aayulogic',
+        valid: true,
         fab: '',
         remarks: '',
+        remarksRules: [
+          v => !!v || 'Remarks is required.'
+        ],
         scheduleLog: [],
         fetched: false,
         notify: {},
@@ -237,14 +247,16 @@
           'clock_type': clockType,
           'remarks': this.remarks
         }
-        this.$axios.$post('/user/daily-schedule/', formData).then((response) => {
-          this.scheduleLog.push(response)
-          this.notify = {
-            'text': 'Successfully logged your clock.',
-            'color': 'green',
-            'display': true
-          }
-        })
+        if (this.$refs.form.validate()) {
+          this.$axios.$post('/user/daily-schedule/', formData).then((response) => {
+            this.scheduleLog.push(response)
+            this.notify = {
+              'text': 'Successfully logged your clock.',
+              'color': 'green',
+              'display': true
+            }
+          })
+        }
       },
       deleteClock () {
         this.$axios.$delete('/user/daily-schedule/' + this.deleteID + '/').then((response) => {

@@ -23,6 +23,9 @@
             <v-list-tile-title v-text="item.title"></v-list-tile-title>
           </v-list-tile-content>
         </v-list-tile>
+        <v-subheader v-else-if="item.subheader">
+          {{ item.title }}
+        </v-subheader>
         <v-list-group v-else
                       :prepend-icon="item.icon"
                       no-action>
@@ -87,47 +90,6 @@
       >
         <v-icon>notifications</v-icon>
       </v-btn>
-      <v-menu
-        offset-y
-        bottom
-        nudge-bottom="10"
-        transition="scale-transition"
-      >
-        <v-btn
-          slot="activator"
-          icon
-        >
-          <v-icon>apps</v-icon>
-        </v-btn>
-        <v-list>
-          <!-- View as admin if the user has subordinates -->
-          <div v-if="canSwitch">
-            <v-list-tile v-if="getAppView === 'user'"
-                         @click="switchAppView('admin')">
-              <v-list-tile-action>
-                <v-icon>explore</v-icon>
-              </v-list-tile-action>
-              <v-list-tile-title>View as Team Leader</v-list-tile-title>
-            </v-list-tile>
-            <!-- / view as admin if the user has subordinates -->
-            <!-- View as admin if the user has subordinates -->
-            <v-list-tile v-else
-                         @click="switchAppView('user')">
-              <v-list-tile-action>
-                <v-icon>group</v-icon>
-              </v-list-tile-action>
-              <v-list-tile-title>View as User</v-list-tile-title>
-            </v-list-tile>
-            <!-- / view as admin if the user has subordinates -->
-          </div>
-          <v-list-tile to="/accounts/logout/">
-            <v-list-tile-action>
-              <v-icon>power_settings_new</v-icon>
-            </v-list-tile-action>
-            <v-list-tile-title>Logout</v-list-tile-title>
-          </v-list-tile>
-        </v-list>
-      </v-menu>
     </v-toolbar>
     <v-content>
       <v-container class="mb-5"
@@ -171,7 +133,7 @@
 </template>
 
 <script>
-  import { mapGetters, mapMutations } from 'vuex'
+  import { mapGetters } from 'vuex'
   import sideBar from '@/utils/sidebar/index.js'
 
   export default {
@@ -189,25 +151,12 @@
     },
     computed: {
       ...mapGetters(['getUserFullName', 'getUserImage', 'getUserDepartment', 'getAppView', 'isUserReviewer']),
-      canSwitch () {
+      isAdmin () {
         return !!(this.getUserDepartment === 'Management' || this.isUserReviewer)
       }
     },
     created () {
-      this.items = sideBar().USER
-    },
-    methods: {
-      ...mapMutations(['setAppView']),
-      switchAppView (view) {
-        this.setAppView(view)
-        if (view === 'admin') {
-          this.items = sideBar().ADMIN
-          this.$router.push('/admin/overview/')
-        } else {
-          this.items = sideBar().USER
-          this.$router.push('/')
-        }
-      }
+      this.items = sideBar(this.isAdmin)
     }
   }
 </script>
