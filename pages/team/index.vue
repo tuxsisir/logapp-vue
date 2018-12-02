@@ -64,7 +64,7 @@
               <p class="caption text-grey">({{ user.department }})</p>
               <v-tooltip bottom>
                 <p slot="activator"
-                   class="text-truncate text-3 font-italic">
+                   class="text-truncate caption">
                   {{ user.status || '-' }}
                 </p>
                 <span>{{ user.status || 'N/A' }}</span>

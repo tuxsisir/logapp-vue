@@ -15,6 +15,12 @@
             icon>
             <v-icon size="15">edit</v-icon>
           </v-btn>
+          <v-btn
+            :to="`/bug-report/projects/${bugDetails.project_slug}/report/`"
+            small
+            icon>
+            <v-icon size="15">add</v-icon>
+          </v-btn>
         </v-card-title>
         <v-divider></v-divider>
         <v-card-text>
@@ -148,6 +154,32 @@
     </v-flex>
     <v-flex v-if="fetched"
             md-5>
+      <v-card class="mb-3">
+        <v-card-title>
+          Bug Metrics
+        </v-card-title>
+        <v-divider></v-divider>
+        <v-card-text
+          class="pa-0"
+        >
+          <v-list class="py-0">
+            <v-list-tile
+              v-for="(key, val) in bugDetails.bug_metrics"
+              :key="key"
+              @click="javascript;"
+            >
+              <v-list-tile-action>
+                <v-badge :color="getMetricInfo(val).color">
+                  <span slot="badge">{{ key }}</span>
+                </v-badge>
+              </v-list-tile-action>
+              <v-list-tile-content>
+                {{ getMetricInfo(val).text }}
+              </v-list-tile-content>
+            </v-list-tile>
+          </v-list>
+        </v-card-text>
+      </v-card>
       <v-card>
         <v-card-title>
           Bug Attachments
@@ -175,6 +207,7 @@
     mixins: [BaseMixin],
     data () {
       return {
+        htmlTitle: 'Bug Detail | core.aayulogic',
         breadCrumbs: [
           { text: 'Home', disabled: false, to: '/' },
           { text: 'Bug Window', disabled: false, to: '/bug-report/' },
@@ -238,6 +271,17 @@
           'On Hold': 'brown lighten-3'
         }
         return statusColor[status]
+      },
+      getMetricInfo (metric) {
+        let properBugMetricsMap = {
+          'unresolved': 'Unresolved',
+          'resolved': 'Resolved',
+          'in_progress': 'In Progress',
+          'duplicated': 'Duplicated',
+          'on_hold': 'On Hold'
+        }
+        let properBugMetricsKey = properBugMetricsMap[metric]
+        return { text: properBugMetricsKey, color: this.getStatusColorCode(properBugMetricsKey) }
       },
       getPriorityColorCode () {
         return ''

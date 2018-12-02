@@ -22,7 +22,8 @@
       <template slot="items"
                 slot-scope="props">
         <td>
-          <div><i>Title:</i> {{ truncateBugTitle(props.item.title) }}</div>
+          <div><span
+            class="blue--text"># {{ props.item.id }}: </span> {{ truncateBugTitle(props.item.title) }}</div>
           <div id="markdownPreview"
                class="text-muted"
                v-html="truncateBugDescription($md.render(props.item.description))"></div>
@@ -92,8 +93,8 @@
           { text: 'Project / Category', align: 'left', sortable: false },
           { text: 'Status', align: 'left', sortable: true, value: 'status' },
           { text: 'Priority', align: 'left', sortable: true, value: 'priority' },
-          { text: 'Reported By', sortable: false, width: '20%' },
-          { text: 'Action', align: 'left' }
+          { text: 'Reported By', align: 'left', sortable: false, value: 'priority' },
+          { text: 'Action', align: 'left', sortable: false, value: 'priority' }
         ],
         search: '',
         endpoint: '',

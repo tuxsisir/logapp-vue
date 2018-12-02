@@ -95,7 +95,7 @@
         default () {
           return {
             title: '',
-            description: '#### Write down bug description in markdown here...',
+            description: '',
             project: this.$route.params.project,
             priority: '',
             category: '',
