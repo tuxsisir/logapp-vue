@@ -19,7 +19,7 @@
 
               <v-list-tile-content>
                 <v-list-tile-title>
-                  Username : <span class="text-xs-right font-weight-bold">{{ userDetail.username }}</span>
+                  <span class="hidden-xs-only">Username :</span> <span class="text-xs-right font-weight-bold">{{ userDetail.username }}</span>
                 </v-list-tile-title>
               </v-list-tile-content>
             </v-list-tile>
@@ -30,7 +30,7 @@
 
               <v-list-tile-content>
                 <v-list-tile-title>
-                  Full Name : <span class="text-xs-right font-weight-bold">{{ userDetail.name }}</span>
+                  <span class="hidden-xs-only">Full Name :</span> <span class="text-xs-right font-weight-bold">{{ userDetail.name }}</span>
                 </v-list-tile-title>
               </v-list-tile-content>
             </v-list-tile>
@@ -41,7 +41,7 @@
 
               <v-list-tile-content>
                 <v-list-tile-title>
-                  Department : <span class="text-xs-right font-weight-bold">{{ userDetail.department }}</span>
+                  <span class="hidden-xs-only">Department :</span> <span class="text-xs-right font-weight-bold">{{ userDetail.department }}</span>
                 </v-list-tile-title>
               </v-list-tile-content>
             </v-list-tile>
@@ -52,7 +52,7 @@
 
               <v-list-tile-content>
                 <v-list-tile-title>
-                  Gender : <span class="font-weight-bold">{{ userDetail.gender }}</span>
+                  <span class="hidden-xs-only">Gender :</span> <span class="font-weight-bold">{{ userDetail.gender }}</span>
                 </v-list-tile-title>
               </v-list-tile-content>
             </v-list-tile>
@@ -63,7 +63,7 @@
 
               <v-list-tile-content>
                 <v-list-tile-title>
-                  Status : <span class="font-weight-bold">{{ userDetail.status || "N/A" }}</span>
+                  <span class="hidden-xs-only">Status :</span> <span class="font-weight-bold">{{ userDetail.status || "N/A" }}</span>
                 </v-list-tile-title>
               </v-list-tile-content>
             </v-list-tile>
@@ -74,7 +74,7 @@
 
               <v-list-tile-content>
                 <v-list-tile-title>
-                  Contact Number : <span class="font-weight-bold">{{ userDetail.contact_number || "N/A" }}</span>
+                  <span class="hidden-xs-only">Contact Number :</span> <span class="font-weight-bold">{{ userDetail.contact_number || "N/A" }}</span>
                 </v-list-tile-title>
               </v-list-tile-content>
             </v-list-tile>

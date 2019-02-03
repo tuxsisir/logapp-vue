@@ -9,6 +9,56 @@
               xs12>
         <bread-crumb :bread-crumb-items="breadCrumbs"></bread-crumb>
       </v-flex>
+      <v-flex
+        md6
+        xs12
+      >
+        <v-menu
+          :close-on-content-click="false"
+          v-model="menu2"
+          :nudge-right="40"
+          lazy
+          transition="scale-transition"
+          offset-y
+          full-width
+          min-width="290px"
+        >
+          <v-text-field
+            slot="activator"
+            v-model="start_date"
+            label="Start Date"
+            prepend-icon="event"
+            readonly
+          ></v-text-field>
+          <v-date-picker v-model="start_date"
+                         @input="menu2 = false"></v-date-picker>
+        </v-menu>
+      </v-flex>
+      <v-flex
+        md6
+        xs12
+      >
+        <v-menu
+          :close-on-content-click="false"
+          v-model="end_date_menu"
+          :nudge-right="40"
+          lazy
+          transition="scale-transition"
+          offset-y
+          full-width
+          min-width="290px"
+        >
+          <v-text-field
+            slot="activator"
+            v-model="end_date"
+            label="End Date"
+            prepend-icon="event"
+            readonly
+          ></v-text-field>
+          <v-date-picker v-model="end_date"
+                         @input="end_date_menu = false"></v-date-picker>
+        </v-menu>
+      </v-flex>
       <v-flex v-for="user in users"
               :key="user.username"
               md3
@@ -93,9 +143,8 @@
 </template>
 
 <script>
-  import TeamLoader from '@/components/loaders/TeamLoader'
-  import UserScore from '@/models/Score'
   import BaseMixin from '@/mixins/baseMixin.js'
+  import TeamLoader from '@/components/loaders/TeamLoader'
 
   export default {
     components: { TeamLoader },
@@ -109,18 +158,33 @@
           { text: 'Home', disabled: false, to: '/' },
           { text: 'Team', disabled: true, to: '/settings/score/' }
         ],
-        notify: {}
+        notify: {},
+        start_date: '2018-08-01',
+        end_date: null,
+        menu2: false,
+        end_date_menu: false
+      }
+    },
+    watch: {
+      end_date (val) {
+        let params = { 'start_date': this.start_date, 'end_date': val }
+        this.fetchData(params)
       }
     },
     created () {
       this.displaySnack()
     },
     async mounted () {
-      this.contentLoading = true
-      await UserScore.get().then((response) => {
-        this.users = response
-      })
-      this.contentLoading = false
+      this.fetchData()
+    },
+    methods: {
+      async fetchData (params) {
+        this.contentLoading = true
+        await this.$axios.$get('/score/team/', { params }).then((response) => {
+          this.users = response
+          this.contentLoading = false
+        })
+      }
     }
   }
 </script>
