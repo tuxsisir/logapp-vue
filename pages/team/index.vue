@@ -89,7 +89,7 @@
             color="white"
             style="top: 30%; left: 5%; position: absolute"
           >
-            <v-img :src="user.profile_picture"
+            <v-img :src="`http://localhost:8000/static/images/avatars/avatar.png`"
                    alt="avatar"
                    aspect-ratio="1.7"></v-img>
           </v-avatar>

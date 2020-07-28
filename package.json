@@ -1,7 +1,7 @@
 {
-  "name": "core-aayulogic",
+  "name": "logapp",
   "version": "1.0.0",
-  "description": "core.aayulogic.com",
+  "description": "logapp",
   "author": "Sisir Ghimire Chettri <samratsisir294@gmail.com>",
   "private": true,
   "scripts": {
